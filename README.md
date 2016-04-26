@@ -3,6 +3,8 @@ Sonic Engine v0.2.9 - Powered By Oficina Framework v1.3b
 
 Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
 
+![alt text](Extras/Screenshots/ss02.png)
+
 Changelog
 ---------
 
