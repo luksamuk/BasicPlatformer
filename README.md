@@ -103,12 +103,18 @@ Oficina Framework supports both keyboard controls and game controllers.
 To use a game controller, simply connect it before starting the game.
 
 - Keyboard:
-WASD       => Directionals
-K          => Action 1
+
+| Key       | Codename |
+|-----------|----------|
+|WASD       | Directionals |
+|K          | Action 1 |
 
 - Xbox 360 Controller:
-Left Stick => Directionals
-A          => Action 1
+
+| Button    | Codename |
+|-----------|----------|
+|Left Stick | Directionals |
+|A          | Action 1 |
 
 Exit game at any time by manually closing the window.
 If you close the window while loading, the game may hang until loading is
@@ -117,23 +123,26 @@ finished.
 
 Player Actions
 --------------
-Directionals                       => Move
-Action 1   (while on ground)       => Jump
-Directional UP (if stopped)        => Look Up
-Directional DOWN (if stopped)      => Crouch Down
-Directional DOWN (if enough speed) => Roll
-Action 1 (while crouched)          => Spindash. Mash button to increase speed,
-                                      then release DOWN to roll
+| Key                               | Action |
+|-----------------------------------|--------|
+|Directionals                       | Move |
+|Action 1   (while on ground)       | Jump |
+|Directional UP (if stopped)        | Look Up |
+|Directional DOWN (if stopped)      | Crouch Down |
+|Directional DOWN (if enough speed) | Roll |
+|Action 1 (while crouched)          | Spindash. Mash button to increase speed, then release DOWN to roll |
 
 Extra Controls
 --------------
-Action 1 (on Powered By screen) => Next screen
-F1  => Toggle debugger
-F2  => Toggle debugger complexity (minimalistic debugger)
-F3  => Reposition Sonic at beginning of level
-F4  => Toggle hitboxes, grid regions, AABBs and sensors
-F5  => Toggle linear filtering
-F11 => Toggle fullscreen
+| Key                            | Action |
+|--------------------------------|--------|
+|Action 1 (on Powered By screen) | Next screen|
+|F1 | Toggle debugger|
+|F2 | Toggle debugger complexity (minimalistic debugger)|
+|F3 | Reposition Sonic at beginning of level|
+|F4 | Toggle hitboxes, grid regions, AABBs and sensors|
+|F5 | Toggle linear filtering|
+|F11| Toggle fullscreen|
 
 
 Debug Mode
@@ -142,8 +151,10 @@ Debug Mode only works if debugger is visible.
 The following controls and actions can only be performed while Debug Mode
 is active:
 
-(On Debug active) => Show tile collisions
-   1 (non-numpad) => Reset character states
-   2 (non-numpad) => Toggle Speed Shoes mode
-   3 (non-numpad) => Toggle Super Sonic
-      Mouse Click => Place Sonic on mouse position
+| Key/Situation | Action |
+|---------------|--------|
+|On Debug active   | Show tile collisions |
+|   1 (non-numpad) | Reset character states |
+|   2 (non-numpad) | Toggle Speed Shoes mode |
+|   3 (non-numpad) | Toggle Super Sonic |
+|      Mouse Click | Place Sonic on mouse position |
