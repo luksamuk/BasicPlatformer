@@ -41,7 +41,7 @@ private:
 
 	// Misc
 	bool  m_clearcolorset;
-	Grid* m_grid;
+	//Grid* m_grid;
 
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_drawables;
 

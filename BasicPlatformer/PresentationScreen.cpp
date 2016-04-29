@@ -1,5 +1,5 @@
 #include "PresentationScreen.hpp"
-#include "TestScreen.hpp"
+#include "TitleScreen.hpp"
 #include <OficinaFramework\TimingSystem.hpp>
 #include <OficinaFramework\InputSystem.hpp>
 
@@ -39,7 +39,7 @@ void PresentationScreen::Update() {
 		m_timer = 5.0f;
 	}
 	else if (m_timer >= 6.0f) {
-		ScreenSystem::AddScreen(new TestScreen);
+		ScreenSystem::AddScreen(new TitleScreen);
 		RemoveMe();
 	}
 	if (m_timer >= 5.0f && m_poweredby->GetCurrentAnimationName() != "FadeOut")

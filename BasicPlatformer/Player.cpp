@@ -589,7 +589,7 @@ void Player::Update()
 			m_groundvelocity.x *= 0.5f;
 			m_groundvelocity.y *= 0.25f;
 
-			if (m_position.y < m_waterHeight + 16.0f) {
+			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
 			}
@@ -599,7 +599,7 @@ void Player::Update()
 			m_underwater = false;
 			m_groundvelocity.y *= 2.0f;
 
-			if (m_position.y > m_waterHeight - 16.0f) {
+			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
 			}
@@ -912,6 +912,8 @@ void Player::LoadContent()
 
 void Player::UnloadContent()
 {
+	sonicAnimator->dispose();
+	superAnimator->dispose();
 	delete sonicAnimator;
 	delete spriteSheet;
 	delete superAnimator;

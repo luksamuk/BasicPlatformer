@@ -1,4 +1,5 @@
 #include "TestScreen.hpp"
+#include "TitleScreen.hpp"
 #include <ctime>
 
 
@@ -37,110 +38,25 @@ TestScreen::~TestScreen()
 
 void TestScreen::Initialize()
 {
-	// Ceiling
-	/*m_drawables.Add(new Solid(vec2(50.0f, 230.0f), vec2(800.0f, 10.0f), SolidType::RECT));
-
-	m_drawables.Add(new Solid(vec2(0.0f, 350.0f), vec2(300.0f, 250.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(300.0f, 350.0f), vec2(300.0f, 50.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(300.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(600.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(900.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_R));
-	m_drawables.Add(new Solid(vec2(900.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(1200.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-
-	m_drawables.Add(new Solid(vec2(1500.0f, 300.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-	*/
-	// Small curve
-	/*
-	m_drawables.Add(new Solid(vec2(1800.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1816.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(1816.0f, 276.0f), vec2(16.0f, 16.0f), SolidType::SLOPE_R));
-	m_drawables.Add(new Solid(vec2(1832.0f, 260.0f), vec2(8.0f, 16.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1832.0f, 276.0f), vec2(8.0f, 24.0f), SolidType::RECT));
-	*/
-	//m_drawables.Add(new Solid(vec2(1720.0f, 284.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R));
-	//m_drawables.Add(new Solid(vec2(1752.0f, 252.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R));
-	//m_drawables.Add(new Solid(vec2(1784.0f, 220.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R));
-
-	//m_drawables.Add(new Solid(vec2(1880.0f, 220.0f), vec2(300.0f, 50.0f), SolidType::RECT));
-	//m_drawables.Add(new Solid(vec2(1800.0f, 300.0f), vec2(300.0f, 256.0f), SolidType::RECT));
-	/*
-	// Flying platform
-	Solid* platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-	// Another one
-	platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2300.0f, 200.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2400.0f, 270.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2500.0f, 340.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2600.0f, 410.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2700.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(2900.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(3100.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(3300.0f, 480.0f), vec2(164.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	platform = new Solid(vec2(3400.0f, 380.0f), vec2(64.0f, 16.0f), SolidType::RECT);
-	platform->SetProperty(1, true);
-	m_drawables.Add(platform);
-
-	// The Big Ramp Down
-	m_drawables.Add(new Solid(vec2(3500.0f, 380.0f), vec2(200.0f, 200.0f), SolidType::RECT));
-	m_drawables.Add(new Solid(vec2(3700.0f, 380.0f), vec2(200.0f, 50.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(3900.0f, 430.0f), vec2(200.0f, 100.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(4100.0f, 530.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(4300.0f, 730.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L));
-	m_drawables.Add(new Solid(vec2(4500.0f, 930.0f), vec2(150.0f, 200.0f), SolidType::SLOPE_L));
-
-	*/
-	//m_drawables.Add(new Solid(vec2(0.0f, 1900.0f), vec2(10000.0f, 256.0f), SolidType::RECT));
 	// Stress test
 	for (float f = 0.0f; f < 992.0f; f += 16.0f)
-		m_drawables.Add(new Solid(vec2(f, 384.0f), vec2(16.0f, 16.0f), SolidType::RECT));
+		m_drawables.Add(new Solid(vec2(f, 368.0f), vec2(16.0f, 16.0f), SolidType::RECT));
 
 	// Stress test
-	for (float f = 0.0f; f < 9984.0f; f += 128.0f)
-		//for(float v = 16.0f; v < 128.0f; v += 16.0f)
-			m_drawables.Add(new Solid(vec2(f, 1808.0f), vec2(128.0f, 112.0f), SolidType::RECT));
-	for (float f = 0.0f; f < 9984.0f; f += 256.0f) {
-		m_drawables.Add(new Solid(vec2(f, 1792.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(32.0f + f, 1792.0f), vec2(16.0f, 16.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(48.0f + f, 1792.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_L));
+	for (float f = 0.0f; f < 1920.0f; f += 128.0f)
+			m_drawables.Add(new Solid(vec2(f, 1792.0f), vec2(128.0f, 112.0f), SolidType::RECT));
+	for (float f = 0.0f; f < 1920.0f; f += 256.0f) {
+		m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R));
+		m_drawables.Add(new Solid(vec2(32.0f + f, 1776.0f), vec2(16.0f, 16.0f), SolidType::RECT));
+		m_drawables.Add(new Solid(vec2(48.0f + f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_L));
 	}
-	for (float f = 9984.0f; f < 11264.0f; f += 16.0f)
+	for (float f = 1920.0f; f < 3200.0f; f += 16.0f)
 		m_drawables.Add(new Solid(vec2(f, 1904.0f), vec2(16.0f, 16.0f), SolidType::RECT));
 
 	for (float f = 0.0f; f < 528.0f; f += 16.0f)
-		m_drawables.Add(new Solid(vec2(992.0f + f, 384.0f + f), vec2(16.0f, 16.0f), SolidType::SLOPE_L));
+		m_drawables.Add(new Solid(vec2(992.0f + f, 368.0f + f), vec2(16.0f, 16.0f), SolidType::SLOPE_L));
 
-	m_grid = new Grid(vec2(128.0f, 128.0f));
+	//m_grid = new Grid(vec2(128.0f, 128.0f));
 	//m_grid->Populate(&m_drawables);
 
 	m_drawables.Add(player = new Player);
@@ -184,14 +100,15 @@ void TestScreen::LoadContent()
 	}();
 
 	soundemitter->Play(bgm);
-	player->setGrid(m_grid);
+	//player->setGrid(m_grid);
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
 
 void TestScreen::UnloadContent()
 {
-	delete m_grid;
+	//delete m_grid;
 	m_drawables.UnloadContent();
+	m_drawables.Dispose();
 
 	soundemitter->Stop();
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(bgm);
@@ -232,6 +149,12 @@ void TestScreen::Update()
 		m_cameralag = 0;
 		m_playerSpindashed = false;
 		OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
+	}
+
+	// Back to main menu
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_ESCAPE)) {
+		OficinaFramework::ScreenSystem::AddScreen(new TitleScreen);
+		RemoveMe();
 	}
 
 
@@ -359,6 +282,7 @@ void TestScreen::Draw()
 		glPopMatrix();
 	}
 
+	// Fade in
 	if (m_fade > 0.0f)
 	{
 		glPushMatrix();

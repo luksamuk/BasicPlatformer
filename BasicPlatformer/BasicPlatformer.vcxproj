@@ -246,6 +246,7 @@
     <ClCompile Include="PresentationScreen.cpp" />
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="TestScreen.cpp" />
+    <ClCompile Include="TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\prepare_assets.bat">
@@ -266,6 +267,7 @@
     <ClInclude Include="PresentationScreen.hpp" />
     <ClInclude Include="Solid.hpp" />
     <ClInclude Include="TestScreen.hpp" />
+    <ClInclude Include="TitleScreen.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="makeicon.rc" />

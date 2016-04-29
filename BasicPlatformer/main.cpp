@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 	RenderingSystem::SetLinearFiltering(false);
 	RenderingSystem::glClearColorM(BLACK);
 	InputSystem::BindDefaultKeys();
-	ScreenSystem::Debug_SetFont(new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/levelselect"), vec2dw(8u), vec2b::One()));
+	ScreenSystem::Debug_SetFont(new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/debugger"), vec2dw(8u), vec2b::One()));
 
 	ScreenSystem::AddScreen(new LoadingScreen);
 	ScreenSystem::AddScreen(new PresentationScreen);
