@@ -1,43 +1,42 @@
 #include "TitleScreen.hpp"
-#include "TestScreen.hpp"
+#include "LevelSelectScreen.hpp"
 #include <OficinaFramework\InputSystem.hpp>
 using namespace OficinaFramework;
 
 TitleScreen::TitleScreen()
 {
-	SetVisible(true);
 	SetActive(true);
+	SetVisible(true);
 }
 
 void TitleScreen::Initialize()
 {
-	textPosition = vec2(20.0f, 40.0f);
-	selection = 0;
+	m_fadetimer = 0;
+	m_whitefade = 1.0f;
+	m_fade = 0.0f;
 	ScreenSystem::Screen::Initialize();
 }
 
 void TitleScreen::LoadContent()
 {
+	soundEmitter = new AudioSystem::AudioSource;
+	bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen", AudioSystem::OF_AUDIO_TYPE_OGG);
+	titleLogo = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title");
+	titleLogo_black = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_black");
 	menuFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/levelselect"),
 		vec2dw(8u), vec2b::One());
-	bg_motif = RenderingSystem::TexturePool::LoadTexture("background/levelselect");
 
-	bg_motif_repeatcount = (RenderingSystem::GetResolution() / bg_motif->GetSize());
-	bg_motif_repeatcount.x++; bg_motif_repeatcount.y++;
+	optionXPos = (RenderingSystem::GetResolution().toVec2().x / 2.0f) - (menuFont->MeasureString(menuOptions[0], 1.5f).x / 2.0f);
 
-	soundEmitter = new AudioSystem::AudioSource;
-	bgm = AudioSystem::AudioPool::LoadAudio("bgm/youre_my_hero", AudioSystem::OF_AUDIO_TYPE_OGG, true, 96.111f, 6.937f);
-	
 	ScreenSystem::Screen::LoadContent();
 }
 
 void TitleScreen::UnloadContent()
 {
-	soundEmitter->Stop();
-	RenderingSystem::TexturePool::DisposeTexture(bg_motif);
-	AudioSystem::AudioPool::UnloadAudio(bgm);
-	delete soundEmitter;
 	delete menuFont;
+	RenderingSystem::TexturePool::DisposeTexture(titleLogo);
+	soundEmitter->Stop();
+	AudioSystem::AudioPool::UnloadAudio(bgmAudio);
 	ScreenSystem::Screen::UnloadContent();
 }
 
@@ -57,56 +56,96 @@ void TitleScreen::Update()
 	else if (InputSystem::PressedKey(SDL_SCANCODE_F5))
 		RenderingSystem::SetLinearFiltering(!RenderingSystem::GetLinearFilteringState());
 
-	// Fade control
-	switch (m_fadetype)
-	{
-	case 0: // Fade In
-		m_fade -= 0.1f;
-		clamp(m_fade, 0.0f, 1.0f);
-		if (m_fade == 0.0f) {
-			m_fadetype = 1;
-			soundEmitter->Play(bgm);
-		}
-	case 1: // No Fade
-		break;
-	case 2: // Fade Out
+	// Fade out + transition
+	if (m_fade > 0.0f && m_fade < 1.0f)
 		m_fade += 0.1f;
-		clamp(m_fade, 0.0f, 1.0f);
-		if (m_fade == 1.0f) {
-			switch (selection) {
-			default:
-				ScreenSystem::AddScreen(new TestScreen);
-				break;
-			case 14: // Exit
-				InputSystem::CallExitCommand();
-				break;
-			}
+	else if (m_fade > 1.0f)
+	{
+		m_fade = 1.0f;
+		switch (m_selection)
+		{
+		case 0: // Level Select
+			ScreenSystem::AddScreen(new LevelSelectScreen);
 			RemoveMe();
+			break;
+		case 3: // Quit
+			InputSystem::CallExitCommand();
+			break;
+		default: break;
 		}
-		break;
 	}
-	
-	if (m_fadetype != 1) return;
 
-	// Change options
-	if (InputSystem::MovedStick(InputSystem::ThumbStick::LEFTSTICK,
-		InputSystem::ThumbStickAxis::VERTICAL,
-		InputSystem::ThumbStickAxisSignal::POSITIVE))
-		selection++;
-	else if (InputSystem::MovedStick(InputSystem::ThumbStick::LEFTSTICK,
-		InputSystem::ThumbStickAxis::VERTICAL,
-		InputSystem::ThumbStickAxisSignal::NEGATIVE))
-		selection--;
+	// Option select logic
+	if (m_menuselection != m_selection)
+	{
+		// Option logic
+		if (m_menuselection < m_selection)
+		{
+			optionXPos -= menuSpeed;
+			if (optionXPos < -menuFont->MeasureString(menuOptions[m_menuselection], 1.5f).x)
+			{
+				m_menuselection = m_selection;
+				optionXPos = RenderingSystem::GetResolution().toVec2().x;
+			}
+		}
+		else if (m_menuselection > m_selection)
+		{
+			optionXPos += menuSpeed;
+			if (optionXPos > float(RenderingSystem::GetResolution().toVec2().x))
+			{
+				m_menuselection = m_selection;
+				optionXPos = -menuFont->MeasureString(menuOptions[m_menuselection], 1.5f).x;
+			}
+		}
+	}
+	else
+	{
+		// Change option
+		float optionSize = menuFont->MeasureString(menuOptions[m_menuselection], 1.5f).x;
+		float optionFinalPos = (RenderingSystem::GetResolution().toVec2().x / 2.0f) - (optionSize / 2.0f);
+		
+		if (abs(optionXPos - optionFinalPos) < menuSpeed)
+			optionXPos = optionFinalPos;
+		if (optionXPos < optionFinalPos)
+		{
+			optionXPos += menuSpeed;
+		}
+		else if (optionXPos > optionFinalPos)
+		{
+			optionXPos -= menuSpeed;
+		}
+		else
+		{
+			if (InputSystem::GetLeftStick().x > 0.0f)
+				m_selection++;
+			else if (InputSystem::GetLeftStick().x < 0.0f)
+				m_selection--;
+		}
+		if (m_selection < 0) m_selection = 0;
+		if (m_selection > m_maxSelection) m_selection = m_maxSelection;
+	}
 
-	// Limits
-	if (selection < 0) selection = 0;
-	else if (selection >= maxSelection) selection = maxSelection - 1;
+	// White intro
+	if(!m_fadetimer) soundEmitter->Play(bgmAudio);
+	if (m_fadetimer < 42)
+	{
+		m_fadetimer++;
+		if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
+			m_fadetimer = 42;
+	}
+	else if(m_fadetimer >= 42)
+	{
+		if (m_whitefade > 0.0f) m_whitefade -= 0.1f;
 
-
-	// Selection
-	if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
-		if (selection == 0 || selection == maxSelection - 1)
-			m_fadetype = 2;
+		if (InputSystem::PressedButton(InputSystem::GamePadButton::A)
+			&& m_fade == 0.0f
+			&& (m_selection == m_menuselection))
+		{
+			// For now, only Level Select and Quit are available
+			if(m_selection == 0 || m_selection == m_maxSelection)
+				m_fade = 0.1f;
+		}
+	}
 }
 
 void TitleScreen::Draw()
@@ -114,34 +153,46 @@ void TitleScreen::Draw()
 	vec2 viewportPos = RenderingSystem::GetViewportPosition();
 	vec2 viewportSize = RenderingSystem::GetResolution().toVec2();
 
-	//RenderingSystem::glClearColorM(BLUE);
+	RenderingSystem::glClearColorM(m_fadetimer < 42 ? WHITE : BLACK);
 
-	// Background
-	for (dword i = 0u; i < bg_motif_repeatcount.x; i++)
-		for (dword j = 0u; j < bg_motif_repeatcount.y; j++)
-			bg_motif->Draw(vec2(float(bg_motif->GetSize().x * i), float(bg_motif->GetSize().y * j)), Color4::MaskToColor4(ColorDef::WHITE));
-
-	// Level Select Title
-	vec2 textSize = menuFont->MeasureString("* Level Select *", 1.0f);
-	menuFont->DrawString(vec2((viewportSize.x / 2.0f) - (textSize.x / 2.0f), 20.0f), "* Level Select *");
-
-	// Levels
-	float textYPos = textPosition.y;
-	for (int i = 0; i < maxSelection; i++)
+	// Logo management
+	RenderingSystem::Texture* currentLogo = m_fadetimer < 42 ? titleLogo_black : titleLogo;
+	float scale = m_fadetimer < 42 ? float(m_fadetimer) / 42.0f : 1.0f;
+	
+	// Draw white background
+	if (m_fadetimer >= 42 && m_whitefade > 0.0f)
 	{
-		if (i) {
-			if (!(i % 2)) textYPos += 16.0f;
-			//if (!(i % 19)) {
-			//	textXPos += 224.0f;
-			//	textYpos = textPosition.y;
-			//}
-		}
-		menuFont->DrawString(vec2(textPosition.x, textYPos), levelSelectOptions[i], 1.0f,
-			Color4::MaskToColor4((selection == i ? YELLOW : WHITE)), 1.0f);
-		textYPos += 8.0f;
+		glPushMatrix();
+		glTranslatef(viewportPos.x, viewportPos.y, 0.0f);
+		OficinaFramework::RenderingSystem::glColorM(WHITE, m_whitefade);
+		glBegin(GL_QUADS);
+		glVertex2f(0.0f, 0.0f);
+		glVertex2f(viewportSize.x, 0.0f);
+		glVertex2f(viewportSize.x, viewportSize.y);
+		glVertex2f(0.0f, viewportSize.y);
+		glEnd();
+		glPopMatrix();
 	}
 
-	// Fade in
+	// Draw logo
+	currentLogo->Draw(vec2(RenderingSystem::GetResolution().toVec2() / 2.0f) - vec2(currentLogo->GetSize().toVec2() * (scale / 2.0f)),
+		Color4::MaskToColor4(WHITE), scale);
+
+	// Draw text
+	if (m_fadetimer >= 42) {
+		// Option Select
+		vec2 optionPos = vec2(RenderingSystem::GetResolution().toVec2() / 2.0f);
+		optionPos.x = optionXPos;
+		//optionPos.x -= menuFont->MeasureString(menuOptions[m_menuselection], 1.5f).x / 2.0f;
+		optionPos.y += optionPos.y - 40.0f;
+		menuFont->DrawString(optionPos, menuOptions[m_menuselection], 1.5f);
+
+		// Disclaimer
+		menuFont->DrawString(viewportSize - menuFont->MeasureString("           2016 luksamuk\nNot Affiliated with SEGA", 1.0f),
+			"           2016 luksamuk\nNot Affiliated with SEGA");
+	}
+
+	// Fade out
 	if (m_fade > 0.0f)
 	{
 		glPushMatrix();

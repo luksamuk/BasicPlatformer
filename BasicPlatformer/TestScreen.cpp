@@ -1,5 +1,5 @@
 #include "TestScreen.hpp"
-#include "TitleScreen.hpp"
+#include "LevelSelectScreen.hpp"
 #include <ctime>
 
 
@@ -153,7 +153,7 @@ void TestScreen::Update()
 
 	// Back to main menu
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_ESCAPE)) {
-		OficinaFramework::ScreenSystem::AddScreen(new TitleScreen);
+		OficinaFramework::ScreenSystem::AddScreen(new LevelSelectScreen);
 		RemoveMe();
 	}
 

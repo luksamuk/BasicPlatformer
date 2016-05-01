@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	// folder.
 
 	std::list<std::string>* confv = new std::list<std::string>;
-	confv->push_back("gamename=Sonic Engine");
+	confv->push_back("gamename=OFSONIC THE HEDGEHOG");
 	confv->push_back("framerate=60hz");
 	//confv->push_back("resolution=320x224"); // Original
 	//confv->push_back("resolution=432x240"); // Small

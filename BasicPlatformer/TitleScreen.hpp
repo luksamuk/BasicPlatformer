@@ -1,58 +1,35 @@
 #pragma once
 #include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\RenderingSystem.hpp>
 #include <OficinaFramework\AudioSystem.hpp>
-#include <string>
+#include <OficinaFramework\RenderingSystem.hpp>
 
 class TitleScreen : public OficinaFramework::ScreenSystem::Screen
 {
 private:
-	OficinaFramework::RenderingSystem::Font*    menuFont;
-	OficinaFramework::RenderingSystem::Texture* bg_motif;
-	vec2dw                                      bg_motif_repeatcount;
-	OficinaFramework::AudioSystem::Audio*       bgm;
-	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
 
+	int m_selection = 0,
+		m_menuselection = 0,
+		m_maxSelection = 3;
+	float optionXPos;
+	float menuSpeed = 20.0f;
 	const std::string menuOptions[4] =
 	{
-		"Level Select",
-		"Level Editor",
-		"Options",
-		"Quit"
+		"  Level Select >",
+		"< Level Editor >",
+		"<    Options   >",
+		"<     Quit      "
 	};
 
-	const std::string levelSelectOptions[15] =
-	{
-		"Engine Epitomy           1",
-		"                         2",
+	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
+	OficinaFramework::AudioSystem::Audio*       bgmAudio;
 
-		"Aquatic Attraction       1",
-		"                         2",
+	OficinaFramework::RenderingSystem::Texture* titleLogo;
+	OficinaFramework::RenderingSystem::Texture* titleLogo_black;
+	OficinaFramework::RenderingSystem::Font*    menuFont;
 
-		"Freezing Factory         1",
-		"                         2",
-
-		"White Wonder             1",
-		"                         2",
-
-		"Dusty Desert             1",
-		"                         2",
-
-		"Jester Juggle            1",
-		"                         2",
-
-		"Cyber City               1",
-		"                         2",
-
-		"Exit"
-	};
-
-	vec2 textPosition;
-	int selection;
-	int maxSelection = 15;
-	int m_fadetype = 0;
-
-	float m_fade = 1.0f;
+	int m_fadetimer;
+	float m_whitefade;
+	float m_fade;
 public:
 	TitleScreen();
 	// Inherited via Screen
