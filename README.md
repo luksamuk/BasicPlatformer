@@ -3,10 +3,15 @@ Sonic Engine v0.3 - Powered By Oficina Framework v1.3b
 
 Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
 
-![alt text](Extras/Screenshots/ss02.png)
+![alt text](Extras/Screenshots/ss03.png)
 
 Changelog
 ---------
+
+v0.3
+- Added Main Menu;
+- Added Level Select;
+- Added Logo.
 
 v0.2.9
 - Started implementing collision system by region-based collisions
