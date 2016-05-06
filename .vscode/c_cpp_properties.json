@@ -11,8 +11,8 @@
         },
         {
             "name": "Win32",
-            "includePath": ["c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
-                            "c:/MSVCLibs/include"]
+            "includePath": ["c:/MSVCLibs/include",
+            "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include"]
         }
     ]
 }

@@ -119,15 +119,17 @@ void TestScreen::UnloadContent()
 
 void TestScreen::Update()
 {
+	// Debug toggle
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F1))
+		OficinaFramework::ScreenSystem::SetDebug(!OficinaFramework::ScreenSystem::IsDebugActive());
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F2))
+		OficinaFramework::ScreenSystem::Debug_ToggleMinimalist();
+
 	// Fullscreen toggle
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
 	{
 		OficinaFramework::ScreenSystem::SetFullScreen(!OficinaFramework::ScreenSystem::IsFullScreen());
 		OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
-	}
-	// Linear filter toggle
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F5)) {
-		OficinaFramework::RenderingSystem::SetLinearFiltering(!OficinaFramework::RenderingSystem::GetLinearFilteringState());
 	}
 
 	// Camera
@@ -255,9 +257,9 @@ void TestScreen::Draw()
 		switch (dayTime) {
 		default:
 		case DAYTIME_MORNING:   OficinaFramework::RenderingSystem::glClearColorM(CORNFLOWERBLUE);  break;
-		//case DAYTIME_AFTERNOON: OficinaFramework::RenderingSystem::glClearColorM(ORANGERED);       break;
-		//case DAYTIME_EVENING:   OficinaFramework::RenderingSystem::glClearColorM(BLUEVIOLET);      break;
-		//case DAYTIME_NIGHT:     OficinaFramework::RenderingSystem::glClearColorM(DARKBLUE);        break;
+		case DAYTIME_AFTERNOON: OficinaFramework::RenderingSystem::glClearColorM(ORANGERED);       break;
+		case DAYTIME_EVENING:   OficinaFramework::RenderingSystem::glClearColorM(BLUEVIOLET);      break;
+		case DAYTIME_NIGHT:     OficinaFramework::RenderingSystem::glClearColorM(DARKBLUE);        break;
 		}
 		m_clearcolorset = true;
 	}

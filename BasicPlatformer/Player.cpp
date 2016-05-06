@@ -618,11 +618,7 @@ void Player::Update()
 
 
 	/* DEBUG */
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F1))
-		OficinaFramework::ScreenSystem::SetDebug(!OficinaFramework::ScreenSystem::IsDebugActive());
-	else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F2))
-		OficinaFramework::ScreenSystem::Debug_ToggleMinimalist();
-	else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F4))
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F4))
 		m_viewsensors = !m_viewsensors;
 
 	if (OficinaFramework::ScreenSystem::IsDebugActive())

@@ -80,7 +80,7 @@ void LevelSelectScreen::Update()
 			default:
 				ScreenSystem::AddScreen(new TestScreen);
 				break;
-			case 14: // Exit
+			case 16: // Exit
 				ScreenSystem::AddScreen(new TitleScreen);
 				RemoveMe();
 				break;

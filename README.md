@@ -1,4 +1,4 @@
-Sonic Engine v0.3 - Powered By Oficina Framework v1.3b
+Sonic Engine v0.3.1 - Powered By Oficina Framework v1.3b
 ======================================================
 
 Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
@@ -7,6 +7,8 @@ Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
 
 Changelog
 ---------
+v0.3.1
+- Added Options menu.
 
 v0.3
 - Added Main Menu;
@@ -142,7 +144,6 @@ Controls
 | F2                             | Toggle debugger complexity (minimalistic debugger) |
 | F3                             | Reposition Sonic at beginning of level             |
 | F4                             | Toggle hitboxes, grid regions, AABBs and sensors   |
-| F5                             | Toggle linear filtering                            |
 | F11                            | Toggle fullscreen                                  |
 
 
@@ -155,7 +156,7 @@ Controls
 
 
 
-- Main Menu / Level Select
+- Main Menu / Level Select / Options
 
 | Key           | Action           |
 |---------------|------------------|

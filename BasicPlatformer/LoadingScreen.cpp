@@ -31,9 +31,6 @@ void LoadingScreen::Update() {
 	// Fullscreen toggle
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
 		OficinaFramework::ScreenSystem::SetFullScreen(!OficinaFramework::ScreenSystem::IsFullScreen());
-	// Linear filter toggle
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F5))
-		OficinaFramework::RenderingSystem::SetLinearFiltering(!OficinaFramework::RenderingSystem::GetLinearFilteringState());
 
 	angle += 20.0f * TimingSystem::StepCorrection();
 	if (angle > 360.0f) angle -= 360.0f;
@@ -65,16 +62,20 @@ void LoadingScreen::Draw() {
 	glEnd();
 	glPopMatrix();
 
-	vec2 modelpos = RenderingSystem::GetResolution().toVec2() / 2.0f;
+	vec2 modelpos = RenderingSystem::GetResolution().toVec2();
+	modelpos -= 20.0f;
 	float transparency = 0.5f;
 	glPushMatrix();
 	glTranslatef(RenderingSystem::GetViewportPosition().x, RenderingSystem::GetViewportPosition().y, 0.0f);
+
+	vec2 fontsize = font->MeasureString("NOW LOADING", 1.0f);
+	font->DrawString(vec2(modelpos.x - (fontsize.x * 1.2f), modelpos.y - 2.0f), "NOW LOADING", 1.0f);
 
 	glPushMatrix();
 	RenderingSystem::glColorM(ORANGE);
 	glTranslatef(modelpos.x, modelpos.y, 100.0f);
 	glRotatef(angle, 0.5f, 1.0f, -0.5f);
-	//glScalef(0.5f, 0.5f, 0.5f);
+	glScalef(0.1f, 0.1f, 0.1f);
 
 	glBegin(GL_POLYGON);
 	glColor4f(1.0f, 0.0f, 0.0f, transparency);
@@ -131,9 +132,6 @@ void LoadingScreen::Draw() {
 	glVertex3f(-50.0f, -50.0f, -50.0f);
 	glEnd();
 	glPopMatrix();
-
-	vec2 fontsize = font->MeasureString("NOW LOADING", 1.0f);
-	font->DrawString(vec2(modelpos.x - (fontsize.x / 2.0f), modelpos.y), "NOW LOADING", 1.0f, Color4::MaskToColor4(WHITE), transparency);
 
 	glPopMatrix();
 }

@@ -14,9 +14,12 @@ private:
 	OficinaFramework::AudioSystem::Audio*       bgm;
 	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
 
-	const std::string levelSelectOptions[15] =
+	const std::string levelSelectOptions[17] =
 	{
 		"Engine Epitomy           1",
+		"                         2",
+
+		"Isolated Island          1",
 		"                         2",
 
 		"Aquatic Attraction       1",
@@ -42,7 +45,7 @@ private:
 
 	vec2 textPosition;
 	int selection;
-	int maxSelection = 15;
+	int maxSelection = 17;
 	int m_fadetype = 0;
 	int m_inputdelay = 0;
 

@@ -1,5 +1,6 @@
 #include "TitleScreen.hpp"
 #include "LevelSelectScreen.hpp"
+#include "OptionsScreen.hpp"
 #include <OficinaFramework\InputSystem.hpp>
 using namespace OficinaFramework;
 
@@ -35,6 +36,7 @@ void TitleScreen::UnloadContent()
 {
 	delete menuFont;
 	RenderingSystem::TexturePool::DisposeTexture(titleLogo);
+	RenderingSystem::TexturePool::DisposeTexture(titleLogo_black);
 	soundEmitter->Stop();
 	AudioSystem::AudioPool::UnloadAudio(bgmAudio);
 	ScreenSystem::Screen::UnloadContent();
@@ -52,9 +54,6 @@ void TitleScreen::Update()
 	// Fullscreen toggle
 	else if (InputSystem::PressedKey(SDL_SCANCODE_F11))
 		ScreenSystem::SetFullScreen(!ScreenSystem::IsFullScreen());
-	// Linear filter toggle
-	else if (InputSystem::PressedKey(SDL_SCANCODE_F5))
-		RenderingSystem::SetLinearFiltering(!RenderingSystem::GetLinearFilteringState());
 
 	// Fade out + transition
 	if (m_fade > 0.0f && m_fade < 1.0f)
@@ -66,6 +65,12 @@ void TitleScreen::Update()
 		{
 		case 0: // Level Select
 			ScreenSystem::AddScreen(new LevelSelectScreen);
+			RemoveMe();
+			break;
+		case 1: // Level Editor
+			break;
+		case 2: // Options
+			ScreenSystem::AddScreen(new OptionsScreen);
 			RemoveMe();
 			break;
 		case 3: // Quit
@@ -141,8 +146,8 @@ void TitleScreen::Update()
 			&& m_fade == 0.0f
 			&& (m_selection == m_menuselection))
 		{
-			// For now, only Level Select and Quit are available
-			if(m_selection == 0 || m_selection == m_maxSelection)
+			// For now, only Level Editor is unavailable
+			if(m_selection != 1)
 				m_fade = 0.1f;
 		}
 	}

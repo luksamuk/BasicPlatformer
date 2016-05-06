@@ -15,11 +15,8 @@ int main(int argc, char** argv)
 	std::list<std::string>* confv = new std::list<std::string>;
 	confv->push_back("gamename=OFSONIC THE HEDGEHOG");
 	confv->push_back("framerate=60hz");
-	//confv->push_back("resolution=320x224"); // Original
-	//confv->push_back("resolution=432x240"); // Small
+	//confv->push_front("vsync");
 	confv->push_back("resolution=640x360"); // Recommended
-	//confv->push_back("resolution=960x540"); // Extended
-	//confv->push_back("fullscreen");
 	confv->push_back("iconpath=icon");
 	//confv->push_front("enable_diagnostics");
 	

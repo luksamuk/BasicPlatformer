@@ -55,9 +55,6 @@ void PresentationScreen::Update() {
 	// Fullscreen toggle
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
 		OficinaFramework::ScreenSystem::SetFullScreen(!OficinaFramework::ScreenSystem::IsFullScreen());
-	// Linear filter toggle
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F5))
-		OficinaFramework::RenderingSystem::SetLinearFiltering(!OficinaFramework::RenderingSystem::GetLinearFilteringState());
 }
 void PresentationScreen::Draw() {
 	// Black background
