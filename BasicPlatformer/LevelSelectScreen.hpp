@@ -22,7 +22,7 @@ private:
 		"Isolated Island          1",
 		"                         2",
 
-		"Aquatic Attraction       1",
+		"Amazing Aquarium         1",
 		"                         2",
 
 		"Freezing Factory         1",

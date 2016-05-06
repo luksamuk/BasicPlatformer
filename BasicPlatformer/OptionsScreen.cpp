@@ -100,9 +100,12 @@ void OptionsScreen::Update()
 			// Apply Window Size
 			newWindowSize = RenderingSystem::GetResolution().toVec2();
 			newWindowSize *= 1.0f + (m_windowSizeOption * 0.5f);
-			ScreenSystem::SetWindowSize(vec2dw(static_cast<dword>(newWindowSize.x), static_cast<dword>(newWindowSize.y)));
-			if(!ScreenSystem::IsFullScreen())
-				RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+			if (newWindowSize != ScreenSystem::GetWindowSize().toVec2())
+			{
+				ScreenSystem::SetWindowSize(vec2dw(static_cast<dword>(newWindowSize.x), static_cast<dword>(newWindowSize.y)));
+				if (!ScreenSystem::IsFullScreen())
+					RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+			}
 
 			// Apply Fullscreen
 			if (ScreenSystem::IsFullScreen() != m_fullscreenOption)

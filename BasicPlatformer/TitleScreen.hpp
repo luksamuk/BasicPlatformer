@@ -11,7 +11,7 @@ private:
 		m_menuselection = 0,
 		m_maxSelection = 3;
 	float optionXPos;
-	float menuSpeed = 20.0f;
+	float menuSpeed = 30.0f;
 	const std::string menuOptions[4] =
 	{
 		"  Level Select >",
