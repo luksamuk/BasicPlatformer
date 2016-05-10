@@ -122,6 +122,12 @@ void OptionsScreen::Update()
 		}
 	}
 
+	// Exit
+	if (InputSystem::PressedButton(InputSystem::GamePadButton::B)) {
+		m_selection = 5;
+		m_fadetype = 2;
+	}
+
 	// Fade control
 	switch (m_fadetype)
 	{

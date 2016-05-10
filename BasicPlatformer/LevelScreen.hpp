@@ -14,10 +14,13 @@ enum CurrentDayTime
 	DAYTIME_NIGHT      // Evening Star
 };
 
-class TestScreen :
+class LevelScreen :
 	public OficinaFramework::ScreenSystem::Screen
 {
 private:
+	dword LEVEL_ID;
+	std::string LEVEL_NAME;
+
 	OficinaFramework::AudioSystem::Audio*       bgm;
 	OficinaFramework::AudioSystem::AudioSource* soundemitter;
 	CurrentDayTime                              dayTime;
@@ -33,22 +36,32 @@ private:
 	int   m_cameralag;
 	bool  m_playerSpindashed;
 
-	// Title card
+	// Title card and HUD
 	float m_fade;
+	vec2  m_titlecard_pos;
+	bool  m_timeractive = true;
+	dword m_leveltimer  = 0u;
+	std::string m_leveltimer_hud = " 0\'00\"00";
+	OficinaFramework::RenderingSystem::SpriteSheet* hudSheet;
+	OficinaFramework::RenderingSystem::Font*        hudFont;
+	OficinaFramework::RenderingSystem::Font*        counterFont;
+	OficinaFramework::RenderingSystem::Font*        titlecardFont;
 
 	// Water
+	bool  m_hasWater;
 	float m_waterHeight;
 
 	// Misc
 	bool  m_clearcolorset;
+	bool  m_paused = false;
 	//Grid* m_grid;
 
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_drawables;
 
 	Player* player;
 public:
-	TestScreen();
-	~TestScreen();
+	LevelScreen(dword id);
+	~LevelScreen();
 
 	// Inherited via Screen
 	virtual void Initialize() override;

@@ -14,11 +14,8 @@ private:
 	OficinaFramework::AudioSystem::Audio*       bgm;
 	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
 
-	const std::string levelSelectOptions[17] =
+	const std::string levelSelectOptions[25] =
 	{
-		"Engine Epitomy           1",
-		"                         2",
-
 		"Isolated Island          1",
 		"                         2",
 
@@ -28,7 +25,7 @@ private:
 		"Freezing Factory         1",
 		"                         2",
 
-		"White Wonder             1",
+		"Hazel Holt               1",
 		"                         2",
 
 		"Dusty Desert             1",
@@ -37,15 +34,31 @@ private:
 		"Jester Juggle            1",
 		"                         2",
 
+		"Chaotic Canyon           1",
+		"                         2",
+
+		"Rusty Railroad           1",
+		"                         2",
+
 		"Cyber City               1",
 		"                         2",
+
+		"White Wonder             1",
+		"                         2",
+
+		"Cosmic Colony            1",
+		"                         2",
+
+		"Final Fight               ",
+
+		"Engine Test               ",
 
 		"Exit"
 	};
 
 	vec2 textPosition;
 	int selection;
-	int maxSelection = 17;
+	int maxSelection = 25;
 	int m_fadetype = 0;
 	int m_inputdelay = 0;
 

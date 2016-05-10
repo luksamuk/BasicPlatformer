@@ -1,6 +1,6 @@
 #include "LevelSelectScreen.hpp"
 #include "TitleScreen.hpp"
-#include "TestScreen.hpp"
+#include "LevelScreen.hpp"
 #include <OficinaFramework\InputSystem.hpp>
 using namespace OficinaFramework;
 
@@ -12,7 +12,7 @@ LevelSelectScreen::LevelSelectScreen()
 
 void LevelSelectScreen::Initialize()
 {
-	textPosition = vec2((RenderingSystem::GetResolution().x / 2.0f) - 104.0f, 60.0f);
+	textPosition = vec2((RenderingSystem::GetResolution().x / 4.0f) - 104.0f, 60.0f);
 	selection = 0;
 	ScreenSystem::Screen::Initialize();
 }
@@ -78,14 +78,14 @@ void LevelSelectScreen::Update()
 		if (m_fade == 1.0f) {
 			switch (selection) {
 			default:
-				ScreenSystem::AddScreen(new TestScreen);
+				ScreenSystem::AddScreen(new LevelScreen(selection));
+				RemoveMe();
 				break;
-			case 16: // Exit
+			case 24: // Exit
 				ScreenSystem::AddScreen(new TitleScreen);
 				RemoveMe();
 				break;
 			}
-			RemoveMe();
 		}
 		break;
 	}
@@ -102,6 +102,16 @@ void LevelSelectScreen::Update()
 		selection--;
 		m_inputdelay = 15;
 	}
+	else if (InputSystem::GetLeftStick().x > 0.0f && !m_inputdelay) {
+		if (selection < 16) selection += 16;
+		else selection -= 16;
+		m_inputdelay = 15;
+	}
+	else if (InputSystem::GetLeftStick().x < 0.0f && !m_inputdelay) {
+		if (selection < 16) selection += 16;
+		else selection -= 16;
+		m_inputdelay = 15;
+	}
 
 	// Wrap
 	if (selection < 0) selection = maxSelection - 1;
@@ -110,8 +120,14 @@ void LevelSelectScreen::Update()
 
 	// Selection
 	if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
-		if (selection == 0 || selection == maxSelection - 1)
+		//if (selection >= 22 || selection <= 1)
 			m_fadetype = 2;
+
+	// Exit
+	if (InputSystem::PressedButton(InputSystem::GamePadButton::B)) {
+		selection = 24;
+		m_fadetype = 2;
+	}
 }
 
 void LevelSelectScreen::Draw()
@@ -133,16 +149,18 @@ void LevelSelectScreen::Draw()
 
 	// Levels
 	float textYPos = textPosition.y;
+	float textXPos = textPosition.x;
 	for (int i = 0; i < maxSelection; i++)
 	{
 		if (i) {
-			if (!(i % 2)) textYPos += 12.0f;
-			//if (!(i % 19)) {
-			//	textXPos += 224.0f;
-			//	textYpos = textPosition.y;
-			//}
+			if (!(i % 2) || i > 21) textYPos += 12.0f;
+			if (!(i % 16)) {
+				textXPos += (RenderingSystem::GetResolution().x / 4.0f) * 2.0f;
+				textYPos = textPosition.y;
+			}
+			if (i == maxSelection - 1) textYPos += 32.0f;
 		}
-		menuFont->DrawString(vec2(textPosition.x, textYPos), levelSelectOptions[i], 1.0f,
+		menuFont->DrawString(vec2(textXPos, textYPos), levelSelectOptions[i], 1.0f,
 			Color4::MaskToColor4((selection == i ? YELLOW : WHITE)), 1.0f);
 		textYPos += 8.0f;
 	}

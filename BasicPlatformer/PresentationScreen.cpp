@@ -35,7 +35,8 @@ void PresentationScreen::Update() {
 	m_poweredby->update();
 
 	if (m_timer >= 1.0f && m_timer < 5.0f
-		&& InputSystem::PressedButton(InputSystem::GamePadButton::A)) {
+		&& (InputSystem::PressedButton(InputSystem::GamePadButton::A)
+			|| InputSystem::PressedButton(InputSystem::GamePadButton::START))) {
 		m_timer = 5.0f;
 	}
 	else if (m_timer >= 6.0f) {

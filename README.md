@@ -1,4 +1,4 @@
-Sonic Engine v0.3.1 - Powered By Oficina Framework v1.3b
+Sonic Engine v0.3.5 - Powered By Oficina Framework v1.3b
 ======================================================
 
 Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
@@ -7,8 +7,17 @@ Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
 
 Changelog
 ---------
-v0.3.1
-- Added Options menu.
+v0.3.5
+- Added Options menu;
+- Added HUD (currently, only Timer is implemented);
+- Added Title Card (WIP, might have positioning issues and has no ACT sign);
+- Added various planned level names;
+- Renamed TestScreen to LevelScreen;
+- Recovered old test level and enabled it via Level Select (for Isolated Island Zone);
+- Added WIP zones The Final Fight and Engine Test;
+- Improved Level Select;
+- Changed controls on some situations;
+- Added a few more assets - full credits are planned for the Credits Screen to be implemented.
 
 v0.3
 - Added Main Menu;
@@ -120,6 +129,9 @@ To use a game controller, simply connect it before starting the game.
 | S         | Down     |
 | D         | Right    |
 | K         | Action 1 |
+| L         | Action 2 |
+| Enter     | Start    |
+| Backspace | Select   |
 
 - Xbox 360 Controller:
 
@@ -127,6 +139,9 @@ To use a game controller, simply connect it before starting the game.
 |------------|--------------|
 | Left Stick | Directionals |
 | A          | Action 1     |
+| B          | Action 2     |
+| Start      | Start        |
+| Back       | Select       |
 
 Exit game at any time by manually closing the window.
 If you close the window while loading, the game may hang until loading is
@@ -153,15 +168,17 @@ Controls
 | Key      | Action       |
 |----------|--------------|
 | Action 1 | Next screen  |
+| Start    | Next screen  |
 
 
 
 - Main Menu / Level Select / Options
 
-| Key           | Action           |
-|---------------|------------------|
-| Directionals  | Change selection |
-| Action 1      | Pick selection   |
+| Key           | Action                                     |
+|---------------|--------------------------------------------|
+| Directionals  | Change selection                           |
+| Action 1      | Pick selection                             |
+| Action 2      | Previous Screen (unavailable on Main Menu) |
 
 
 
@@ -175,6 +192,8 @@ Controls
 | Directional DOWN (if stopped)      | Crouch Down                                                        |
 | Directional DOWN (if enough speed) | Roll                                                               |
 | Action 1 (while crouched)          | Spindash. Mash button to increase speed, then release DOWN to roll |
+| Start                              | Pause/Unpause Game                                                 |
+| Select (while paused)              | Return to Level Select                                             |
 
 
 
