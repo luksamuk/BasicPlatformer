@@ -29,6 +29,18 @@ void TitleScreen::LoadContent()
 
 	optionXPos = (RenderingSystem::GetResolution().toVec2().x / 2.0f) - (menuFont->MeasureString(menuOptions[0], 1.5f).x / 2.0f);
 
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"), 1.0f,    true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"), 0.94f,   true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"), 0.9f,    true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"), 0.92f,   true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 0.9f,  true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 0.92f, true));
+
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 0.89f, true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 0.87f, true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, true));
+
 	ScreenSystem::Screen::LoadContent();
 }
 
@@ -37,6 +49,7 @@ void TitleScreen::UnloadContent()
 	delete menuFont;
 	RenderingSystem::TexturePool::DisposeTexture(titleLogo);
 	RenderingSystem::TexturePool::DisposeTexture(titleLogo_black);
+	parallax.UnloadContent();
 	soundEmitter->Stop();
 	AudioSystem::AudioPool::UnloadAudio(bgmAudio);
 	ScreenSystem::Screen::UnloadContent();
@@ -151,6 +164,9 @@ void TitleScreen::Update()
 				m_fade = 0.1f;
 		}
 	}
+
+	// Parallax
+	parallax.Update();
 }
 
 void TitleScreen::Draw()
@@ -163,7 +179,11 @@ void TitleScreen::Draw()
 	// Logo management
 	RenderingSystem::Texture* currentLogo = m_fadetimer < 42 ? titleLogo_black : titleLogo;
 	float scale = m_fadetimer < 42 ? float(m_fadetimer) / 42.0f : 1.0f;
-	
+
+	// Draw BG
+	if (m_fadetimer >= 42)
+		parallax.Draw();
+
 	// Draw white background
 	if (m_fadetimer >= 42 && m_whitefade > 0.0f)
 	{
@@ -193,8 +213,12 @@ void TitleScreen::Draw()
 		menuFont->DrawString(optionPos, menuOptions[m_menuselection], 1.5f);
 
 		// Disclaimer
-		menuFont->DrawString(viewportSize - menuFont->MeasureString("           2016 luksamuk\nNot Affiliated with SEGA", 1.0f),
-			"           2016 luksamuk\nNot Affiliated with SEGA");
+		std::string disclaimerString =
+			"                  v0.3.9\n"
+			"           2016 luksamuk\n"
+			"Not Affiliated with SEGA";
+		menuFont->DrawString(viewportSize - menuFont->MeasureString(disclaimerString, 1.0f),
+			disclaimerString);
 	}
 
 	// Fade out

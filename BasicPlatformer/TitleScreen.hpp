@@ -2,6 +2,7 @@
 #include <OficinaFramework\ScreenSystem.hpp>
 #include <OficinaFramework\AudioSystem.hpp>
 #include <OficinaFramework\RenderingSystem.hpp>
+#include "Parallax.hpp"
 
 class TitleScreen : public OficinaFramework::ScreenSystem::Screen
 {
@@ -30,6 +31,7 @@ private:
 	int m_fadetimer;
 	float m_whitefade;
 	float m_fade;
+	Parallax parallax;
 public:
 	TitleScreen();
 	// Inherited via Screen

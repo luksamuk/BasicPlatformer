@@ -5,6 +5,7 @@
 
 #include "Player.hpp"
 #include "Solid.hpp"
+#include "Parallax.hpp"
 
 enum CurrentDayTime
 {
@@ -55,6 +56,9 @@ private:
 	bool  m_clearcolorset;
 	bool  m_paused = false;
 	//Grid* m_grid;
+	// Test
+	Parallax parallax;
+	//OficinaFramework::RenderingSystem::Texture* bg;
 
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_drawables;
 

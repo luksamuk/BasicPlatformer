@@ -1,4 +1,4 @@
-Sonic Engine v0.3.5 - Powered By Oficina Framework v1.3b
+Sonic Engine v0.3.9b - Powered By Oficina Framework v1.3b
 ======================================================
 
 Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
@@ -7,6 +7,10 @@ Made by Lucas Vieira (luksamuk) - lucas.samuel2002@gmail.com
 
 Changelog
 ---------
+v0.3.9 (WIP)
+- Added Parallax scrolling background;
+- Added Effects and Effect Spawners (WIP).
+
 v0.3.5
 - Added Options menu;
 - Added HUD (currently, only Timer is implemented);

@@ -239,10 +239,13 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectSpawner.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OptionsScreen.cpp" />
+    <ClCompile Include="Parallax.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PresentationScreen.cpp" />
     <ClCompile Include="Solid.cpp" />
@@ -263,9 +266,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Effect.hpp" />
+    <ClInclude Include="EffectSpawner.hpp" />
     <ClInclude Include="Grid.hpp" />
     <ClInclude Include="LoadingScreen.hpp" />
     <ClInclude Include="OptionsScreen.hpp" />
+    <ClInclude Include="Parallax.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PresentationScreen.hpp" />
     <ClInclude Include="Solid.hpp" />
