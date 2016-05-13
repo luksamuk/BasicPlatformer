@@ -6,7 +6,7 @@ ParallaxPiece::ParallaxPiece(RenderingSystem::Texture* t, float followRatio, boo
 	this->t = t;
 
 	// Calculate amount of pieces needed
-	amount = (RenderingSystem::GetResolution().x / t->GetSize().x) + 1u;
+	amount = (RenderingSystem::GetResolution().x / t->GetSize().x) + 2u;
 	Xpositions = new float[amount];
 	Xpositions[0] = RenderingSystem::GetViewportPosition().x;
 	Yposition = position.y;

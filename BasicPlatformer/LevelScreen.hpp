@@ -21,6 +21,7 @@ class LevelScreen :
 private:
 	dword LEVEL_ID;
 	std::string LEVEL_NAME;
+	vec2 LEVEL_SIZE = vec2::One() * 1.0f;
 
 	OficinaFramework::AudioSystem::Audio*       bgm;
 	OficinaFramework::AudioSystem::AudioSource* soundemitter;
@@ -56,9 +57,10 @@ private:
 	bool  m_clearcolorset;
 	bool  m_paused = false;
 	//Grid* m_grid;
-	// Test
+
+	// Parallax
 	Parallax parallax;
-	//OficinaFramework::RenderingSystem::Texture* bg;
+	Parallax fg_parallax;
 
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_drawables;
 

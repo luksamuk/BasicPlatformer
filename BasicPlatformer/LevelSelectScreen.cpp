@@ -84,6 +84,7 @@ void LevelSelectScreen::Update()
 			case 24: // Exit
 				ScreenSystem::AddScreen(new TitleScreen);
 				RemoveMe();
+				soundEmitter->Stop();
 				break;
 			}
 		}

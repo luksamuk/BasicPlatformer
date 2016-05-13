@@ -78,6 +78,12 @@ LevelScreen::LevelScreen(dword id)
 	m_waterHeight = 1864.0f;
 
 	if (LEVEL_ID == 22u) m_hasWater = false;
+
+	if (LEVEL_ID == 2 || LEVEL_ID == 3)
+	{
+		m_waterHeight = 637.0f;
+		LEVEL_SIZE.y = 1280.0f;
+	}
 }
 
 int count;
@@ -195,6 +201,11 @@ void LevelScreen::Initialize()
 		for (float f = 0.0f; f < 528.0f; f += 16.0f)
 			m_drawables.Add(new Solid(vec2(992.0f + f, 368.0f + f), vec2(16.0f, 16.0f), SolidType::SLOPE_L));
 	}
+	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
+	{
+		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
+			m_drawables.Add(new Solid(vec2(f, 640.0f), vec2(128.0f, 128.0f), SolidType::RECT));
+	}
 	else
 	{
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
@@ -223,6 +234,11 @@ void LevelScreen::LoadContent()
 				"bgm/isolatedisland",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 112.086f, 7.058f);
+		else if (LEVEL_ID == 2 || LEVEL_ID == 3)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/amazingaquarium",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 76.785f, 10.994f);
 		else if(LEVEL_ID == 22u)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/orientallegend",
@@ -280,8 +296,6 @@ void LevelScreen::LoadContent()
 				true, 45.096f, 9.097f);
 		}
 	}();
-
-	soundemitter->Play(bgm);
 	//player->setGrid(m_grid);
 
 	// Load HUD graphics
@@ -293,7 +307,7 @@ void LevelScreen::LoadContent()
 	counterFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/counter"), vec2dw(8u), vec2b::One());
 	titlecardFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/titlecard"), vec2dw(16u), vec2b::One());
 
-	// Test
+	// Parallax
 	if (LEVEL_ID == 0 || LEVEL_ID == 1)
 	{
 		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f,  false));
@@ -308,6 +322,28 @@ void LevelScreen::LoadContent()
 		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, false));
 		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, false));
 	}
+	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
+	{
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer0"),   1.0f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer1"),   0.95f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_0"), 0.85f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_1"), 0.8f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_0"), 0.8f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_1"), 0.7f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_2"), 0.6f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_3"), 0.5f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_4"), 0.4f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_0"), 0.5f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_1"), 0.6f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_2"), 0.7f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_3"), 0.9f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_4"), 0.8f, true));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer5"),   0.8f, false));
+
+		fg_parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/fg_layer0"), 0.5f, true));
+	}
+
+	soundemitter->Play(bgm);
 
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
@@ -326,10 +362,8 @@ void LevelScreen::UnloadContent()
 	delete hudFont;
 	delete counterFont;
 	delete titlecardFont;
-
-	// Test
-	if (LEVEL_ID == 0 || LEVEL_ID == 1)
-		parallax.UnloadContent();
+	parallax.UnloadContent();
+	fg_parallax.UnloadContent();
 
 	OficinaFramework::ScreenSystem::Screen::UnloadContent();
 }
@@ -368,10 +402,37 @@ void LevelScreen::Update()
 		m_titlecard_pos.x += 20.0f;
 
 	// Camera
-	updateCamera();
+	if(!m_paused) updateCamera();
+
+	// Parallax
+	if (!m_paused)
+	{
+		parallax.Update();
+		fg_parallax.Update();
+		if (LEVEL_ID == 0 || LEVEL_ID == 1)
+		{
+			float parallaxYpos;
+			if (m_waterHeight > RenderingSystem::GetViewportPosition().y + RenderingSystem::GetResolution().y)
+				parallaxYpos = 0.0f;
+			else
+			{
+				parallaxYpos =
+					(RenderingSystem::GetViewportPosition().y + RenderingSystem::GetResolution().y) - m_waterHeight;
+			}
+			parallax.SetYPosition(-parallaxYpos);
+			fg_parallax.SetYPosition(-parallaxYpos);
+		}
+		else
+		{
+			parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y);
+			fg_parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y);
+		}
+	}
 
 	// Fade activation
-	if (m_fade > -1.0f) { m_fade -= 0.05f;  return; }
+	if (m_fade > -1.0f) m_fade -= 0.05f;
+
+	if(m_fade > 0.0f) return;
 
 	// Pause controls
 	if (InputSystem::PressedButton(InputSystem::GamePadButton::START))
@@ -414,28 +475,13 @@ void LevelScreen::Update()
 		OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
 	}
 
-	// Parallax
-	parallax.Update();
-
-	{
-		float parallaxYpos;
-		if (m_waterHeight > RenderingSystem::GetViewportPosition().y + RenderingSystem::GetResolution().y)
-			parallaxYpos = 0.0f;
-		else
-		{
-			parallaxYpos =
-				(RenderingSystem::GetViewportPosition().y + RenderingSystem::GetResolution().y) - m_waterHeight;
-		}
-		parallax.SetYPosition(-parallaxYpos);
-	}
-
 	// Drawable objects
 	m_drawables.Update();
 }
 
 void LevelScreen::updateCamera()
 {
-	if (m_paused) return;
+	//if (m_paused) return;
 
 	vec2 cameraPos = OficinaFramework::RenderingSystem::GetCameraPosition();
 
@@ -514,6 +560,14 @@ void LevelScreen::updateCamera()
 	if (cameraPos.x <= resolution.x / 2.0f) cameraPos.x = resolution.x / 2.0f;
 	if (cameraPos.y <= resolution.y / 2.0f) cameraPos.y = resolution.y / 2.0f;
 
+	// Prevent camera from going beyond level limits (if existant)
+	if (LEVEL_SIZE.x > resolution.x)
+		if (cameraPos.x + (resolution.x / 2.0f) >= LEVEL_SIZE.x)
+			cameraPos.x = LEVEL_SIZE.x - (resolution.x / 2.0f);
+	if (LEVEL_SIZE.y > resolution.y)
+		if (cameraPos.y + (resolution.y / 2.0f) >= LEVEL_SIZE.y)
+			cameraPos.y = LEVEL_SIZE.y - (resolution.y / 2.0f);
+
 	// Give the new position to the camera
 	OficinaFramework::RenderingSystem::SetCameraPosition(cameraPos);
 }
@@ -526,9 +580,13 @@ void LevelScreen::Draw()
 
 	if (!m_clearcolorset)
 	{
-		if(LEVEL_ID == 0 || LEVEL_ID == 1)
+		if (LEVEL_ID == 0 || LEVEL_ID == 1)
 			//OficinaFramework::RenderingSystem::glClearColorM(BLUEVIOLET);
 			glClearColor(0.25f, 0.125f, 0.375f, 1.0f);
+		else if (LEVEL_ID == 2 || LEVEL_ID == 3)
+		{
+			glClearColor(0.21875f, 0.40625f, 0.78125f, 1.0f);
+		}
 		else if(LEVEL_ID == 22u)
 			glClearColor(0.25f, 0.0f, 0.1f, 1.0f); // Dark red
 		else if(LEVEL_ID == 23u)
@@ -546,19 +604,13 @@ void LevelScreen::Draw()
 	}
 
 	// Background
-	if (LEVEL_ID == 0 || LEVEL_ID == 1)
-	{
-		/*glPushMatrix();
-		RenderingSystem::glTranslateToViewportPos();
-		if (m_waterHeight <= viewportPos.y + resolution.y)
-			glTranslatef(0.0f, -((viewportPos.y + resolution.y) - m_waterHeight), 0.0f);
-		bg->Draw(vec2::Zero(), Color4::MaskToColor4(WHITE));
-		glPopMatrix();*/
-		parallax.Draw();
-	}
+	parallax.Draw();
 
 	// Drawables
 	m_drawables.Draw();
+
+	// Foreground
+	fg_parallax.Draw();
 
 	// Water
 	if (m_hasWater)
@@ -571,7 +623,9 @@ void LevelScreen::Draw()
 			glTranslatef(viewportPos.x, viewportPos.y, 0.0f);
 			glBegin(GL_QUADS);
 			if (LEVEL_ID == 0 || LEVEL_ID == 1)
-				glColor4f(0.25f, 0.125f, 0.375f, 0.4f);
+				glColor4f(0.25f, 0.125f, 0.375f, 0.6f);
+			else if (LEVEL_ID == 2 || LEVEL_ID == 3)
+				OficinaFramework::RenderingSystem::glColorM(DARKBLUE, 0.5078125f);
 			else
 				OficinaFramework::RenderingSystem::glColorM(DARKBLUE, 0.4f);
 			glVertex2f(0.0f, waterTop);

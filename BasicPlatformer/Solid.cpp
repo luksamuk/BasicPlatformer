@@ -36,7 +36,7 @@ void Solid::Draw()
 	glPushMatrix();
 	glTranslatef(m_position.x, m_position.y, 0.0f);
 
-	OficinaFramework::RenderingSystem::glColorM(BLACK);
+	OficinaFramework::RenderingSystem::glColorM(BLACK, 0.85f);
 	switch (type)
 	{
 	case SolidType::RECT:

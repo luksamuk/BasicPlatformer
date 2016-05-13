@@ -9,7 +9,8 @@ Changelog
 ---------
 v0.3.9 (WIP)
 - Added Parallax scrolling background;
-- Added Effects and Effect Spawners (WIP).
+- Added Effects and Effect Spawners (WIP);
+- Added WIP backgrounds for IIz and AAz (parallax only).
 
 v0.3.5
 - Added Options menu;

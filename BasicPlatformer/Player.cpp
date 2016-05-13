@@ -28,7 +28,7 @@ vec2 Player::GroundSpeed() {
 void Player::Initialize()
 {
 	SetPosition(vec2(180.0f, 330.0f));
-	ground = false;
+	ground = true;
 	pressingJump = false;
 	jumpAngle = 0.0f;
 	values = &default_values;
