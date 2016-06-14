@@ -100,7 +100,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\MSVCLibs\lib\x86;C:\MSVCLibs\Oficina\v1.3\lib\Debug\x86</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -136,7 +136,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\MSVCLibs\lib\x64;C:\MSVCLibs\Oficina\v1.3\lib\Debug\x64</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -174,7 +174,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\MSVCLibs\lib\x86;C:\MSVCLibs\Oficina\v1.3\lib\Release\x86</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -212,7 +212,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\MSVCLibs\lib\x64;C:\MSVCLibs\Oficina\v1.3\lib\Release\x64</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>

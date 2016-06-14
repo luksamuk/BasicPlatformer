@@ -16,40 +16,41 @@ private:
 
 	const std::string levelSelectOptions[25] =
 	{
-		"Isolated Island          1",
-		"                         2",
+		"Isolated Island          1", // ID 00
+		"                         2", // ID 01
 
-		"Amazing Aquarium         1",
-		"                         2",
+		"Amazing Aquarium         1", // ID 02
+		"                         2", // ID 03
 
-		"Freezing Factory         1",
-		"                         2",
+		"Freezing Factory         1", // ID 04
+		"                         2", // ID 05
 
-		"Hazel Holt               1",
-		"                         2",
+		"Hazel Hill               1", // ID 06
+		"                         2", // ID 07
 
-		"Dusty Desert             1",
-		"                         2",
+		"Dusty Desert             1", // ID 08
+		"                         2", // ID 09
 
-		"Jester Juggle            1",
-		"                         2",
+		"Jester Juggle            1", // ID 10
+		"                         2", // ID 11
 
-		"Chaotic Canyon           1",
-		"                         2",
+		"Chaotic Canyon           1", // ID 12
+		"                         2", // ID 13
 
-		"Rusty Railroad           1",
-		"                         2",
+		"Dynamic Dash             1", // ID 14
+		"                         2", // ID 15
 
-		"Cyber City               1",
-		"                         2",
+		"Cyber City               1", // ID 16
+		"                         2", // ID 17
 
-		"White Wonder             1",
-		"                         2",
+		"White Wonder              ", // ID 18
 
-		"Cosmic Colony            1",
-		"                         2",
+		"Stormy Sky                ", // ID 19
 
-		"Final Fight               ",
+		"Cosmic Colony            1", // ID 20
+		"                         2", // ID 21
+
+		"Final Fight               ", // ID 22
 
 		"Engine Test               ",
 

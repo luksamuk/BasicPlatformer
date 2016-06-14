@@ -20,6 +20,7 @@ class LevelScreen :
 {
 private:
 	dword LEVEL_ID;
+	byte  LEVEL_ACT;
 	std::string LEVEL_NAME;
 	vec2 LEVEL_SIZE = vec2::One() * 1.0f;
 

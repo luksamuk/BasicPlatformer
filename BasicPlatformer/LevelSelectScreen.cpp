@@ -121,8 +121,14 @@ void LevelSelectScreen::Update()
 
 	// Selection
 	if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
-		//if (selection >= 22 || selection <= 1)
 			m_fadetype = 2;
+	else if (InputSystem::PressedButton(InputSystem::GamePadButton::X)
+		&& ScreenSystem::IsDebugActive()
+		&& selection == 24)
+	{
+		ScreenSystem::AddScreen(new LevelScreen(25u));
+		RemoveMe();
+	}
 
 	// Exit
 	if (InputSystem::PressedButton(InputSystem::GamePadButton::B)) {
@@ -154,7 +160,7 @@ void LevelSelectScreen::Draw()
 	for (int i = 0; i < maxSelection; i++)
 	{
 		if (i) {
-			if (!(i % 2) || i > 21) textYPos += 12.0f;
+			if (!(i % 2) || i > 21 || i == 19) textYPos += 12.0f;
 			if (!(i % 16)) {
 				textXPos += (RenderingSystem::GetResolution().x / 4.0f) * 2.0f;
 				textYPos = textPosition.y;

@@ -17,13 +17,8 @@ public:
 
 	// Inherited via DrawableEntity
 	virtual void Initialize() override;
-
 	virtual void Update() override;
-
 	virtual void LoadContent() override;
-
 	virtual void UnloadContent() override;
-
 	virtual void Draw() override;
-
 };

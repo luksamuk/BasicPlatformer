@@ -21,41 +21,109 @@ LevelScreen::LevelScreen(dword id)
 	switch (id)
 	{
 	case 0:
-	case 1: LEVEL_NAME = "ISOLATED ISLAND";
+		LEVEL_NAME = "ISOLATED ISLAND";
+		LEVEL_ACT = 1;
+		break;
+	case 1:
+		LEVEL_NAME = "ISOLATED ISLAND";
+		LEVEL_ACT = 2;
 		break;
 	case 2:
-	case 3: LEVEL_NAME = "AMAZING AQUARIUM";
+		LEVEL_NAME = "AMAZING AQUARIUM";
+		LEVEL_ACT = 1;
+		break;
+	case 3:
+		LEVEL_NAME = "AMAZING AQUARIUM";
+		LEVEL_ACT = 2;
 		break;
 	case 4:
-	case 5: LEVEL_NAME = "FREEZING FACTORY";
+		LEVEL_NAME = "FREEZING FACTORY";
+		LEVEL_ACT = 1;
+		break;
+	case 5:
+		LEVEL_NAME = "FREEZING FACTORY";
+		LEVEL_ACT = 2;
 		break;
     case 6:
-	case 7: LEVEL_NAME = "HAZEL HOLT";
+		LEVEL_NAME = "HAZEL HILL";
+		LEVEL_ACT = 1;
+		break;
+	case 7:
+		LEVEL_NAME = "HAZEL HILL";
+		LEVEL_ACT = 2;
 		break;
 	case 8:
-	case 9: LEVEL_NAME = "DUSTY DESERT";
+		LEVEL_NAME = "DUSTY DESERT";
+		LEVEL_ACT = 1;
+		break;
+	case 9:
+		LEVEL_NAME = "DUSTY DESERT";
+		LEVEL_ACT = 2;
 		break;
 	case 10:
-	case 11: LEVEL_NAME = "JESTER JUGGLE";
+		LEVEL_NAME = "JESTER JUGGLE";
+		LEVEL_ACT = 1;
+		break;
+	case 11:
+		LEVEL_NAME = "JESTER JUGGLE";
+		LEVEL_ACT = 2;
 		break;
 	case 12:
-	case 13: LEVEL_NAME = "CHAOTIC CANYON";
+		LEVEL_NAME = "CHAOTIC CANYON";
+		LEVEL_ACT = 1;
+		break;
+	case 13:
+		LEVEL_NAME = "CHAOTIC CANYON";
+		LEVEL_ACT = 2;
 		break;
 	case 14:
-	case 15: LEVEL_NAME = "RUSTY RAILROAD";
+		LEVEL_NAME = "DYNAMIC DASH";
+		LEVEL_ACT = 1;
+		break;
+	case 15:
+		LEVEL_NAME = "DYNAMIC DASH";
+		LEVEL_ACT = 2;
 		break;
 	case 16:
-	case 17: LEVEL_NAME = "CYBER CITY";
+		LEVEL_NAME = "CYBER CITY";
+		LEVEL_ACT = 1;
+		break;
+	case 17:
+		LEVEL_NAME = "CYBER CITY";
+		LEVEL_ACT = 2;
 		break;
 	case 18:
-	case 19: LEVEL_NAME = "WHITE WONDER";
+		LEVEL_NAME = "WHITE WONDER";
+		LEVEL_ACT = 0;
+		break;
+	case 19:
+		LEVEL_NAME = "STORMY SKY";
+		LEVEL_ACT = 0;
 		break;
 	case 20:
-	case 21: LEVEL_NAME = "COSMIC COLONY";
+		LEVEL_NAME = "COSMIC COLONY";
+		LEVEL_ACT = 1;
 		break;
-	case 22: LEVEL_NAME = "THE FINAL"; break;
-	case 23: LEVEL_NAME = "ENGINE TEST"; break;
-	default: LEVEL_NAME = "?????"; break;
+	case 21:
+		LEVEL_NAME = "COSMIC COLONY";
+		LEVEL_ACT = 2;
+		break;
+	case 22:
+		LEVEL_NAME = "THE FINAL";
+		LEVEL_ACT = 0;
+		break;
+	case 23:
+		LEVEL_NAME = "ENGINE TEST";
+		LEVEL_ACT = 0;
+		break;
+	case 25:
+		LEVEL_NAME = "LOST HOPE";
+		LEVEL_ACT = 0;
+		break;
+	default:
+		LEVEL_NAME = "?????";
+		LEVEL_ACT = 0;
+		break;
 	}
 
 	// Define current time of day
@@ -77,13 +145,9 @@ LevelScreen::LevelScreen(dword id)
 	m_hasWater = true;
 	m_waterHeight = 1864.0f;
 
-	if (LEVEL_ID == 22u) m_hasWater = false;
-
-	if (LEVEL_ID == 2 || LEVEL_ID == 3)
-	{
-		m_waterHeight = 637.0f;
-		LEVEL_SIZE.y = 1280.0f;
-	}
+	if (LEVEL_ID == 22u || LEVEL_ID == 19u || LEVEL_ID == 12u || LEVEL_ID == 13u
+		|| LEVEL_ID == 8u || LEVEL_ID == 9u || LEVEL_ID == 20u || LEVEL_ID == 21u)
+		m_hasWater = false;
 }
 
 int count;
@@ -204,7 +268,18 @@ void LevelScreen::Initialize()
 	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 	{
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
-			m_drawables.Add(new Solid(vec2(f, 640.0f), vec2(128.0f, 128.0f), SolidType::RECT));
+			if(f != 256.0f)
+				m_drawables.Add(new Solid(vec2(f, 640.0f), vec2(128.0f, 128.0f), SolidType::RECT));
+			else m_drawables.Add(new Solid(vec2(f, 704.0f), vec2(128.0f, 64.0f), SolidType::RECT));
+
+		m_waterHeight = 637.0f;
+		LEVEL_SIZE.y = 1280.0f;
+	}
+	else if (LEVEL_ID == 12 || LEVEL_ID == 13)
+	{
+		LEVEL_SIZE.y = 1840.0f;
+		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
+			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 64.0f), SolidType::RECT));
 	}
 	else
 	{
@@ -215,9 +290,13 @@ void LevelScreen::Initialize()
 	//m_grid->Populate(&m_drawables);
 
 	m_drawables.Add(player = new Player);
+
 	for (auto obj : m_drawables) count++;
 
 	m_drawables.Initialize();
+
+	if (LEVEL_ID == 2u || LEVEL_ID == 3u)
+		player->SetPosition(vec2(180.0f, 620.0f));
 
 	soundemitter = new OficinaFramework::AudioSystem::AudioSource;
 
@@ -227,8 +306,8 @@ void LevelScreen::Initialize()
 void LevelScreen::LoadContent()
 {
 	m_drawables.LoadContent();
-	bgm = [&]() {
-		// 22 = Final Fight
+	bgm = [&]() -> AudioSystem::Audio*
+	{
 		if(LEVEL_ID == 0 || LEVEL_ID == 1)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/isolatedisland",
@@ -238,7 +317,32 @@ void LevelScreen::LoadContent()
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/amazingaquarium",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 76.785f, 10.994f);
+				true, 87.848f, 11.009f);
+		else if (LEVEL_ID == 8 || LEVEL_ID == 9)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/dustydesert",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 71.054f, 23.067f);
+		else if (LEVEL_ID == 12 || LEVEL_ID == 13)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/chaoticcanyon",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 78.616f, 8.799f);
+		else if (LEVEL_ID == 18)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/whitewonder",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 78.621f, 8.797f);
+		else if(LEVEL_ID == 19u)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/stormysky",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 100.072f, 6.723f);
+		else if (LEVEL_ID == 20u || LEVEL_ID == 21u)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/cosmiccolony",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 200.558f, 12.399f);
 		else if(LEVEL_ID == 22u)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/orientallegend",
@@ -270,32 +374,9 @@ void LevelScreen::LoadContent()
 					true, 45.096f, 9.097f);
 			}
 		}
-
-		dword levelMusic = LEVEL_ID % 4u;
-		switch (levelMusic) {
-		default:
-		case 0u:
-			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/mysticcave2p",
-				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 52.679f, 0.612f);
-		case 1u:
-			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/walkin",
-				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 17.233f, 1.080f);
-		case 2u:
-			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/hyperhyper",
-				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 41.420f, 11.351f);
-		case 3u:
-			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/eveningstar",
-				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 45.096f, 9.097f);
-		}
+		return nullptr;
 	}();
+
 	//player->setGrid(m_grid);
 
 	// Load HUD graphics
@@ -310,40 +391,82 @@ void LevelScreen::LoadContent()
 	// Parallax
 	if (LEVEL_ID == 0 || LEVEL_ID == 1)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f,  false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"),   0.94f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"),   0.9f,  false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"),   0.92f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 0.9f,  false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 0.92f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"),   0.94f, 0.98f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"),   0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"),   0.92f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 0.9f, 0.96f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 0.92f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 0.89f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 0.87f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 0.89f, 0.89f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 0.87f, 0.87f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, 0.85f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, 0.83f));
 	}
 	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer0"),   1.0f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer1"),   0.95f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_0"), 0.85f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_1"), 0.8f, false));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_0"), 0.8f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_1"), 0.7f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_2"), 0.6f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_3"), 0.5f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_4"), 0.4f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_0"), 0.5f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_1"), 0.6f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_2"), 0.7f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_3"), 0.9f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_4"), 0.8f, true));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer5"),   0.8f, false));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer0"),   1.0f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer1"),   1.0f, 0.95f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_0"), 0.85f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_1"), 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_0"), 0.8f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_1"), 0.7f, 0.7f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_2"), 0.6f, 0.6f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_3"), 0.5f, 0.5f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_4"), 0.4f, 0.4f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_0"), 0.5f, 0.5f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_1"), 0.6f, 0.6f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_2"), 0.7f, 0.7f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_3"), 0.9f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_4"), 0.8f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer5"),   0.8f));
 
-		fg_parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/fg_layer0"), 0.5f, true));
+		fg_parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/fg_layer0"), 0.5f, 0.5f));
+	}
+	else if (LEVEL_ID == 12 || LEVEL_ID == 13)
+	{
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer0"), 0.95f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer1"), 1.0f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer2"), 0.85f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer3"), 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer4"), 0.75f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer5"), 0.7f));
+	}
+	else if (LEVEL_ID == 20 || LEVEL_ID == 21)
+	{
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer0"),   1.0f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer1"),   0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_0"), 0.88f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_1"), 0.86f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_2"), 0.84f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_3"), 0.82f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_4"), 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_0"), 0.7f,  0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_1"), 0.73f, 0.93f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_2"), 0.75f, 0.95f));
+		LEVEL_SIZE.y = 2560.0f;
+	}
+	else if (LEVEL_ID == 22)
+	{
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer0"),   1.0f));
+
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer1"),   0.9f,  0.95f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_0"), 0.88f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_1"), 0.86f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_2"), 0.84f, 0.2f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_3"), 0.82f, 0.08f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_4"), 0.8f,  0.0002f));
+
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_0"), 0.7f,  0.7f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_1"), 0.73f, 0.73f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_2"), 0.75f, 0.75f));
+
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4"), 0.3f));
+		LEVEL_SIZE.y = 2560.0f;
 	}
 
-	soundemitter->Play(bgm);
+	if(bgm)
+		soundemitter->Play(bgm);
 
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
@@ -389,7 +512,7 @@ void LevelScreen::Update()
 	else soundemitter->setPitch(1);
 
 	// Water height
-	if (LEVEL_ID != 22u)
+	if (m_hasWater)
 		player->setWaterHeight(m_waterHeight);
 
 	// HUD stuff
@@ -407,8 +530,6 @@ void LevelScreen::Update()
 	// Parallax
 	if (!m_paused)
 	{
-		parallax.Update();
-		fg_parallax.Update();
 		if (LEVEL_ID == 0 || LEVEL_ID == 1)
 		{
 			float parallaxYpos;
@@ -422,11 +543,24 @@ void LevelScreen::Update()
 			parallax.SetYPosition(-parallaxYpos);
 			fg_parallax.SetYPosition(-parallaxYpos);
 		}
-		else
+		else if(LEVEL_ID == 2 || LEVEL_ID == 3)
 		{
 			parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y);
 			fg_parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y);
 		}
+		else if (LEVEL_ID == 20 || LEVEL_ID == 21 || LEVEL_ID == 22)
+		{
+			parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y * 0.062f);
+			fg_parallax.SetYPosition(-RenderingSystem::GetViewportPosition().y * 0.062f);
+		}
+		else
+		{
+			parallax.SetYPosition(0.0f);
+			fg_parallax.SetYPosition(0.0f);
+		}
+
+		parallax.Update();
+		fg_parallax.Update();
 	}
 
 	// Fade activation
@@ -481,8 +615,6 @@ void LevelScreen::Update()
 
 void LevelScreen::updateCamera()
 {
-	//if (m_paused) return;
-
 	vec2 cameraPos = OficinaFramework::RenderingSystem::GetCameraPosition();
 
 	// Debug
@@ -626,6 +758,8 @@ void LevelScreen::Draw()
 				glColor4f(0.25f, 0.125f, 0.375f, 0.6f);
 			else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 				OficinaFramework::RenderingSystem::glColorM(DARKBLUE, 0.5078125f);
+			else if (LEVEL_ID == 25)
+				OficinaFramework::RenderingSystem::glColorM(BLACK, 0.6f);
 			else
 				OficinaFramework::RenderingSystem::glColorM(DARKBLUE, 0.4f);
 			glVertex2f(0.0f, waterTop);
@@ -686,6 +820,19 @@ void LevelScreen::Draw()
 		glEnd();
 		glPopMatrix();
 	}
+	if (LEVEL_ID == 25u && player->GetPosition().y > 100000.0f)
+	{
+		glPushMatrix();
+		glTranslatef(viewportPos.x, viewportPos.y, 0.0f);
+		OficinaFramework::RenderingSystem::glColorM(BLACK, 1.0f);
+		glBegin(GL_QUADS);
+		glVertex2f(0.0f, 0.0f);
+		glVertex2f(viewportSize.x, 0.0f);
+		glVertex2f(viewportSize.x, viewportSize.y);
+		glVertex2f(0.0f, viewportSize.y);
+		glEnd();
+		glPopMatrix();
+	}
 
 	// Title Card
 	if (m_fade > -1.0f || m_titlecard_pos.x < RenderingSystem::GetResolution().x)
@@ -693,10 +840,12 @@ void LevelScreen::Draw()
 		glPushMatrix();
 			OficinaFramework::RenderingSystem::glTranslateToViewportPos();
 
-			// Background
+			// Background & Act
 			glPushMatrix();
 				glTranslatef((5.0f * (RenderingSystem::GetResolution().x / 8.0f)) + m_titlecard_pos.x, m_titlecard_pos.y, 0.0f);
 				hudSheet->DrawFrame(vec2::Zero(), 0);
+				if(LEVEL_ACT != 0)
+					hudSheet->DrawFrame(vec2(-12.0f, 8.0f), LEVEL_ACT + 2u);
 			glPopMatrix();
 
 			// Level Name
@@ -725,6 +874,7 @@ void LevelScreen::Draw()
 				}
 
 			glPopMatrix();
+
 		glPopMatrix();
 	}
 }

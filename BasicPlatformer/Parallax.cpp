@@ -1,7 +1,7 @@
 #include "Parallax.hpp"
 #include <cmath>
 
-ParallaxPiece::ParallaxPiece(RenderingSystem::Texture* t, float followRatio, bool autoWalk, vec2 position)
+ParallaxPiece::ParallaxPiece(RenderingSystem::Texture* t, float followRatio, float walkRatio, vec2 position)
 {
 	this->t = t;
 
@@ -13,8 +13,9 @@ ParallaxPiece::ParallaxPiece(RenderingSystem::Texture* t, float followRatio, boo
 	for(dword i = 1; i < amount; i++)
 		Xpositions[i] = Xpositions[0]
 			+ (static_cast<float>(t->GetSize().x) * static_cast<float>(i));
+	oldViewportX = Xpositions[0];
 	this->followRatio = followRatio;
-	this->autoWalk = autoWalk;
+	this->walkRatio   = walkRatio;
 }
 
 ParallaxPiece::~ParallaxPiece()
@@ -30,9 +31,14 @@ void Parallax::Update()
 	float vwpXpos = RenderingSystem::GetViewportPosition().x;
 	for (auto piecePtr : pieces)
 	{
-		if(!piecePtr->autoWalk)
-			piecePtr->Xpositions[0] = vwpXpos * piecePtr->followRatio;
-		else piecePtr->Xpositions[0] -= 1.0f - piecePtr->followRatio;
+		// Get old difference
+		piecePtr->Xpositions[0] -= piecePtr->oldViewportX;
+		// Increase difference by walk speed
+		piecePtr->Xpositions[0] -= 1.0f - piecePtr->walkRatio;
+		// Add new viewport to match new, correct position, with follow ratio
+		piecePtr->Xpositions[0] += vwpXpos * piecePtr->followRatio;
+		// Save current viewport position
+		piecePtr->oldViewportX = vwpXpos * piecePtr->followRatio;
 
 		// Exceeding
 		if((piecePtr->Xpositions[0] <

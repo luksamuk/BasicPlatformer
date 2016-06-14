@@ -10,7 +10,12 @@ Changelog
 v0.3.9 (WIP)
 - Added Parallax scrolling background;
 - Added Effects and Effect Spawners (WIP);
-- Added WIP backgrounds for IIz and AAz (parallax only).
+- Added WIP backgrounds for IIz, AAz, CCz (both levels 6 and 11), TFF (parallax only);
+- Updated song for AAz;
+- Added songs for CCz (both 6 and 11), DDz, SSz, WWz;
+- Updated HUD;
+- Various small changes;
+- Updated Oficina version to v1.3 Snapshot 613.
 
 v0.3.5
 - Added Options menu;
@@ -82,8 +87,9 @@ Dependencies (Binary Release)
 Most dependencies are already included with the binary.
 Software used is:
 
-- OficinaFramework v1.3b-426
+- OficinaFramework v1.3b-613
 - OpenGL v3.1
+  - GLEW v1.13.0
 - SDL2 v2.0.4
 - SDL2_image v2.0.1
   - libpng

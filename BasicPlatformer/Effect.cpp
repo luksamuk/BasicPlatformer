@@ -2,6 +2,7 @@
 
 Effect::Effect(EffectType type)
 {
+	SetName("Effect");
 	m_type = type;
 }
 

@@ -1,5 +1,6 @@
 #include "TitleScreen.hpp"
 #include "LevelSelectScreen.hpp"
+#include "LevelScreen.hpp"
 #include "OptionsScreen.hpp"
 #include <OficinaFramework\InputSystem.hpp>
 using namespace OficinaFramework;
@@ -29,17 +30,17 @@ void TitleScreen::LoadContent()
 
 	optionXPos = (RenderingSystem::GetResolution().toVec2().x / 2.0f) - (menuFont->MeasureString(menuOptions[0], 1.5f).x / 2.0f);
 
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"), 1.0f,    true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"), 0.94f,   true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"), 0.9f,    true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"), 0.92f,   true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 0.9f,  true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 0.92f, true));
-
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 0.89f, true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 0.87f, true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, true));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, true));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f, 0.0f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"),   1.0f, 0.94f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"),   1.0f, 0.9f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"),   1.0f, 0.92f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 1.0f, 0.9f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 1.0f, 0.92f));
+																																
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 1.0f, 0.83f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 1.0f, 0.81f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 1.0f, 0.79f));
+	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 1.0f, 0.77f));
 
 	ScreenSystem::Screen::LoadContent();
 }
@@ -76,8 +77,10 @@ void TitleScreen::Update()
 		m_fade = 1.0f;
 		switch (m_selection)
 		{
-		case 0: // Level Select
-			ScreenSystem::AddScreen(new LevelSelectScreen);
+		case 0: // New Game, Level Select
+			if(InputSystem::PressingButton(InputSystem::GamePadButton::A))
+				ScreenSystem::AddScreen(new LevelSelectScreen);
+			else ScreenSystem::AddScreen(new LevelScreen(0u));
 			RemoveMe();
 			break;
 		case 1: // Level Editor
@@ -148,14 +151,14 @@ void TitleScreen::Update()
 	if (m_fadetimer < 42)
 	{
 		m_fadetimer++;
-		if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
+		if (InputSystem::PressedButton(InputSystem::GamePadButton::START))
 			m_fadetimer = 42;
 	}
 	else if(m_fadetimer >= 42)
 	{
 		if (m_whitefade > 0.0f) m_whitefade -= 0.1f;
 
-		if (InputSystem::PressedButton(InputSystem::GamePadButton::A)
+		if (InputSystem::PressedButton(InputSystem::GamePadButton::START)
 			&& m_fade == 0.0f
 			&& (m_selection == m_menuselection))
 		{

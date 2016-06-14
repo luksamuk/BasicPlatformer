@@ -95,8 +95,9 @@ void Player::Update()
 	if (!ground) m_groundvelocity.y += values->m_gravity;
 
 	// Air drag
-	if (m_groundvelocity.y < 0.0f && m_groundvelocity > values->m_airdrag_minyv
-		&& abs(m_groundvelocity.x) >= values->m_airdrag_minxv) m_groundvelocity.x *= values->m_airdragfactor;
+	if (m_groundvelocity.y < 0.0f && m_groundvelocity.y > values->m_airdrag_minyv
+		&& abs(m_groundvelocity.x) >= values->m_airdrag_minxv)
+		m_groundvelocity.x *= values->m_airdragfactor;
 
 
 

@@ -15,7 +15,7 @@ private:
 	float menuSpeed = 30.0f;
 	const std::string menuOptions[4] =
 	{
-		"  Level Select >",
+		"    New Game   >",
 		"< Level Editor >",
 		"<    Options   >",
 		"<     Quit      "
