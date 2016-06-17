@@ -1,12 +1,14 @@
-####################################
-# SonicEngine                      #
-# -----------                      #
-# Targets of interest:             #
-# - all:    Builds the game.       #
-# - assets: Compresses game data.  #
-# - clean:  Deletes object files.  #
-# - delete: Deletes compiled game. #
-####################################
+############################################################
+# SonicEngine                                              #
+# -----------                                              #
+# Targets of interest:                                     #
+# - all:     Builds the game (Currently on debug profile). #
+# - debug:   Builds the game (Debug profile).              #
+# - release: Builds the game (Release profile).            #
+# - assets:  Compresses game data.                         #
+# - clean:   Deletes object files.                         #
+# - delete:  Deletes compiled game.                        #
+############################################################
 
 
 CXX       = g++ --std=c++11
@@ -19,7 +21,7 @@ OUTPUT    = SonicEngine
 SRC_DIR   = ./
 RES_DIR   = $(SRC_DIR)resources/
 OBJ_DIR   = ../obj/
-OUT_DIR   = ../bin/
+OUT_DIR   = ../bin/Debug/
 
 CXX_OBJ   = -c
 CXX_FLAGS = -g
@@ -51,10 +53,18 @@ FLAGS     = $(CXX_FLAGS) $(OF_FLAGS) -I$(SRC_DIR)
 
 ### Main target
 
-all: dirs $(PROJ_LIBS)
+all: debug
+
+release: CXX_FLAGS = -O3
+release: OF_FLAGS  =
+release: OF_LIBS   = -loficina $(OF_DEPS)
+release: OUT_DIR   = ../bin/Release/
+release: clean game
+
+debug: game
+
+game: dirs $(PROJ_LIBS)
 	$(CXX) $(PROJ_LIBS) $(FLAGS) $(LIBS) $(CXX_OUT) $(OUT_DIR)$(OUTPUT)
-
-
 
 ### Phony Targets
 
