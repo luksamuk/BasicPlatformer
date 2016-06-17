@@ -1,5 +1,5 @@
 #include "Solid.hpp"
-#include <OficinaFramework\ScreenSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
 
 
 Solid::Solid(vec2 position, vec2 size, SolidType type)

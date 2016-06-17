@@ -1,6 +1,6 @@
 #include "OptionsScreen.hpp"
 #include "TitleScreen.hpp"
-#include <OficinaFramework\InputSystem.hpp>
+#include <OficinaFramework/InputSystem.hpp>
 using namespace OficinaFramework;
 
 OptionsScreen::OptionsScreen()

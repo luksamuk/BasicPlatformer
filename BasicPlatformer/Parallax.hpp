@@ -1,6 +1,6 @@
 #pragma once
-#include <OficinaFramework\RenderingSystem.hpp>
-#include <OficinaFramework\EntitySystem.hpp>
+#include <OficinaFramework/RenderingSystem.hpp>
+#include <OficinaFramework/EntitySystem.hpp>
 using namespace OficinaFramework;
 
 struct ParallaxPiece

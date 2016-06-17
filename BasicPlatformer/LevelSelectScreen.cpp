@@ -1,7 +1,7 @@
 #include "LevelSelectScreen.hpp"
 #include "TitleScreen.hpp"
 #include "LevelScreen.hpp"
-#include <OficinaFramework\InputSystem.hpp>
+#include <OficinaFramework/InputSystem.hpp>
 using namespace OficinaFramework;
 
 LevelSelectScreen::LevelSelectScreen()

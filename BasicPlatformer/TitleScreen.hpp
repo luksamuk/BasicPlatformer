@@ -1,7 +1,7 @@
 #pragma once
-#include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\AudioSystem.hpp>
-#include <OficinaFramework\RenderingSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
+#include <OficinaFramework/AudioSystem.hpp>
+#include <OficinaFramework/RenderingSystem.hpp>
 #include "Parallax.hpp"
 
 class TitleScreen : public OficinaFramework::ScreenSystem::Screen

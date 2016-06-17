@@ -1,7 +1,7 @@
 #pragma once
-#include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\RenderingSystem.hpp>
-#include <OficinaFramework\AudioSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
+#include <OficinaFramework/RenderingSystem.hpp>
+#include <OficinaFramework/AudioSystem.hpp>
 #include <string>
 
 class LevelSelectScreen : public OficinaFramework::ScreenSystem::Screen

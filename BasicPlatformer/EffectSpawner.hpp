@@ -1,5 +1,5 @@
 #pragma once
-#include <OficinaFramework\EntitySystem.hpp>
+#include <OficinaFramework/EntitySystem.hpp>
 #include "Effect.hpp"
 
 class EffectSpawner : public OficinaFramework::EntitySystem::Entity

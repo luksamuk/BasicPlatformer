@@ -1,6 +1,6 @@
 #pragma once
-#include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\RenderingSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
+#include <OficinaFramework/RenderingSystem.hpp>
 using namespace OficinaFramework;
 
 

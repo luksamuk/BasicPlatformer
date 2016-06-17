@@ -1,7 +1,7 @@
 #pragma once
-#include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\EntitySystem.hpp>
-#include <OficinaFramework\AudioSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
+#include <OficinaFramework/EntitySystem.hpp>
+#include <OficinaFramework/AudioSystem.hpp>
 
 #include "Player.hpp"
 #include "Solid.hpp"

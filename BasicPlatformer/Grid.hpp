@@ -1,7 +1,7 @@
 #pragma once
 
-#include <OficinaFramework\OficinaTypes.hpp>
-#include <OficinaFramework\EntitySystem.hpp>
+#include <OficinaFramework/OficinaTypes.hpp>
+#include <OficinaFramework/EntitySystem.hpp>
 #include <vector>
 
 class Grid

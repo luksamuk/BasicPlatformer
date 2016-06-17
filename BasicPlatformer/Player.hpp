@@ -1,8 +1,8 @@
 #pragma once
-#include <OficinaFramework\EntitySystem.hpp>
-#include <OficinaFramework\InputSystem.hpp>
-#include <OficinaFramework\ScreenSystem.hpp>
-#include <OficinaFramework\AudioSystem.hpp>
+#include <OficinaFramework/EntitySystem.hpp>
+#include <OficinaFramework/InputSystem.hpp>
+#include <OficinaFramework/ScreenSystem.hpp>
+#include <OficinaFramework/AudioSystem.hpp>
 #include "Grid.hpp"
 
 struct PlayerValues

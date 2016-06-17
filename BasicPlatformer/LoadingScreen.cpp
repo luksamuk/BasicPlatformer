@@ -1,6 +1,6 @@
 #include "LoadingScreen.hpp"
-#include <OficinaFramework\InputSystem.hpp>
-#include <OficinaFramework\TimingSystem.hpp>
+#include <OficinaFramework/InputSystem.hpp>
+#include <OficinaFramework/TimingSystem.hpp>
 
 /* Loading Screen */
 void LoadingScreen::Initialize() {

@@ -1,7 +1,7 @@
 #include "PresentationScreen.hpp"
 #include "TitleScreen.hpp"
-#include <OficinaFramework\TimingSystem.hpp>
-#include <OficinaFramework\InputSystem.hpp>
+#include <OficinaFramework/TimingSystem.hpp>
+#include <OficinaFramework/InputSystem.hpp>
 
 /* Presentation Screen */
 void PresentationScreen::Initialize() {
