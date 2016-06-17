@@ -1,3 +1,14 @@
+####################################
+# SonicEngine                      #
+# -----------                      #
+# Targets of interest:             #
+# - all:    Builds the game.       #
+# - assets: Compresses game data.  #
+# - clean:  Deletes object files.  #
+# - delete: Deletes compiled game. #
+####################################
+
+
 CXX       = g++ --std=c++11
 MKDIR     = mkdir -p
 DEL       = rm -rf
@@ -36,12 +47,21 @@ FLAGS     = $(CXX_FLAGS) $(OF_FLAGS) -I$(SRC_DIR)
 
 .PHONY: clean delete dirs assets
 
+
+
 ### Main target
 
 all: dirs $(PROJ_LIBS)
 	$(CXX) $(PROJ_LIBS) $(FLAGS) $(LIBS) $(CXX_OUT) $(OUT_DIR)$(OUTPUT)
 
+
+
 ### Phony Targets
+
+assets:
+	cd $(RES_DIR);  \
+	make
+
 clean:
 	$(DEL) $(OBJ_DIR)*.o
 
@@ -51,13 +71,9 @@ delete:
 dirs:
 	@$(MKDIR) $(OUT_DIR) $(OBJ_DIR)
 
-assets:
-	cd $(RES_DIR);  \
-	make
 
 
 ### Subtargets
-
 
 ## Screens
 
