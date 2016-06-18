@@ -150,7 +150,6 @@ LevelScreen::LevelScreen(dword id)
 		m_hasWater = false;
 }
 
-int count;
 LevelScreen::~LevelScreen()
 {
 }
@@ -290,8 +289,6 @@ void LevelScreen::Initialize()
 	//m_grid->Populate(&m_drawables);
 
 	m_drawables.Add(player = new Player);
-
-	for (auto obj : m_drawables) count++;
 
 	m_drawables.Initialize();
 
@@ -622,8 +619,7 @@ void LevelScreen::updateCamera()
 	{
 		std::stringstream oss;
 		oss.clear();
-		oss << "CAM >> " << "LAG " << m_cameralag << " " << cameraPos << std::endl
-			<< "OBJ >> " << count;
+		oss << "CAM >> " << "LAG " << m_cameralag << " " << cameraPos;
 		OficinaFramework::ScreenSystem::Debug_AddLine(oss.str());
 	}
 
@@ -645,7 +641,7 @@ void LevelScreen::updateCamera()
 	vec2 resolution = OficinaFramework::RenderingSystem::GetResolution().toVec2();
 
 	// Our ideal viewport
-	vec2 desiredViewport = resolution;
+	//vec2 desiredViewport = resolution;
 
 	// Calculate camera boundaries
 	float cameraBoundsMinX = cameraPos.x - 16.0f;

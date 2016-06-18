@@ -24,7 +24,7 @@ OBJ_DIR   = ../obj/
 OUT_DIR   = ../bin/Debug/
 
 CXX_OBJ   = -c
-CXX_FLAGS = -g
+CXX_FLAGS = -g -Wall
 CXX_OUT   = -o
 OF_FLAGS  = -DDEBUG_ENABLED
 OF_DEPS   = -lSDL2 -lSDL2_image -lGL -lGLEW -lopenal -logg -lvorbis \

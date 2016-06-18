@@ -13,7 +13,7 @@ void OptionsScreen::Initialize()
 {
 	// Deduce Window Size
 	m_windowSizeOption = int((((float)ScreenSystem::GetWindowSize().x / (float)RenderingSystem::GetResolution().x) - 1.0f) / 0.5f);
-	m_windowSizeOption = m_windowSizeOption < 0 ? m_windowSizeOption = 0 : m_windowSizeOption;
+	m_windowSizeOption = m_windowSizeOption < 0 ? 0 : m_windowSizeOption;
 	m_fullscreenOption = ScreenSystem::IsFullScreen();
 	m_filteringOption = RenderingSystem::GetLinearFilteringState();
 	ScreenSystem::Screen::Initialize();

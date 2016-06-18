@@ -247,11 +247,11 @@ void Player::Update()
 	//	 * topSolidL = nullptr,
 	//	 * topSolidR = nullptr;
 
-	float bottomSensorLLastHeight = 16.0f,
+	/*float bottomSensorLLastHeight = 16.0f,
 		  bottomSensorRLastHeight = 16.0f,
 		
 		  topSensorLLastHeight = 16.0f,
-		  topSensorRLastHeight = 16.0f;
+		  topSensorRLastHeight = 16.0f;*/
 
 	vec2 aabbPos(m_position.x - 32.0f, m_position.y - m_vlinecast);
 	vec2 aabbSize(64.0f, m_vlinecast * 2.0f);
@@ -379,9 +379,9 @@ void Player::Update()
 		// conservative values
 		{
 			vec2 oldGroundVelocity = m_groundvelocity;
-			m_groundvelocity.x = oldGroundVelocity.x * -cosf(M_PI + m_angle);
-			m_groundvelocity.x += oldGroundVelocity.y * sinf(M_PI + m_angle);
-			m_groundvelocity.y = oldGroundVelocity.y * -cosf(M_PI + m_angle);
+			m_groundvelocity.x  = oldGroundVelocity.x * -cosf(M_PI + m_angle);
+			m_groundvelocity.x += oldGroundVelocity.y *  sinf(M_PI + m_angle);
+			m_groundvelocity.y  = oldGroundVelocity.y * -cosf(M_PI + m_angle);
 			m_groundvelocity.y += oldGroundVelocity.x * -sinf(M_PI + m_angle);
 		}
 		m_angle = 0.0f;
