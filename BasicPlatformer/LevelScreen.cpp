@@ -77,11 +77,11 @@ LevelScreen::LevelScreen(dword id)
 		LEVEL_ACT = 2;
 		break;
 	case 14:
-		LEVEL_NAME = "DYNAMIC DASH";
+		LEVEL_NAME = "RADIANT RUSH";
 		LEVEL_ACT = 1;
 		break;
 	case 15:
-		LEVEL_NAME = "DYNAMIC DASH";
+		LEVEL_NAME = "RADIANT RUSH";
 		LEVEL_ACT = 2;
 		break;
 	case 16:
@@ -315,16 +315,31 @@ void LevelScreen::LoadContent()
 				"bgm/amazingaquarium",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 87.848f, 11.009f);
+		else if (LEVEL_ID == 6 || LEVEL_ID == 7)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/hazelhill",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 70.468f, 0.075f);
 		else if (LEVEL_ID == 8 || LEVEL_ID == 9)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/dustydesert",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 71.054f, 23.067f);
+		else if (LEVEL_ID == 10 || LEVEL_ID == 11)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/jesterjuggle",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 72.077f, 0.075f);
 		else if (LEVEL_ID == 12 || LEVEL_ID == 13)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/chaoticcanyon",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 78.616f, 8.799f);
+		else if (LEVEL_ID == 14 || LEVEL_ID == 15)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/radiantrush",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 98.798f, 13.530f);
 		else if (LEVEL_ID == 18)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/whitewonder",
@@ -458,7 +473,8 @@ void LevelScreen::LoadContent()
 		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_1"), 0.73f, 0.73f));
 		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_2"), 0.75f, 0.75f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4"), 0.3f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4_0"), 0.3f));
+		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4_1"), 0.3f));
 		LEVEL_SIZE.y = 2560.0f;
 	}
 

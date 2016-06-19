@@ -12,9 +12,10 @@ v0.3.9 (WIP)
 - Added Effects and Effect Spawners (WIP);
 - Added WIP backgrounds for IIz, AAz, CCz (both levels 6 and 11), TFF (parallax only);
 - Updated song for AAz;
-- Added songs for CCz (both 6 and 11), DDz, SSz, WWz;
+- Added songs for CCz (both 6 and 11), DDz, SSz, WWz, JJz, RRz;
 - Updated HUD;
 - Various small changes;
+- Changed Dynamic Dash Zone to Radiant Rush Zone;
 - Updated Oficina version to v1.3 Snapshot 613.
 
 v0.3.5

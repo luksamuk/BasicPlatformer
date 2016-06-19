@@ -37,7 +37,7 @@ private:
 		"Chaotic Canyon           1", // ID 12
 		"                         2", // ID 13
 
-		"Dynamic Dash             1", // ID 14
+		"Radiant Rush             1", // ID 14
 		"                         2", // ID 15
 
 		"Cyber City               1", // ID 16
