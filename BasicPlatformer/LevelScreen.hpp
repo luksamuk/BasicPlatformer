@@ -66,6 +66,7 @@ private:
 	Parallax fg_parallax;
 
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_drawables;
+	OficinaFramework::EntitySystem::DrawableEntityCollection m_effects;
 
 	Player* player;
 public:

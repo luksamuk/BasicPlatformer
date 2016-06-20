@@ -619,16 +619,15 @@ void Player::Update()
 
 
 	/* SUPER SONIC: SPARKS */
-	// TODO: First fix Oficina's bug for duplicate stuff.
-	/*if(m_superspark_span > 0) m_superspark_span--;
-	if(m_super &&
-		(m_animator->GetCurrentAnimationName() == "Run" ||
-		m_animator->GetCurrentAnimationName() == "Run2")
+	// TODO: Also fix Oficina's bug for duplicate stuff.
+	if(m_superspark_span > 0) m_superspark_span--;
+	if(m_super
+		&& abs(m_groundvelocity.x) >= 5.9f
 		&& m_superspark_span == 0u)
 	{
 		m_superspark_span = 15u;
 		m_spawner->Create(FX_SPARK, m_position);
-	}*/
+	}
 
 
 

@@ -292,6 +292,7 @@ void LevelScreen::Initialize()
 	m_drawables.Add(player = new Player);
 
 	m_drawables.Initialize();
+	m_effects.Initialize();
 
 	if (LEVEL_ID == 2u || LEVEL_ID == 3u)
 		player->SetPosition(vec2(180.0f, 620.0f));
@@ -304,6 +305,7 @@ void LevelScreen::Initialize()
 void LevelScreen::LoadContent()
 {
 	m_drawables.LoadContent();
+	m_effects.LoadContent();
 	bgm = [&]() -> AudioSystem::Audio*
 	{
 		if(LEVEL_ID == 0 || LEVEL_ID == 1)
@@ -483,7 +485,7 @@ void LevelScreen::LoadContent()
 		soundemitter->Play(bgm);
 
 	m_spawner.LoadContent();
-	m_spawner.setCollection(&m_drawables);
+	m_spawner.setCollection(&m_effects);
 	player->setSpawner(&m_spawner);
 
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
@@ -494,6 +496,7 @@ void LevelScreen::UnloadContent()
 	//delete m_grid;
 	m_drawables.UnloadContent();
 	m_drawables.Dispose();
+	m_effects.Dispose();
 	m_spawner.UnloadContent();
 
 	soundemitter->Stop();
@@ -630,6 +633,7 @@ void LevelScreen::Update()
 
 	// Drawable objects
 	m_drawables.Update();
+	m_effects.Update();
 }
 
 void LevelScreen::updateCamera()
@@ -758,6 +762,7 @@ void LevelScreen::Draw()
 
 	// Drawables
 	m_drawables.Draw();
+	m_effects.Draw();
 
 	// Foreground
 	fg_parallax.Draw();
