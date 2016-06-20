@@ -6,6 +6,7 @@
 Player::Player()
 {
 	SetName("Player");
+	m_spawner = nullptr;
 }
 
 
@@ -593,6 +594,7 @@ void Player::Update()
 			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
+				m_spawner->Create(FX_SPLASH, vec2(m_position.x + 5.0f, m_waterHeight - 15.0f));
 			}
 		}
 		else if (m_underwater && (m_position.y < m_waterHeight))
@@ -603,6 +605,7 @@ void Player::Update()
 			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
+				m_spawner->Create(FX_SPLASH, vec2(m_position.x + 5.0f, m_waterHeight - 15.0f));
 			}
 		}
 	}
@@ -615,6 +618,17 @@ void Player::Update()
 	updateAnimation(leftStick.x);
 
 
+	/* SUPER SONIC: SPARKS */
+	// TODO: First fix Oficina's bug for duplicate stuff.
+	/*if(m_superspark_span > 0) m_superspark_span--;
+	if(m_super &&
+		(m_animator->GetCurrentAnimationName() == "Run" ||
+		m_animator->GetCurrentAnimationName() == "Run2")
+		&& m_superspark_span == 0u)
+	{
+		m_superspark_span = 15u;
+		m_spawner->Create(FX_SPARK, m_position);
+	}*/
 
 
 
@@ -842,6 +856,11 @@ void Player::setGrid(Grid* grid) {
 
 void Player::disableGrid()  {
 	m_grid = nullptr;
+}
+
+void Player::setSpawner(EffectSpawner* fxs)
+{
+	m_spawner = fxs;
 }
 
 void Player::LoadContent()

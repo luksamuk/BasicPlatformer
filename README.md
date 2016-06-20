@@ -9,7 +9,7 @@ Changelog
 ---------
 v0.3.9 (WIP)
 - Added Parallax scrolling background;
-- Added Effects and Effect Spawners (WIP);
+- Added Basic Effects and Effect Spawners;
 - Added WIP backgrounds for IIz, AAz, CCz (both levels 6 and 11), TFF (parallax only);
 - Updated song for AAz;
 - Added songs for CCz (both 6 and 11), DDz, SSz, WWz, JJz, RRz;

@@ -1,20 +1,22 @@
 #pragma once
 #include <OficinaFramework/EntitySystem.hpp>
+#include <OficinaFramework/RenderingSystem.hpp>
 #include "Effect.hpp"
 
-class EffectSpawner : public OficinaFramework::EntitySystem::Entity
+class EffectSpawner
 {
 private:
 	OficinaFramework::EntitySystem::DrawableEntityCollection* m_effectCollection;
+	OficinaFramework::RenderingSystem::Texture* m_effects;
+	OficinaFramework::RenderingSystem::SpriteSheet* m_sheet;
 public:
 	EffectSpawner();
-	// Inherited via Entity
-	virtual void Initialize() override;
-	virtual void Update() override;
 
 	void LoadContent();
 	void UnloadContent();
 
 	void Create(EffectType, vec2);
 	//void Create(EffectType, OficinaFramework::EntitySystem::Entity*);
+
+	void setCollection(OficinaFramework::EntitySystem::DrawableEntityCollection*);
 };

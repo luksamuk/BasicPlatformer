@@ -4,6 +4,7 @@
 #include <OficinaFramework/ScreenSystem.hpp>
 #include <OficinaFramework/AudioSystem.hpp>
 #include "Grid.hpp"
+#include "EffectSpawner.hpp"
 
 struct PlayerValues
 {
@@ -227,7 +228,11 @@ private:
 	// Water related
 	bool                                            m_haswater;
 	float                                           m_waterHeight;
-	
+
+	// Effect related
+	EffectSpawner* 									m_spawner;
+	byte                                            m_superspark_span = 0u;
+
 public:
 	Player();
 	~Player();
@@ -253,6 +258,7 @@ public:
 	void disableWater();
 	void setGrid(Grid*);
 	void disableGrid();
+	void setSpawner(EffectSpawner*);
 
 	virtual void LoadContent() override;
 	virtual void UnloadContent() override;

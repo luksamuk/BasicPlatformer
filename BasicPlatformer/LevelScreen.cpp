@@ -4,6 +4,7 @@
 #include <sstream>
 using namespace OficinaFramework;
 
+#include "EffectSpawner.hpp"
 
 LevelScreen::LevelScreen(dword id)
 {
@@ -481,6 +482,10 @@ void LevelScreen::LoadContent()
 	if(bgm)
 		soundemitter->Play(bgm);
 
+	m_spawner.LoadContent();
+	m_spawner.setCollection(&m_drawables);
+	player->setSpawner(&m_spawner);
+
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
 
@@ -489,6 +494,7 @@ void LevelScreen::UnloadContent()
 	//delete m_grid;
 	m_drawables.UnloadContent();
 	m_drawables.Dispose();
+	m_spawner.UnloadContent();
 
 	soundemitter->Stop();
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(bgm);
