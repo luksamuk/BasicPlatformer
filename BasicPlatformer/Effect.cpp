@@ -38,7 +38,7 @@ void Effect::Update()
 void Effect::LoadContent()
 {
 	m_anim = new RenderingSystem::Animation(m_sheet);
-	m_anim->RegisterAnimation("SPLASH", RenderingSystem::Animation::AnimationSpecs(0, 5, 5, 0.025f));
+	m_anim->RegisterAnimation("SPLASH", RenderingSystem::Animation::AnimationSpecs(0, 5, 5, 0.035f));
 	m_anim->RegisterAnimation( "SPARK", RenderingSystem::Animation::AnimationSpecs(7, 10, 10, 0.025f));
 	m_anim->SetSyncToFramerate(true);
 
