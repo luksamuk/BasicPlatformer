@@ -594,7 +594,7 @@ void Player::Update()
 			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
-				m_spawner->Create(FX_SPLASH, vec2(m_position.x + 5.0f, m_waterHeight - 15.0f));
+				m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
 			}
 		}
 		else if (m_underwater && (m_position.y < m_waterHeight))
@@ -605,7 +605,7 @@ void Player::Update()
 			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx_05_water);
-				m_spawner->Create(FX_SPLASH, vec2(m_position.x + 5.0f, m_waterHeight - 15.0f));
+				m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
 			}
 		}
 	}

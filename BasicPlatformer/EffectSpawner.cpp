@@ -9,7 +9,7 @@ EffectSpawner::EffectSpawner()
 void EffectSpawner::LoadContent()
 {
 	m_effects = RenderingSystem::TexturePool::LoadTexture("sprites/effects");
-	m_sheet = new RenderingSystem::SpriteSheet(vec2dw(50u), vec2b::One(), vec2::Zero());
+	m_sheet = new RenderingSystem::SpriteSheet(vec2dw(48u), vec2b::One(), vec2::Zero());
 	m_sheet->AppendTexture(m_effects);
 }
 

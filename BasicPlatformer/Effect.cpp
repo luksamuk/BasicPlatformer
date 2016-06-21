@@ -21,13 +21,13 @@ void Effect::Update()
 	{
 	default: break;
 	case FX_SPLASH:
-		if(m_anim->GetCurrentFrame() == 5)
+		if(m_anim->GetCurrentFrame() == 6)
 		{
 			RemoveMe();
 		}
 		break;
 	case FX_SPARK:
-		if(m_anim->GetCurrentFrame() == 10)
+		if(m_anim->GetCurrentFrame() == 12)
 		{
 			RemoveMe();
 		}
@@ -38,8 +38,8 @@ void Effect::Update()
 void Effect::LoadContent()
 {
 	m_anim = new RenderingSystem::Animation(m_sheet);
-	m_anim->RegisterAnimation("SPLASH", RenderingSystem::Animation::AnimationSpecs(0, 5, 5, 0.035f));
-	m_anim->RegisterAnimation( "SPARK", RenderingSystem::Animation::AnimationSpecs(7, 10, 10, 0.025f));
+	m_anim->RegisterAnimation("SPLASH", RenderingSystem::Animation::AnimationSpecs(0, 6, 0.035f));
+	m_anim->RegisterAnimation( "SPARK", RenderingSystem::Animation::AnimationSpecs(7, 12, 0.025f));
 	m_anim->SetSyncToFramerate(true);
 
 	switch(m_type) {
