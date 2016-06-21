@@ -488,6 +488,9 @@ void LevelScreen::LoadContent()
 	m_spawner.setCollection(&m_effects);
 	player->setSpawner(&m_spawner);
 
+	// Test shield
+	m_spawner.Create(FX_SHIELD, player);
+
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
 

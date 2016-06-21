@@ -30,6 +30,19 @@ void EffectSpawner::Create(EffectType fxt, vec2 pos)
 	m_effectCollection->Add(fx);
 }
 
+void EffectSpawner::Create(EffectType fxt, EntitySystem::Entity* follow)
+{
+	if(m_effectCollection == nullptr)
+	{
+		OF_Log(OF_LOG_LVL_ERROR, "EffectSpawner's collection not defined!\n");
+		return;
+	}
+	Effect* fx = new Effect(fxt, m_sheet, follow);
+	if(follow)
+		fx->SetPosition(follow->GetPosition());
+	m_effectCollection->Add(fx);
+}
+
 void EffectSpawner::setCollection(EntitySystem::DrawableEntityCollection* col)
 {
 	m_effectCollection = col;

@@ -5,8 +5,9 @@
 enum EffectType
 {
 	FX_SPLASH,
-	FX_SPARK//,
-	//FX_SHIELD,
+	FX_SPARK,
+	FX_SHIELD//,
+	//FX_BUBBLE,
 	//FX_SKIDDING,
 	//FX_SPINDASH
 };
@@ -17,8 +18,10 @@ private:
 	EffectType m_type;
 	OficinaFramework::RenderingSystem::SpriteSheet* m_sheet;
 	OficinaFramework::RenderingSystem::Animation*   m_anim;
+	OficinaFramework::EntitySystem::Entity*         m_follow;
 public:
-	Effect(EffectType type, OficinaFramework::RenderingSystem::SpriteSheet*);
+	Effect(EffectType type, OficinaFramework::RenderingSystem::SpriteSheet*,
+	                  OficinaFramework::EntitySystem::Entity* follow = nullptr);
 
 	// Inherited via DrawableEntity
 	virtual void Initialize() override;

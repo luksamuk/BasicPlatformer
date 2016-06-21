@@ -16,7 +16,7 @@ public:
 	void UnloadContent();
 
 	void Create(EffectType, vec2);
-	//void Create(EffectType, OficinaFramework::EntitySystem::Entity*);
+	void Create(EffectType, OficinaFramework::EntitySystem::Entity*);
 
 	void setCollection(OficinaFramework::EntitySystem::DrawableEntityCollection*);
 };
