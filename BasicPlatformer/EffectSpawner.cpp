@@ -39,7 +39,7 @@ void EffectSpawner::Create(EffectType fxt, EntitySystem::Entity* follow, vec2 ho
 	}
 	Effect* fx = new Effect(fxt, m_sheet, follow, hotspot, alpha);
 	if(follow)
-		fx->SetPosition(follow->GetPosition());
+		fx->SetPosition(follow->GetPosition() + hotspot);
 	m_effectCollection->Add(fx);
 }
 
