@@ -78,12 +78,12 @@ void TitleScreen::Update()
 		switch (m_selection)
 		{
 		case 0: // New Game, Level Select
-			if(InputSystem::PressingButton(InputSystem::GamePadButton::A))
-				ScreenSystem::AddScreen(new LevelSelectScreen);
-			else ScreenSystem::AddScreen(new LevelScreen(0u));
+			ScreenSystem::AddScreen(new LevelScreen(0u));
 			RemoveMe();
 			break;
 		case 1: // Level Editor
+			ScreenSystem::AddScreen(new LevelSelectScreen);
+			RemoveMe();
 			break;
 		case 2: // Options
 			ScreenSystem::AddScreen(new OptionsScreen);
@@ -162,9 +162,7 @@ void TitleScreen::Update()
 			&& m_fade == 0.0f
 			&& (m_selection == m_menuselection))
 		{
-			// For now, only Level Editor is unavailable
-			if(m_selection != 1)
-				m_fade = 0.1f;
+			m_fade = 0.1f;
 		}
 	}
 

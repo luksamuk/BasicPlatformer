@@ -16,7 +16,7 @@ private:
 	const std::string menuOptions[4] =
 	{
 		"    New Game   >",
-		"< Level Editor >",
+		"< Level Select >",
 		"<    Options   >",
 		"<     Quit      "
 	};
