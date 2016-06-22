@@ -18,26 +18,26 @@ void EffectSpawner::UnloadContent()
 	delete m_sheet;
 }
 
-void EffectSpawner::Create(EffectType fxt, vec2 pos, float alpha)
+void EffectSpawner::Create(EffectType fxt, vec2 pos, float alpha, std::function<void(vec2&, vec2&, bool&)> behavior)
 {
 	if(m_effectCollection == nullptr)
 	{
 		OF_Log(OF_LOG_LVL_ERROR, "EffectSpawner's collection not defined!\n");
 		return;
 	}
-	Effect* fx = new Effect(fxt, m_sheet, nullptr, vec2::Zero(), alpha);
+	Effect* fx = new Effect(fxt, m_sheet, nullptr, vec2::Zero(), alpha, behavior);
 	fx->SetPosition(pos);
 	m_effectCollection->Add(fx);
 }
 
-void EffectSpawner::Create(EffectType fxt, EntitySystem::Entity* follow, vec2 hotspot, float alpha)
+void EffectSpawner::Create(EffectType fxt, EntitySystem::Entity* follow, vec2 hotspot, float alpha, std::function<void(vec2&, vec2&, bool&)> behavior)
 {
 	if(m_effectCollection == nullptr)
 	{
 		OF_Log(OF_LOG_LVL_ERROR, "EffectSpawner's collection not defined!\n");
 		return;
 	}
-	Effect* fx = new Effect(fxt, m_sheet, follow, hotspot, alpha);
+	Effect* fx = new Effect(fxt, m_sheet, follow, hotspot, alpha, behavior);
 	if(follow)
 		fx->SetPosition(follow->GetPosition() + hotspot);
 	m_effectCollection->Add(fx);

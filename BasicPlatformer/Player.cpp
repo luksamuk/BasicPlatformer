@@ -585,8 +585,10 @@ void Player::Update()
 		}
 	}
 	// Underwater trigger + transition
-	if (m_haswater) {
-		if (!m_underwater && (m_position.y >= m_waterHeight)) {
+	if (m_haswater)
+	{
+		if (!m_underwater && (m_position.y >= m_waterHeight))
+		{
 			m_underwater = true;
 			m_groundvelocity.x *= 0.5f;
 			m_groundvelocity.y *= 0.25f;
@@ -597,16 +599,37 @@ void Player::Update()
 				m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
 			}
 		}
-		else if (m_underwater && (m_position.y < m_waterHeight))
+		else if (m_underwater)
 		{
-			m_underwater = false;
-			m_groundvelocity.y *= 2.0f;
+			// Underwater-yet check
+			if (m_position.y < m_waterHeight)
+			{
+				m_underwater = false;
+				m_groundvelocity.y *= 2.0f;
 
-			if (abs(m_groundvelocity.y) != 0.0f) {
-				soundEmitter->Stop();
-				soundEmitter->Play(sfx_05_water);
-				m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
+				if (abs(m_groundvelocity.y) != 0.0f) {
+					soundEmitter->Stop();
+					soundEmitter->Play(sfx_05_water);
+					m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
+				}
 			}
+
+			// Bubble spawn check
+			if (m_minibubble_span == 0u)
+			{
+				m_spawner->Create(FX_SMALLBUBBLE, m_position, 1.0f,
+					[&](vec2& Position, vec2& Velocity, bool& Destroy)
+					{
+						if(Velocity.y == 0.0f)
+							Velocity.y = -0.5f;
+						Position += Velocity;
+						if (Position.y - 4.0f <= m_waterHeight)
+							Destroy = true;
+					}
+				);
+				m_minibubble_span = 120u;
+			}
+			else m_minibubble_span--;
 		}
 	}
 
@@ -626,7 +649,7 @@ void Player::Update()
 		&& m_superspark_span == 0u)
 	{
 		m_superspark_span = 15u;
-		m_spawner->Create(FX_SPARK, m_position);
+		m_spawner->Create(FX_SPARK, m_position, 0.7f);
 	}
 
 

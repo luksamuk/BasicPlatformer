@@ -232,6 +232,7 @@ private:
 	// Effect related
 	EffectSpawner* 									m_spawner;
 	byte                                            m_superspark_span = 0u;
+	byte                                            m_minibubble_span = 120u;
 
 public:
 	Player();
