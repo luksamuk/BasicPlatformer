@@ -19,9 +19,13 @@ private:
 	OficinaFramework::RenderingSystem::SpriteSheet* m_sheet;
 	OficinaFramework::RenderingSystem::Animation*   m_anim;
 	OficinaFramework::EntitySystem::Entity*         m_follow;
+	vec2                                            m_hotspot;
+	float                                           m_alpha;
 public:
 	Effect(EffectType type, OficinaFramework::RenderingSystem::SpriteSheet*,
-	                  OficinaFramework::EntitySystem::Entity* follow = nullptr);
+	                  OficinaFramework::EntitySystem::Entity* follow = nullptr,
+					  vec2 hotspot = vec2::Zero(),
+					  float alpha = 1.0f);
 
 	// Inherited via DrawableEntity
 	virtual void Initialize() override;

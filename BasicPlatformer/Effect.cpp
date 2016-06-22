@@ -1,12 +1,14 @@
 #include "Effect.hpp"
 using namespace OficinaFramework;
 
-Effect::Effect(EffectType type, RenderingSystem::SpriteSheet* sheet, EntitySystem::Entity* follow)
+Effect::Effect(EffectType type, RenderingSystem::SpriteSheet* sheet, EntitySystem::Entity* follow, vec2 hotspot, float alpha)
 {
 	m_type = type;
 	m_sheet = sheet;
 	m_anim = nullptr;
 	m_follow = follow;
+	m_hotspot = hotspot;
+	m_alpha = alpha;
 
 	switch(m_type) {
 	default: break;
@@ -23,7 +25,7 @@ void Effect::Initialize()
 void Effect::Update()
 {
 	if(m_follow)
-		SetPosition(m_follow->GetPosition());
+		SetPosition(m_follow->GetPosition() + m_hotspot);
 	m_anim->update();
 
 	switch(m_type)
@@ -51,6 +53,7 @@ void Effect::LoadContent()
 	m_anim->RegisterAnimation( "SPARK", RenderingSystem::Animation::AnimationSpecs( 7, 10, 0.03f));
 	m_anim->RegisterAnimation("SHIELD", RenderingSystem::Animation::AnimationSpecs(13, 15, 0.04f));
 	m_anim->SetSyncToFramerate(true);
+	m_anim->SetAlpha(m_alpha);
 
 	switch(m_type) {
 	default: break;

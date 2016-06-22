@@ -15,8 +15,8 @@ public:
 	void LoadContent();
 	void UnloadContent();
 
-	void Create(EffectType, vec2);
-	void Create(EffectType, OficinaFramework::EntitySystem::Entity*);
+	void Create(EffectType, vec2, float alpha = 1.0f);
+	void Create(EffectType, OficinaFramework::EntitySystem::Entity*, vec2 hotspot = vec2::Zero(), float alpha = 1.0f);
 
 	void setCollection(OficinaFramework::EntitySystem::DrawableEntityCollection*);
 };
