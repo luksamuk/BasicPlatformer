@@ -153,6 +153,7 @@ To use a game controller, simply connect it before starting the game.
 | Left Stick | Directionals |
 | A          | Action 1     |
 | B          | Action 2     |
+| X          | Action 3     |
 | Start      | Start        |
 | Back       | Select       |
 
@@ -186,16 +187,16 @@ Controls
 
 - Game Controls
 
-| Key                                | Action                                                             |
-|------------------------------------|--------------------------------------------------------------------|
-| Directionals                       | Move                                                               |
-| Action 1   (while on ground)       | Jump                                                               |
-| Directional UP (if stopped)        | Look Up                                                            |
-| Directional DOWN (if stopped)      | Crouch Down                                                        |
-| Directional DOWN (if enough speed) | Roll                                                               |
-| Action 1 (while crouched)          | Spindash. Mash button to increase speed, then release DOWN to roll |
-| Start                              | Pause/Unpause Game                                                 |
-| Select (while paused)              | Return to Level Select                                             |
+| Key                                | Action                                         |
+|------------------------------------|------------------------------------------------|
+| Directionals                       | Move                                           |
+| Action 1   (while on ground)       | Jump                                           |
+| Directional UP (if stopped)        | Look Up                                        |
+| Directional DOWN (if stopped)      | Crouch Down                                    |
+| Directional DOWN (if enough speed) | Roll                                           |
+| Action 1 (while crouched)          | Spindash: Mash to rev up, release DOWN to roll |
+| Start                              | Pause/Unpause Game                             |
+| Select (while paused)              | Return to Level Select                         |
 
 
 
@@ -224,11 +225,12 @@ is active:
 
 | Key/Situation     | Action                                             |
 |-------------------|----------------------------------------------------|
-| (On Debug active) | Show tile collisions                               |
 | 1 (non-numpad)    | Reset character states                             |
 | 2 (non-numpad)    | Toggle Speed Shoes mode                            |
 | 3 (non-numpad)    | Toggle Super Sonic                                 |
-| 4 (non-numpad)    | Toggle hitboxes, grid regions, AABBs and sensors   |
+| 4 (non-numpad)    | Toggle collision, grids, AABBs and sensors         |
+| 5 (non-numpad)    | Normal Shield (toggles if shield is active)        |
+| 6 (non-numpad)    | Bubble Shield (toggles if shield is active)        |
 | F3                | Reposition Sonic at beginning of level             |
 | Mouse Click       | Place Sonic on mouse position                      |
 
@@ -236,9 +238,10 @@ The same is valid for gamepad buttons:
 
 | Button/Situation  | Action                                             |
 |-------------------|----------------------------------------------------|
-| (On Debug active) | Show tile collisions                               |
 | Digital Hat Up    | Reset character states                             |
 | Digital Hat Right | Toggle Speed Shoes mode                            |
 | Digital Hat Down  | Toggle Super Sonic                                 |
-| Digital Hat Left  | Toggle hitboxes, grid regions, AABBs and sensors   |
+| Digital Hat Left  | Toggle collision, grids, AABBs and sensors         |
+| Action 3 (X)      | Normal Shield (toggles if shield is active)        |
+| Action 4 (Y)      | Bubble Shield (toggles if shield is active)        |
 | Tap Right Stick   | Reposition Sonic at beginning of level             |

@@ -2,12 +2,13 @@
 #include <OficinaFramework/ScreenSystem.hpp>
 
 
-Solid::Solid(vec2 position, vec2 size, SolidType type)
+Solid::Solid(vec2 position, vec2 size, SolidType type, bool* showstuff)
 {
 	SetName("Solid");
 	m_position = position;
 	m_size = size;
 	this->type = type;
+	m_showstuff = showstuff;
 }
 
 
@@ -64,7 +65,7 @@ void Solid::Draw()
 	}
 	glPopMatrix();
 
-	if (OficinaFramework::ScreenSystem::IsDebugActive())
+	if ((m_showstuff != nullptr) && (*m_showstuff) == true)
 	{
 		//AABBs
 		if (!GetProperty(1))

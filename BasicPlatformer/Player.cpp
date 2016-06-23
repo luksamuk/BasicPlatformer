@@ -683,6 +683,30 @@ void Player::Update()
 		m_spawner->Create(FX_SPARK, m_position, 0.7f);
 	}
 
+	/* SUPER SONIC: SHIELDS */
+	// Super Sonic shows no shields
+	if(m_super && m_shieldhandle)
+	{
+		m_shieldhandle->RemoveMe();
+		m_shieldhandle = nullptr;
+	}
+	// Also, if Super Sonic acquires shields and loses
+	// its Super State, then the shield is now available.
+	else if(m_currentshield != SHIELD_NONE
+			&& !m_super && !m_shieldhandle)
+	{
+		switch(m_currentshield)
+		{
+		default: break;
+		case SHIELD_NORMAL:
+			m_shieldhandle = m_spawner->Create(FX_NORMALSHIELD, this, vec2(0.0f, 2.0f), 0.45f);
+			break;
+		case SHIELD_BUBBLE:
+			m_shieldhandle = m_spawner->Create(FX_BUBBLESHIELD, this);
+			break;
+		}
+	}
+
 
 
 	/* DEBUG */
@@ -934,6 +958,10 @@ void Player::setAction(PlayerActionState st) {
 
 float Player::getSpindashRev() {
 	return m_spindashRevolutions;
+}
+
+bool* Player::getViewSensorsPtr() {
+	return &m_viewsensors;
 }
 
 void Player::setWaterHeight(float f)

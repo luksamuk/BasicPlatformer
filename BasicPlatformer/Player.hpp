@@ -281,6 +281,7 @@ public:
 	PlayerValueState  getState();
 	void setAction(PlayerActionState);
 	float getSpindashRev();
+	bool* getViewSensorsPtr();
 
 	void setWaterHeight(float f);
 	void disableWater();

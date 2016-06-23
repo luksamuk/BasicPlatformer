@@ -157,120 +157,122 @@ LevelScreen::~LevelScreen()
 
 void LevelScreen::Initialize()
 {
+	player = new Player;
+
 	if (LEVEL_ID == 0 || LEVEL_ID == 1)
 	{
 		// Ceiling
-		//m_drawables.Add(new Solid(vec2(50.0f, 230.0f), vec2(800.0f, 10.0f), SolidType::RECT));
+		//m_drawables.Add(new Solid(vec2(50.0f, 230.0f), vec2(800.0f, 10.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
-		m_drawables.Add(new Solid(vec2(0.0f, 350.0f), vec2(300.0f, 250.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(300.0f, 350.0f), vec2(300.0f, 50.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(300.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(600.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(900.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(900.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(1200.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT));
+		m_drawables.Add(new Solid(vec2(0.0f, 350.0f), vec2(300.0f, 250.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(300.0f, 350.0f), vec2(300.0f, 50.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(300.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(600.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(900.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(900.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1200.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
-		m_drawables.Add(new Solid(vec2(1500.0f, 300.0f), vec2(300.0f, 200.0f), SolidType::RECT));
+		m_drawables.Add(new Solid(vec2(1500.0f, 300.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		
 		// Small curve
 		
-		/*m_drawables.Add(new Solid(vec2(1800.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1816.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(1816.0f, 276.0f), vec2(16.0f, 16.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1832.0f, 260.0f), vec2(8.0f, 16.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1832.0f, 276.0f), vec2(8.0f, 24.0f), SolidType::RECT));*/
+		/*m_drawables.Add(new Solid(vec2(1800.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1816.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1816.0f, 276.0f), vec2(16.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1832.0f, 260.0f), vec2(8.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1832.0f, 276.0f), vec2(8.0f, 24.0f), SolidType::RECT)), player->getViewSensorsPtr();*/
 		
-		m_drawables.Add(new Solid(vec2(1720.0f, 284.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1752.0f, 252.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R));
-		m_drawables.Add(new Solid(vec2(1784.0f, 220.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R));
+		m_drawables.Add(new Solid(vec2(1720.0f, 284.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1752.0f, 252.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1784.0f, 220.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
 
-		m_drawables.Add(new Solid(vec2(1880.0f, 220.0f), vec2(300.0f, 50.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(1800.0f, 300.0f), vec2(300.0f, 256.0f), SolidType::RECT));
+		m_drawables.Add(new Solid(vec2(1880.0f, 220.0f), vec2(300.0f, 50.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1800.0f, 300.0f), vec2(300.0f, 256.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		
 		// Flying platform
-		Solid* platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		Solid* platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 		// Another one
-		platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2300.0f, 200.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2300.0f, 200.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2400.0f, 270.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2400.0f, 270.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2500.0f, 340.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2500.0f, 340.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2600.0f, 410.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2600.0f, 410.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2700.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2700.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(2900.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(2900.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(3100.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(3100.0f, 480.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(3300.0f, 480.0f), vec2(164.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(3300.0f, 480.0f), vec2(164.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
-		platform = new Solid(vec2(3400.0f, 380.0f), vec2(64.0f, 16.0f), SolidType::RECT);
+		platform = new Solid(vec2(3400.0f, 380.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
 		// The Big Ramp Down
-		m_drawables.Add(new Solid(vec2(3500.0f, 380.0f), vec2(200.0f, 200.0f), SolidType::RECT));
-		m_drawables.Add(new Solid(vec2(3700.0f, 380.0f), vec2(200.0f, 50.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(3900.0f, 430.0f), vec2(200.0f, 100.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(4100.0f, 530.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(4300.0f, 730.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L));
-		m_drawables.Add(new Solid(vec2(4500.0f, 930.0f), vec2(150.0f, 200.0f), SolidType::SLOPE_L));
+		m_drawables.Add(new Solid(vec2(3500.0f, 380.0f), vec2(200.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(3700.0f, 380.0f), vec2(200.0f, 50.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(3900.0f, 430.0f), vec2(200.0f, 100.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(4100.0f, 530.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(4300.0f, 730.0f), vec2(200.0f, 200.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(4500.0f, 930.0f), vec2(150.0f, 200.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
 
 		for (float f = 0.0f; f < 6400.0f; f += 128.0f)
-			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
 	}
 	else if(LEVEL_ID == 22u || LEVEL_ID == 23u)
 	{
 		// Stress test
 		for (float f = 0.0f; f < 992.0f; f += 16.0f)
-			m_drawables.Add(new Solid(vec2(f, 368.0f), vec2(16.0f, 16.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 368.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
 		// Stress test
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
-			m_drawables.Add(new Solid(vec2(f, 1792.0f), vec2(128.0f, 112.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 1792.0f), vec2(128.0f, 112.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		for (float f = 0.0f; f < 1920.0f; f += 256.0f) {
-			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R));
-			m_drawables.Add(new Solid(vec2(32.0f + f, 1776.0f), vec2(16.0f, 16.0f), SolidType::RECT));
-			m_drawables.Add(new Solid(vec2(48.0f + f, 1776.0f), vec2(16.0f, 16.0f), SolidType::RECT));
-			m_drawables.Add(new Solid(vec2(64.0f + f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_L));
+			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+			m_drawables.Add(new Solid(vec2(32.0f + f, 1776.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
+			m_drawables.Add(new Solid(vec2(48.0f + f, 1776.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
+			m_drawables.Add(new Solid(vec2(64.0f + f, 1776.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
 		}
 		for (float f = 1920.0f; f < 3200.0f; f += 16.0f)
-			m_drawables.Add(new Solid(vec2(f, 1904.0f), vec2(16.0f, 16.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 1904.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
 		for (float f = 0.0f; f < 528.0f; f += 16.0f)
-			m_drawables.Add(new Solid(vec2(992.0f + f, 368.0f + f), vec2(16.0f, 16.0f), SolidType::SLOPE_L));
+			m_drawables.Add(new Solid(vec2(992.0f + f, 368.0f + f), vec2(16.0f, 16.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
 	}
 	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 	{
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
 			if(f != 256.0f)
-				m_drawables.Add(new Solid(vec2(f, 640.0f), vec2(128.0f, 128.0f), SolidType::RECT));
-			else m_drawables.Add(new Solid(vec2(f, 704.0f), vec2(128.0f, 64.0f), SolidType::RECT));
+				m_drawables.Add(new Solid(vec2(f, 640.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
+			else m_drawables.Add(new Solid(vec2(f, 704.0f), vec2(128.0f, 64.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
 		m_waterHeight = 637.0f;
 		LEVEL_SIZE.y = 1280.0f;
@@ -279,17 +281,17 @@ void LevelScreen::Initialize()
 	{
 		LEVEL_SIZE.y = 1840.0f;
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
-			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 64.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 64.0f), SolidType::RECT, player->getViewSensorsPtr()));
 	}
 	else
 	{
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
-			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT));
+			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
 	}
 	//m_grid = new Grid(vec2(128.0f, 128.0f));
 	//m_grid->Populate(&m_drawables);
 
-	m_drawables.Add(player = new Player);
+	m_drawables.Add(player);
 
 	m_drawables.Initialize();
 	m_effects.Initialize();

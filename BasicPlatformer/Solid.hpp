@@ -15,8 +15,9 @@ class Solid :
 private:
 	vec2 m_size;
 	SolidType type;
+	bool*     m_showstuff;
 public:
-	Solid(vec2 position, vec2 size, SolidType type);
+	Solid(vec2 position, vec2 size, SolidType type, bool* showStuff = nullptr);
 	~Solid();
 
 	// Inherited via DrawableEntity
