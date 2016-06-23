@@ -745,16 +745,20 @@ void Player::Update()
 		{
 			if(m_currentshield == SHIELD_NORMAL)
 			{
-				m_shieldhandle->RemoveMe();
-				m_shieldhandle = nullptr;
+				if(m_shieldhandle)
+				{
+					m_shieldhandle->RemoveMe();
+					m_shieldhandle = nullptr;
+				}
 				m_currentshield = SHIELD_NONE;
 			}
 			else
 			{
-				if(m_currentshield != SHIELD_NONE)
+				if(m_currentshield != SHIELD_NONE && m_shieldhandle)
 					m_shieldhandle->RemoveMe();
 				m_currentshield = SHIELD_NORMAL;
-				m_shieldhandle = m_spawner->Create(FX_NORMALSHIELD, this, vec2(0.0f, 2.0f), 0.45f);
+				if(!m_super)
+					m_shieldhandle = m_spawner->Create(FX_NORMALSHIELD, this, vec2(0.0f, 2.0f), 0.45f);
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx.s06_normalshield);
 			}
@@ -764,16 +768,20 @@ void Player::Update()
 		{
 			if(m_currentshield == SHIELD_BUBBLE)
 			{
-				m_shieldhandle->RemoveMe();
-				m_shieldhandle = nullptr;
+				if(m_shieldhandle)
+				{
+					m_shieldhandle->RemoveMe();
+					m_shieldhandle = nullptr;
+				}
 				m_currentshield = SHIELD_NONE;
 			}
 			else
 			{
-				if(m_currentshield != SHIELD_NONE)
+				if(m_currentshield != SHIELD_NONE && m_shieldhandle)
 					m_shieldhandle->RemoveMe();
 				m_currentshield = SHIELD_BUBBLE;
-				m_shieldhandle = m_spawner->Create(FX_BUBBLESHIELD, this);
+				if(!m_super)
+					m_shieldhandle = m_spawner->Create(FX_BUBBLESHIELD, this);
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx.s07_bubbleshield);
 			}
@@ -927,6 +935,15 @@ void Player::reset()
 	m_groundvelocity = 0.0f;
 	m_position = vec2(100.0f, 300.0f);
 	m_animator->SetAnimation("Idle");
+	m_currentshield = SHIELD_NONE;
+	if(m_shieldhandle)
+	{
+		m_shieldhandle->RemoveMe();
+		m_shieldhandle = nullptr;
+	}
+	m_super      = false;
+	m_speedshoes = false;
+	m_direction  = 1.0f;
 }
 
 void Player::setAnimation(std::string name) {

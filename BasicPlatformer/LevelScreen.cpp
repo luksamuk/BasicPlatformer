@@ -159,7 +159,7 @@ void LevelScreen::Initialize()
 {
 	player = new Player;
 
-	if (LEVEL_ID == 0 || LEVEL_ID == 1)
+	if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
 	{
 		// Ceiling
 		//m_drawables.Add(new Solid(vec2(50.0f, 230.0f), vec2(800.0f, 10.0f), SolidType::RECT, player->getViewSensorsPtr()));
