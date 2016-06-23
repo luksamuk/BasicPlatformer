@@ -29,6 +29,7 @@ vec2 Player::GroundSpeed() {
 void Player::Initialize()
 {
 	SetPosition(vec2(180.0f, 330.0f));
+	m_lastCheckpointPos = m_position;
 	ground = true;
 	pressingJump = false;
 	jumpAngle = 0.0f;
@@ -652,10 +653,9 @@ void Player::Update()
 				soundEmitter->Stop();
 				soundEmitter->Play(sfx.s08_watercount);
 			}
-			// Jingle starts at 18s
+			// Jingle starts at 18s, takes 16s to play
 			//if(m_drown_span == 720u) {}
 			// TODO: Kill Sonic on zero
-			//if(!m_drown_span) {}
 		}
 		// Prevent drowning
 		else
@@ -933,7 +933,7 @@ void Player::reset()
 {
 	m_currentAction = PLAYER_NOACTION;
 	m_groundvelocity = 0.0f;
-	m_position = vec2(100.0f, 300.0f);
+	m_position = m_lastCheckpointPos;
 	m_animator->SetAnimation("Idle");
 	m_currentshield = SHIELD_NONE;
 	if(m_shieldhandle)
@@ -944,6 +944,7 @@ void Player::reset()
 	m_super      = false;
 	m_speedshoes = false;
 	m_direction  = 1.0f;
+	m_drown_span = 1800u;
 }
 
 void Player::setAnimation(std::string name) {
@@ -979,6 +980,10 @@ float Player::getSpindashRev() {
 
 bool* Player::getViewSensorsPtr() {
 	return &m_viewsensors;
+}
+
+word Player::getDrownSpan() {
+	return m_drown_span;
 }
 
 void Player::setWaterHeight(float f)

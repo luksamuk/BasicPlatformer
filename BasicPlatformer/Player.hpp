@@ -40,7 +40,16 @@ struct PlayerSFX
 		* s05_water,
 		* s06_normalshield,
 		* s07_bubbleshield,
-		* s08_watercount;
+		* s08_watercount,
+		//--
+		* s09_bubbleget,
+		* s0A_drown,
+		* s0B_ringloss,
+		* s0C_ring,
+		* s0D_miniexplosion,
+		* s0E_transform,
+		* s0F_death,
+		* s10_checkpoint;
 };
 
 enum PlayerValueState
@@ -188,10 +197,11 @@ private:
 	};
 
 	// State related
-	const float m_hitboxRadius  = 20.0f;
-	float       m_hitboxHeight  = m_hitboxRadius;
-	PlayerValueState              m_currentState;
+	const float         m_hitboxRadius  = 20.0f;
+	float               m_hitboxHeight  = m_hitboxRadius;
+	PlayerValueState    m_currentState;
 	const PlayerValues* values;
+	vec2                m_lastCheckpointPos;
 
 	// Collision related
 	const float m_vlinecast                = m_hitboxRadius + 16.0f;
@@ -282,6 +292,7 @@ public:
 	void setAction(PlayerActionState);
 	float getSpindashRev();
 	bool* getViewSensorsPtr();
+	word  getDrownSpan();
 
 	void setWaterHeight(float f);
 	void disableWater();

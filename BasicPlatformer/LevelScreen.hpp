@@ -16,6 +16,12 @@ enum CurrentDayTime
 	DAYTIME_NIGHT      // Evening Star
 };
 
+enum MusicMode
+{
+	BGM_LEVEL,
+	BGM_DROWNING
+};
+
 class LevelScreen :
 	public OficinaFramework::ScreenSystem::Screen
 {
@@ -25,7 +31,10 @@ private:
 	std::string LEVEL_NAME;
 	vec2 LEVEL_SIZE = vec2::One() * 1.0f;
 
+	MusicMode                                   musicMode;
+	MusicMode                                   oldMusicMode;
 	OficinaFramework::AudioSystem::Audio*       bgm;
+	OficinaFramework::AudioSystem::Audio*       m_drowningtheme;
 	OficinaFramework::AudioSystem::AudioSource* soundemitter;
 	CurrentDayTime                              dayTime;
 

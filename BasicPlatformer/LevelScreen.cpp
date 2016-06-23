@@ -15,6 +15,8 @@ LevelScreen::LevelScreen(dword id)
 	m_playerSpindashed = false;
 	m_clearcolorset = false;
 	LEVEL_ID = id;
+	m_drowningtheme = nullptr;
+	musicMode = BGM_LEVEL;
 
 	// Title Card
 	m_titlecard_pos = RenderingSystem::GetResolution().toVec2();
@@ -245,6 +247,9 @@ void LevelScreen::Initialize()
 
 		for (float f = 0.0f; f < 6400.0f; f += 128.0f)
 			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		
+		for (float f = 6400.0f; f < 7808.0f; f += 16.0f)
+			m_drawables.Add(new Solid(vec2(f, 1904.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
 	}
 	else if(LEVEL_ID == 22u || LEVEL_ID == 23u)
 	{
@@ -393,6 +398,15 @@ void LevelScreen::LoadContent()
 		}
 		return nullptr;
 	}();
+
+	// Only load drowning theme if there is water
+	if(m_hasWater)
+	{
+		m_drowningtheme = OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+			"bgm/drowning",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG
+		);
+	}
 
 	//player->setGrid(m_grid);
 
@@ -600,14 +614,56 @@ void LevelScreen::Update()
 	// Fade activation
 	if (m_fade > -1.0f) m_fade -= 0.05f;
 
+
+	/* DROWNING-RELATED */
+	// Drowing music starts when countdown reaches 18 seconds (takes
+	// 30s for Sonic to drown, so the music plays for 16 total secs)
+	if(player->getDrownSpan() <= 720u && musicMode != BGM_DROWNING)
+	{
+		oldMusicMode = musicMode;
+		musicMode = BGM_DROWNING;
+		soundemitter->Stop();
+		// Song: "Blue Lung", by Shadowfire
+		soundemitter->Play(m_drowningtheme);
+	}
+	else if(player->getDrownSpan() > 720u && musicMode == BGM_DROWNING)
+	{
+		musicMode = oldMusicMode;
+		// TODO: Figure out which song to play again.
+		// In this case, we only have level music, so we're good
+		// to go
+		soundemitter->Stop();
+		soundemitter->Play(bgm);
+	}
+
+	// Now this one kills Sonic.
+	// Or better saying, for now just resets Sonic, camera and timer.
+	if(!player->getDrownSpan())
+	{
+		player->reset();
+		m_cameralag = 0;
+		m_playerSpindashed = false;
+		OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
+		m_leveltimer = 0u;
+		m_fade = 8.0f;
+	}
+
+
+	/* STUFF THAT DEPENDS ON THE FRAME BEING ACTIVE START HERE */
 	if(m_fade > 0.0f) return;
+
+
+
+
 
 	// Pause controls
 	if (InputSystem::PressedButton(InputSystem::GamePadButton::START))
 		m_paused = !m_paused;
 
 	if (m_paused) {
-		if (!soundemitter->isPaused()) soundemitter->TogglePause();
+		// Pause music
+		if (!soundemitter->isPaused())
+			soundemitter->TogglePause();
 
 		// Back to level select
 		if (InputSystem::PressedButton(InputSystem::GamePadButton::SELECT))
@@ -619,7 +675,9 @@ void LevelScreen::Update()
 		return;
 	}
 	else {
-		if (soundemitter->isPaused()) soundemitter->TogglePause();
+		// Unpause music
+		if (soundemitter->isPaused())
+			soundemitter->TogglePause();
 	}
 
 	// Timer
