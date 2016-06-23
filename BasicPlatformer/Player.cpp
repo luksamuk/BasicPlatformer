@@ -865,8 +865,9 @@ void Player::setSpawner(EffectSpawner* fxs)
 void Player::LoadContent()
 {
 	// Sonic
+	t_sonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic");
 	spriteSheet = new OficinaFramework::RenderingSystem::SpriteSheet(vec2dw(58, 58), vec2b::One(), vec2::Zero());
-	spriteSheet->AppendTexture(OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic"));
+	spriteSheet->AppendTexture(t_sonic);
 	sonicAnimator = new OficinaFramework::RenderingSystem::Animation(spriteSheet);
 
 	sonicAnimator->RegisterAnimation(      "Idle", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(0, 0, 1.0f));
@@ -884,8 +885,9 @@ void Player::LoadContent()
 	sonicAnimator->SetAnimation("Idle");
 
 	// Super Sonic
+	t_supersonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/supersonic");
 	superSheet = new OficinaFramework::RenderingSystem::SpriteSheet(vec2dw(58, 58), vec2b::One(), vec2::Zero());
-	superSheet->AppendTexture(OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/supersonic"));
+	superSheet->AppendTexture(t_supersonic);
 	superAnimator = new OficinaFramework::RenderingSystem::Animation(superSheet);
 
 	superAnimator->RegisterAnimation("Idle", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(0, 0, 1.0f));
@@ -934,6 +936,8 @@ void Player::UnloadContent()
 	delete superAnimator;
 	delete superSheet;
 	soundEmitter->Stop();
+	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_sonic);
+	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_supersonic);
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_00_skidding);
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_01_rolling);
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_02_jump);

@@ -395,8 +395,9 @@ void LevelScreen::LoadContent()
 	//player->setGrid(m_grid);
 
 	// Load HUD graphics
+	t_hud = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/headsup");
 	hudSheet = new OficinaFramework::RenderingSystem::SpriteSheet(vec2dw(58), vec2b::One(), vec2(-29.0f));
-	hudSheet->AppendTexture(OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/headsup"));
+	hudSheet->AppendTexture(t_hud);
 
 	// Load HUD fonts
 	hudFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/hud"), vec2dw(8u, 16u), vec2b::One());
@@ -406,78 +407,78 @@ void LevelScreen::LoadContent()
 	// Parallax
 	if (LEVEL_ID == 0 || LEVEL_ID == 1)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"),   0.94f, 0.98f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"),   0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"),   0.92f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 0.9f, 0.96f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 0.92f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer0",   1.0f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer1",   0.94f, 0.98f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer2",   0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer3",   0.92f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_0", 0.9f, 0.96f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_1", 0.92f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 0.89f, 0.89f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 0.87f, 0.87f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 0.85f, 0.85f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 0.83f, 0.83f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_3", 0.89f, 0.89f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_0", 0.87f, 0.87f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_1", 0.85f, 0.85f));
+		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_2", 0.83f, 0.83f));
 	}
 	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer0"),   1.0f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer1"),   1.0f, 0.95f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_0"), 0.85f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer2_1"), 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_0"), 0.8f, 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_1"), 0.7f, 0.7f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_2"), 0.6f, 0.6f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_3"), 0.5f, 0.5f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer3_4"), 0.4f, 0.4f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_0"), 0.5f, 0.5f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_1"), 0.6f, 0.6f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_2"), 0.7f, 0.7f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_3"), 0.9f, 0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer4_4"), 0.8f, 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/layer5"),   0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer0",   1.0f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer1",   1.0f, 0.95f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer2_0", 0.85f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer2_1", 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer3_0", 0.8f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer3_1", 0.7f, 0.7f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer3_2", 0.6f, 0.6f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer3_3", 0.5f, 0.5f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer3_4", 0.4f, 0.4f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer4_0", 0.5f, 0.5f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer4_1", 0.6f, 0.6f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer4_2", 0.7f, 0.7f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer4_3", 0.9f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer4_4", 0.8f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/layer5",   0.8f));
 
-		fg_parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level1/parallax/fg_layer0"), 0.5f, 0.5f));
+		fg_parallax.AppendPiece(new ParallaxPiece("background/level1/parallax/fg_layer0", 0.5f, 0.5f));
 	}
 	else if (LEVEL_ID == 12 || LEVEL_ID == 13)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer0"), 0.95f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer1"), 1.0f, 0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer2"), 0.85f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer3"), 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer4"), 0.75f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level6/parallax/layer5"), 0.7f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer0", 0.95f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer1", 1.0f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer2", 0.85f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer3", 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer4", 0.75f));
+		parallax.AppendPiece(new ParallaxPiece("background/level6/parallax/layer5", 0.7f));
 	}
 	else if (LEVEL_ID == 20 || LEVEL_ID == 21)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer0"),   1.0f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer1"),   0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_0"), 0.88f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_1"), 0.86f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_2"), 0.84f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_3"), 0.82f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_4"), 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_0"), 0.7f,  0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_1"), 0.73f, 0.93f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer3_2"), 0.75f, 0.95f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer0",   1.0f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer1",   0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_0", 0.88f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_1", 0.86f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_2", 0.84f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_3", 0.82f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_4", 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer3_0", 0.7f,  0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer3_1", 0.73f, 0.93f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer3_2", 0.75f, 0.95f));
 		LEVEL_SIZE.y = 2560.0f;
 	}
 	else if (LEVEL_ID == 22)
 	{
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer0"),   1.0f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer0",   1.0f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer1"),   0.9f,  0.95f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_0"), 0.88f, 0.9f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_1"), 0.86f, 0.8f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_2"), 0.84f, 0.2f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_3"), 0.82f, 0.08f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level11/parallax/layer2_4"), 0.8f,  0.0002f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer1",   0.9f,  0.95f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_0", 0.88f, 0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_1", 0.86f, 0.8f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_2", 0.84f, 0.2f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_3", 0.82f, 0.08f));
+		parallax.AppendPiece(new ParallaxPiece("background/level11/parallax/layer2_4", 0.8f,  0.0002f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_0"), 0.7f,  0.7f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_1"), 0.73f, 0.73f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer3_2"), 0.75f, 0.75f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer3_0", 0.7f,  0.7f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer3_1", 0.73f, 0.73f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer3_2", 0.75f, 0.75f));
 
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4_0"), 0.3f));
-		parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/level12/parallax/layer4_1"), 0.3f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer4_0", 0.3f));
+		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer4_1", 0.3f));
 		LEVEL_SIZE.y = 2560.0f;
 	}
 
@@ -489,7 +490,7 @@ void LevelScreen::LoadContent()
 	player->setSpawner(&m_spawner);
 
 	// Test shield
-	m_spawner.Create(FX_SHIELD, player, vec2(0.0f, 2.0f), 0.5f);
+	//m_spawner.Create(FX_SHIELD, player, vec2(0.0f, 2.0f), 0.5f);
 
 	OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
@@ -506,6 +507,7 @@ void LevelScreen::UnloadContent()
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(bgm);
 	delete soundemitter;
 
+	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_hud);
 	delete hudSheet;
 	delete hudFont;
 	delete counterFont;

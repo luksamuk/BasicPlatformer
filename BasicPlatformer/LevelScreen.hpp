@@ -46,6 +46,7 @@ private:
 	bool  m_timeractive = true;
 	dword m_leveltimer  = 0u;
 	std::string m_leveltimer_hud = " 0\'00\"00";
+	OficinaFramework::RenderingSystem::Texture*     t_hud;
 	OficinaFramework::RenderingSystem::SpriteSheet* hudSheet;
 	OficinaFramework::RenderingSystem::Font*        hudFont;
 	OficinaFramework::RenderingSystem::Font*        counterFont;

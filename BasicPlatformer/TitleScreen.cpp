@@ -30,17 +30,17 @@ void TitleScreen::LoadContent()
 
 	optionXPos = (RenderingSystem::GetResolution().toVec2().x / 2.0f) - (menuFont->MeasureString(menuOptions[0], 1.5f).x / 2.0f);
 
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer0"),   1.0f, 0.0f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer1"),   1.0f, 0.94f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer2"),   1.0f, 0.9f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer3"),   1.0f, 0.92f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_0"), 1.0f, 0.9f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer4_1"), 1.0f, 0.92f));
-																																
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_3"), 1.0f, 0.83f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_0"), 1.0f, 0.81f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_1"), 1.0f, 0.79f));
-	parallax.AppendPiece(new ParallaxPiece(RenderingSystem::TexturePool::LoadTexture("background/titlescreen/parallax/layer5_2"), 1.0f, 0.77f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer0",   1.0f, 0.0f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer1",   1.0f, 0.94f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer2",   1.0f, 0.9f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer3",   1.0f, 0.92f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_0", 1.0f, 0.9f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_1", 1.0f, 0.92f));
+
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_3", 1.0f, 0.83f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_0", 1.0f, 0.81f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_1", 1.0f, 0.79f));
+	parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_2", 1.0f, 0.77f));
 
 	ScreenSystem::Screen::LoadContent();
 }

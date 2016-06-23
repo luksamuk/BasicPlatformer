@@ -16,6 +16,7 @@ void EffectSpawner::LoadContent()
 void EffectSpawner::UnloadContent()
 {
 	delete m_sheet;
+	RenderingSystem::TexturePool::DisposeTexture(m_effects);
 }
 
 void EffectSpawner::Create(EffectType fxt, vec2 pos, float alpha)

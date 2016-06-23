@@ -13,7 +13,7 @@ struct ParallaxPiece
 	float walkRatio   = 0.0f;
 	dword amount = 0u;
 
-	ParallaxPiece(RenderingSystem::Texture* t,
+	ParallaxPiece(std::string,
 		float followRatio = 1.0f,
 		float walkRatio   = 1.0f,
 		vec2 position = 0.0f);

@@ -215,6 +215,8 @@ private:
 	bool                          m_speedshoes;
 
 	// Animation and Action
+	OficinaFramework::RenderingSystem::Texture*     t_sonic;
+	OficinaFramework::RenderingSystem::Texture*     t_supersonic;
 	OficinaFramework::RenderingSystem::Animation*   m_animator;
 	OficinaFramework::RenderingSystem::Animation*   sonicAnimator;
 	OficinaFramework::RenderingSystem::Animation*   superAnimator;

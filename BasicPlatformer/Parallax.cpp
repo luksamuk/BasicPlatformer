@@ -1,9 +1,9 @@
 #include "Parallax.hpp"
 #include <cmath>
 
-ParallaxPiece::ParallaxPiece(RenderingSystem::Texture* t, float followRatio, float walkRatio, vec2 position)
+ParallaxPiece::ParallaxPiece(std::string assetpath, float followRatio, float walkRatio, vec2 position)
 {
-	this->t = t;
+	this->t = RenderingSystem::TexturePool::LoadTexture(assetpath);
 
 	// Calculate amount of pieces needed
 	amount = (RenderingSystem::GetResolution().x / t->GetSize().x) + 2u;
