@@ -151,14 +151,16 @@ void TitleScreen::Update()
 	if (m_fadetimer < 42)
 	{
 		m_fadetimer++;
-		if (InputSystem::PressedButton(InputSystem::GamePadButton::START))
+		if (InputSystem::PressedButton(InputSystem::GamePadButton::START)
+			|| InputSystem::PressedButton(InputSystem::GamePadButton::A))
 			m_fadetimer = 42;
 	}
 	else if(m_fadetimer >= 42)
 	{
 		if (m_whitefade > 0.0f) m_whitefade -= 0.1f;
 
-		if (InputSystem::PressedButton(InputSystem::GamePadButton::START)
+		if ((InputSystem::PressedButton(InputSystem::GamePadButton::START)
+			 || InputSystem::PressedButton(InputSystem::GamePadButton::A))
 			&& m_fade == 0.0f
 			&& (m_selection == m_menuselection))
 		{

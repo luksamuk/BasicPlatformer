@@ -14,9 +14,10 @@ v0.3.9 (WIP)
 - Updated song for AAz;
 - Added songs for CCz (both 6 and 11), DDz, SSz, WWz, JJz, RRz;
 - Updated HUD;
+- Improved usage of various sprites, which are now appropriately disposed;
 - Various small changes;
 - Changed Dynamic Dash Zone to Radiant Rush Zone;
-- Updated Oficina version to v1.3 Snapshot 613.
+- Updated Oficina version to v1.3 Snapshot 622.
 
 v0.3.5
 - Added Options menu;
@@ -88,7 +89,7 @@ Dependencies (Binary Release)
 Most dependencies are already included with the binary.
 Software used is:
 
-- OficinaFramework v1.3b-613
+- OficinaFramework v1.3b-622
 - OpenGL v3.1
   - GLEW v1.13.0
 - SDL2 v2.0.4
@@ -191,6 +192,7 @@ Controls
 | Directionals  | Change selection                           |
 | Action 1      | Pick selection                             |
 | Action 2      | Previous Screen (unavailable on Main Menu) |
+| Start         | Pick selection                             |
 
 
 
