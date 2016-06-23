@@ -164,18 +164,6 @@ finished.
 Controls
 --------
 
-- Global Controls
-
-| Key                            | Action                                             |
-|--------------------------------|----------------------------------------------------|
-| F1                             | Toggle debugger                                    |
-| F2                             | Toggle debugger complexity (minimalistic debugger) |
-| F3                             | Reposition Sonic at beginning of level             |
-| F4                             | Toggle hitboxes, grid regions, AABBs and sensors   |
-| F11                            | Toggle fullscreen                                  |
-
-
-
 - "Powered By" Screen
 
 | Key      | Action       |
@@ -211,16 +199,46 @@ Controls
 
 
 
+- Debug Controls
+
+The following controls are related to the debugger:
+
+| Key                            | Action                                             |
+|--------------------------------|----------------------------------------------------|
+| F1                             | Toggle debugger                                    |
+| F2                             | Toggle debugger complexity (minimalistic debugger) |
+| F11                            | Toggle fullscreen                                  |
+
+Gamepad counterparts:
+
+| Buttons                        | Action                                             |
+|--------------------------------|----------------------------------------------------|
+| (Press Left Stick) + RB        | Toggle debugger                                    |
+| LB                             | Toggle debugger complexity (minimalistic debugger) |
+
 - Debug Mode Controls
 
 Debug Mode only works if debugger is visible.
 The following controls and actions can only be performed while Debug Mode
 is active:
 
-| Key/Situation     | Action                        |
-|-------------------|-------------------------------|
-| (On Debug active) | Show tile collisions          |
-| 1 (non-numpad)    | Reset character states        |
-| 2 (non-numpad)    | Toggle Speed Shoes mode       |
-| 3 (non-numpad)    | Toggle Super Sonic            |
-| Mouse Click       | Place Sonic on mouse position |
+| Key/Situation     | Action                                             |
+|-------------------|----------------------------------------------------|
+| (On Debug active) | Show tile collisions                               |
+| 1 (non-numpad)    | Reset character states                             |
+| 2 (non-numpad)    | Toggle Speed Shoes mode                            |
+| 3 (non-numpad)    | Toggle Super Sonic                                 |
+| 4 (non-numpad)    | Toggle hitboxes, grid regions, AABBs and sensors   |
+| F3                | Reposition Sonic at beginning of level             |
+| Mouse Click       | Place Sonic on mouse position                      |
+
+The same is valid for gamepad buttons:
+
+| Button/Situation  | Action                                             |
+|-------------------|----------------------------------------------------|
+| (On Debug active) | Show tile collisions                               |
+| Digital Hat Up    | Reset character states                             |
+| Digital Hat Right | Toggle Speed Shoes mode                            |
+| Digital Hat Down  | Toggle Super Sonic                                 |
+| Digital Hat Left  | Toggle hitboxes, grid regions, AABBs and sensors   |
+| Tap Right Stick   | Reposition Sonic at beginning of level             |

@@ -48,9 +48,13 @@ void OptionsScreen::Update()
 	RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
 
 	// Debugger
-	if (InputSystem::PressedKey(SDL_SCANCODE_F1))
+	if (InputSystem::PressedKey(SDL_SCANCODE_F1)
+		// Lstick + RB
+		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
+			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
 		ScreenSystem::SetDebug(!ScreenSystem::IsDebugActive());
-	else if (InputSystem::PressedKey(SDL_SCANCODE_F2))
+	else if (InputSystem::PressedKey(SDL_SCANCODE_F2)
+		|| InputSystem::PressedButton(InputSystem::GamePadButton::LSHOULDER1))
 		ScreenSystem::Debug_ToggleMinimalist();
 	
 	// Change options

@@ -37,6 +37,7 @@ void Player::Initialize()
 	soundEmitter = new OficinaFramework::AudioSystem::AudioSource;
 	m_currentAction = PLAYER_NOACTION;
 	m_direction = 1.0f;
+	m_spindashRevolutions = 0.0f;
 	m_super = false;
 	m_underwater = false;
 	m_speedshoes = false;
@@ -655,17 +656,21 @@ void Player::Update()
 
 
 	/* DEBUG */
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F4))
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_4)
+		|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::HAT_LEFT))
 		m_viewsensors = !m_viewsensors;
 
 	if (OficinaFramework::ScreenSystem::IsDebugActive())
 	{
 		// Debug state change
-		if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_1))
+		if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_1)
+			|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::HAT_UP))
 			m_speedshoes = m_super = false;
-		else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_2))
+		else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_2)
+				|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::HAT_RIGHT))
 			m_speedshoes = !m_speedshoes;
-		else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_3))
+		else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_3)
+				|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::HAT_DOWN))
 			m_super = !m_super;
 
 		// Debug repositioning

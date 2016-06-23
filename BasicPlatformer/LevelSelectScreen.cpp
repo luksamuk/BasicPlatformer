@@ -49,16 +49,17 @@ void LevelSelectScreen::Update()
 	RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
 
 	// Debugger
-	if (InputSystem::PressedKey(SDL_SCANCODE_F1))
+	if (InputSystem::PressedKey(SDL_SCANCODE_F1)
+		// Lstick + RB
+		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
+			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
 		ScreenSystem::SetDebug(!ScreenSystem::IsDebugActive());
-	else if (InputSystem::PressedKey(SDL_SCANCODE_F2))
+	else if (InputSystem::PressedKey(SDL_SCANCODE_F2)
+		|| InputSystem::PressedButton(InputSystem::GamePadButton::LSHOULDER1))
 		ScreenSystem::Debug_ToggleMinimalist();
 	// Fullscreen toggle
 	else if (InputSystem::PressedKey(SDL_SCANCODE_F11))
 		ScreenSystem::SetFullScreen(!ScreenSystem::IsFullScreen());
-	// Linear filter toggle
-	else if (InputSystem::PressedKey(SDL_SCANCODE_F5))
-		RenderingSystem::SetLinearFiltering(!RenderingSystem::GetLinearFilteringState());
 
 	// Fade control
 	switch (m_fadetype)

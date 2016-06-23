@@ -48,9 +48,13 @@ void PresentationScreen::Update() {
 
 
 	// Debug toggle
-	if (InputSystem::PressedKey(SDL_SCANCODE_F1))
+	if (InputSystem::PressedKey(SDL_SCANCODE_F1)
+		// Lstick + RB
+		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
+			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
 		ScreenSystem::SetDebug(!ScreenSystem::IsDebugActive());
-	if (InputSystem::PressedKey(SDL_SCANCODE_F2))
+	if (InputSystem::PressedKey(SDL_SCANCODE_F2)
+		|| InputSystem::PressedButton(InputSystem::GamePadButton::LSHOULDER1))
 		ScreenSystem::Debug_ToggleMinimalist();
 
 	// Fullscreen toggle

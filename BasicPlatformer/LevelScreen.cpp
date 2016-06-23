@@ -522,9 +522,13 @@ void LevelScreen::UnloadContent()
 void LevelScreen::Update()
 {
 	// Debug toggle
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F1))
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F1)
+		// Lstick + RB
+		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
+			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
 		OficinaFramework::ScreenSystem::SetDebug(!OficinaFramework::ScreenSystem::IsDebugActive());
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F2))
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F2)
+		|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::LSHOULDER1))
 		OficinaFramework::ScreenSystem::Debug_ToggleMinimalist();
 
 	// Fullscreen toggle
@@ -630,7 +634,9 @@ void LevelScreen::Update()
 	m_leveltimer_hud = oss.str();
 
 	// Debug position reset
-	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F3)) {
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F3)
+		|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::RSTICK))
+	{
 		player->reset();
 		m_cameralag = 0;
 		m_playerSpindashed = false;
