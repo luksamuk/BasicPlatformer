@@ -407,17 +407,17 @@ void LevelScreen::LoadContent()
 	// Parallax
 	if (LEVEL_ID == 0 || LEVEL_ID == 1)
 	{
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer0",   1.0f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer1",   0.94f, 0.98f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer2",   0.9f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer3",   0.92f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_0", 0.9f, 0.96f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer4_1", 0.92f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer0",   1.0f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer1",   0.94f, 0.98f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer2",   0.9f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer3",   0.92f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer4_0", 0.9f, 0.96f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer4_1", 0.92f));
 
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_3", 0.89f, 0.89f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_0", 0.87f, 0.87f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_1", 0.85f, 0.85f));
-		parallax.AppendPiece(new ParallaxPiece("background/titlescreen/parallax/layer5_2", 0.83f, 0.83f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer5_3", 0.89f, 0.89f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer5_0", 0.87f, 0.87f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer5_1", 0.85f, 0.85f));
+		parallax.AppendPiece(new ParallaxPiece("background/level0/parallax/layer5_2", 0.83f, 0.83f));
 	}
 	else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 	{

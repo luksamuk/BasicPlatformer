@@ -29,6 +29,20 @@ struct PlayerValues
 	float m_unrollMinXSpeed;
 };
 
+struct PlayerSFX
+{
+	OficinaFramework::AudioSystem::Audio
+		* s00_skidding,
+		* s01_rolling,
+		* s02_jump,
+		* s03_spindash,
+		* s04_release,
+		* s05_water,
+		* s06_normalshield,
+		* s07_bubbleshield,
+		* s08_watercount;
+};
+
 enum PlayerValueState
 {
 	PLAYER_DEFAULT,
@@ -47,6 +61,13 @@ enum PlayerActionState
 	PLAYER_CROUCHED,
 	PLAYER_LOOKUP,
 	PLAYER_SPINDASH
+};
+
+enum ShieldType
+{
+	SHIELD_NONE,
+	SHIELD_NORMAL,
+	SHIELD_BUBBLE
 };
 
 class Player :
@@ -201,6 +222,7 @@ private:
 
 	// Sound
 	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
+	PlayerSFX                                   sfx = { 0 };
 	OficinaFramework::AudioSystem::Audio*       sfx_00_skidding;
 	OficinaFramework::AudioSystem::Audio*       sfx_01_rolling;
 	OficinaFramework::AudioSystem::Audio*       sfx_02_jump;
@@ -235,6 +257,9 @@ private:
 	EffectSpawner* 									m_spawner;
 	byte                                            m_superspark_span = 0u;
 	byte                                            m_minibubble_span = 120u;
+	word                                            m_drown_span      = 1800u;
+	ShieldType                                      m_currentshield;
+	OficinaFramework::EntitySystem::DrawableEntity* m_shieldhandle = nullptr;
 
 public:
 	Player();

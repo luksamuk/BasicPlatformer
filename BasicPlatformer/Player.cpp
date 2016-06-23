@@ -44,6 +44,7 @@ void Player::Initialize()
 	m_haswater = false;
 	m_viewsensors = false;
 	m_grid = nullptr;
+	m_currentshield = SHIELD_NONE;
 }
 
 void Player::Update()
@@ -176,7 +177,7 @@ void Player::Update()
 				if (m_currentAction != PLAYER_SKIDDING && abs(m_groundvelocity.x) > 1.8f) {
 					m_currentAction = PLAYER_SKIDDING;
 					soundEmitter->Stop();
-					soundEmitter->Play(sfx_00_skidding);
+					soundEmitter->Play(sfx.s00_skidding);
 				}
 
 				if (m_groundvelocity.x >= values->m_decel)
@@ -188,7 +189,7 @@ void Player::Update()
 				if (m_currentAction != PLAYER_SKIDDING && abs(m_groundvelocity.x) > 1.8f) {
 					m_currentAction = PLAYER_SKIDDING;
 					soundEmitter->Stop();
-					soundEmitter->Play(sfx_00_skidding);
+					soundEmitter->Play(sfx.s00_skidding);
 				}
 
 				if (m_groundvelocity.x <= -values->m_decel)
@@ -467,7 +468,7 @@ void Player::Update()
 		&& OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::A))
 	{
 		soundEmitter->Stop();
-		soundEmitter->Play(sfx_02_jump);
+		soundEmitter->Play(sfx.s02_jump);
 		m_currentAction = PLAYER_JUMPING;
 		ground = false;
 		jumpAngle = m_angle;
@@ -485,7 +486,7 @@ void Player::Update()
 		&& abs(m_groundvelocity.x) >= values->m_rollingMinXSpeed
 		&& leftStick.y > 0.0f) {
 		soundEmitter->Stop();
-		soundEmitter->Play(sfx_01_rolling);
+		soundEmitter->Play(sfx.s01_rolling);
 		m_currentAction = PLAYER_ROLLING;
 	}
 	// If on air and rolling, then you're technically jumping.
@@ -527,7 +528,7 @@ void Player::Update()
 		{
 			m_currentAction = PLAYER_SPINDASH;
 			soundEmitter->Stop();
-			soundEmitter->Play(sfx_03_spindash);
+			soundEmitter->Play(sfx.s03_spindash);
 		}
 		else if (m_currentAction == PLAYER_SPINDASH)
 		{
@@ -536,7 +537,7 @@ void Player::Update()
 			{
 				m_spindashRevolutions += 2.0f;
 				soundEmitter->Stop();
-				soundEmitter->Play(sfx_03_spindash);
+				soundEmitter->Play(sfx.s03_spindash);
 			}
 
 			// Update revolutions
@@ -550,7 +551,7 @@ void Player::Update()
 				m_currentAction = PLAYER_ROLLING;
 				m_spindashRevolutions = 0.0f;
 				soundEmitter->Stop();
-				soundEmitter->Play(sfx_04_release);
+				soundEmitter->Play(sfx.s04_release);
 			}
 		}
 	}
@@ -596,7 +597,7 @@ void Player::Update()
 
 			if (abs(m_groundvelocity.y) != 0.0f) {
 				soundEmitter->Stop();
-				soundEmitter->Play(sfx_05_water);
+				soundEmitter->Play(sfx.s05_water);
 				m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
 			}
 		}
@@ -610,27 +611,56 @@ void Player::Update()
 
 				if (abs(m_groundvelocity.y) != 0.0f) {
 					soundEmitter->Stop();
-					soundEmitter->Play(sfx_05_water);
+					soundEmitter->Play(sfx.s05_water);
 					m_spawner->Create(FX_SPLASH, vec2(m_position.x, m_waterHeight - 15.0f));
 				}
 			}
 
 			// Bubble spawn check
-			if (m_minibubble_span == 0u)
+			if(m_currentshield != SHIELD_BUBBLE)
 			{
-				m_spawner->Create(FX_SMALLBUBBLE, m_position, 1.0f,
-					[&](vec2& Position, vec2& Velocity, bool& Destroy)
-					{
-						if(Velocity.y == 0.0f)
-							Velocity.y = -0.5f;
-						Position += Velocity;
-						if (Position.y - 4.0f <= m_waterHeight)
-							Destroy = true;
-					}
-				);
-				m_minibubble_span = 120u;
+				if (m_minibubble_span == 0u)
+				{
+					m_spawner->Create(FX_SMALLBUBBLE, m_position, 1.0f,
+						[&](vec2& Position, vec2& Velocity, bool& Destroy)
+						{
+							if(Velocity.y == 0.0f)
+								Velocity.y = -0.5f;
+							Position += Velocity;
+							if (Position.y - 4.0f <= m_waterHeight)
+								Destroy = true;
+						}
+					);
+					m_minibubble_span = 120u;
+				}
+				else m_minibubble_span--;
 			}
-			else m_minibubble_span--;
+
+			// Drowning-related stuff
+
+			// Do not drown if on bubble shield
+			if(m_currentshield == SHIELD_BUBBLE)
+				m_drown_span = 1800u;
+			else if(m_drown_span > 0u)
+				m_drown_span--;
+
+			// SFX plays for 5s, 10s and 15s
+			if(m_drown_span == 1500u
+				|| m_drown_span == 1200u
+				|| m_drown_span == 900u)
+			{
+				soundEmitter->Stop();
+				soundEmitter->Play(sfx.s08_watercount);
+			}
+			// Jingle starts at 18s
+			//if(m_drown_span == 720u) {}
+			// TODO: Kill Sonic on zero
+			//if(!m_drown_span) {}
+		}
+		// Prevent drowning
+		else
+		{
+			m_drown_span = 1800u;
 		}
 	}
 
@@ -683,6 +713,46 @@ void Player::Update()
 			m_position = mousePos;
 			m_groundvelocity = vec2::Zero();
 			ground = false;
+		}
+
+		// Debug shield
+		if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_5)
+			|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::X))
+		{
+			if(m_currentshield == SHIELD_NORMAL)
+			{
+				m_shieldhandle->RemoveMe();
+				m_shieldhandle = nullptr;
+				m_currentshield = SHIELD_NONE;
+			}
+			else
+			{
+				if(m_currentshield != SHIELD_NONE)
+					m_shieldhandle->RemoveMe();
+				m_currentshield = SHIELD_NORMAL;
+				m_shieldhandle = m_spawner->Create(FX_NORMALSHIELD, this, vec2(0.0f, 2.0f), 0.45f);
+				soundEmitter->Stop();
+				soundEmitter->Play(sfx.s06_normalshield);
+			}
+		}
+		else if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_6)
+			|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::Y))
+		{
+			if(m_currentshield == SHIELD_BUBBLE)
+			{
+				m_shieldhandle->RemoveMe();
+				m_shieldhandle = nullptr;
+				m_currentshield = SHIELD_NONE;
+			}
+			else
+			{
+				if(m_currentshield != SHIELD_NONE)
+					m_shieldhandle->RemoveMe();
+				m_currentshield = SHIELD_BUBBLE;
+				m_shieldhandle = m_spawner->Create(FX_BUBBLESHIELD, this);
+				soundEmitter->Stop();
+				soundEmitter->Play(sfx.s07_bubbleshield);
+			}
 		}
 
 		// Debug info
@@ -935,23 +1005,32 @@ void Player::LoadContent()
 	// Default animation
 	m_animator = m_super ? superAnimator : sonicAnimator;
 
-	sfx_00_skidding =
+	sfx.s00_skidding =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/00_skidding",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
-	sfx_01_rolling =
+	sfx.s01_rolling =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/01_rolling",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
-	sfx_02_jump =
+	sfx.s02_jump =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/02_jump",
 						OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
-	sfx_03_spindash =
+	sfx.s03_spindash =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/03_spindash",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
-	sfx_04_release =
+	sfx.s04_release =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/04_release",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
-	sfx_05_water =
+	sfx.s05_water =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/05_water",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
+	sfx.s06_normalshield =
+		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/06_normalshield",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
+	sfx.s07_bubbleshield =
+		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/07_bubbleshield",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
+	sfx.s08_watercount =
+		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/08_watercount",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
 }
 
@@ -966,12 +1045,15 @@ void Player::UnloadContent()
 	soundEmitter->Stop();
 	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_sonic);
 	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_supersonic);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_00_skidding);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_01_rolling);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_02_jump);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_03_spindash);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_04_release);
-	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx_05_water);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s00_skidding);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s01_rolling);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s02_jump);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s03_spindash);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s04_release);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s05_water);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s06_normalshield);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s07_bubbleshield);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s08_watercount);
 	delete soundEmitter;
 }
 

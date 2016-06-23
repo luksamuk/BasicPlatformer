@@ -16,9 +16,12 @@ public:
 	void LoadContent();
 	void UnloadContent();
 
-	void Create(EffectType, vec2, float alpha = 1.0f,
+	OficinaFramework::EntitySystem::DrawableEntity*
+		Create(EffectType, vec2, float alpha = 1.0f,
 			std::function<void(vec2&, vec2&, bool&)> behavior = [](vec2& pos, vec2& vel, bool& destroy) {});
-	void Create(EffectType, OficinaFramework::EntitySystem::Entity*, vec2 hotspot = vec2::Zero(), float alpha = 1.0f,
+
+	OficinaFramework::EntitySystem::DrawableEntity*
+		Create(EffectType, OficinaFramework::EntitySystem::Entity*, vec2 hotspot = vec2::Zero(), float alpha = 1.0f,
 			std::function<void(vec2&, vec2&, bool&)> behavior = [](vec2& relativePos, vec2& vel, bool& destroy) {});
 
 	void setCollection(OficinaFramework::EntitySystem::DrawableEntityCollection*);
