@@ -1,5 +1,6 @@
 #include "LevelEditorScreen.hpp"
 #include "TitleScreen.hpp"
+#include <OficinaFramework/InputSystem.hpp>
 using namespace OficinaFramework;
 
 LevelEditorScreen::LevelEditorScreen()
@@ -30,6 +31,22 @@ void LevelEditorScreen::UnloadContent()
 
 void LevelEditorScreen::Update()
 {
+    RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
+
+    // Debug toggle
+	if (InputSystem::PressedKey(SDL_SCANCODE_F1)
+		// Lstick + RB
+		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
+			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
+		ScreenSystem::SetDebug(!ScreenSystem::IsDebugActive());
+	if (InputSystem::PressedKey(SDL_SCANCODE_F2)
+		|| InputSystem::PressedButton(InputSystem::GamePadButton::LSHOULDER1))
+		ScreenSystem::Debug_ToggleMinimalist();
+
+	// Fullscreen toggle
+	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
+		OficinaFramework::ScreenSystem::SetFullScreen(!OficinaFramework::ScreenSystem::IsFullScreen());
+
     // TODO: Make ImGui process input events (typing-related)
     // or write an event handler for ImGui myself
     ImGui_ImplSdl_NewFrame(ScreenSystem::GetWindowHandle());
