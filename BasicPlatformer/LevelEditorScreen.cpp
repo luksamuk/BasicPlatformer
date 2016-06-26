@@ -68,6 +68,7 @@ void LevelEditorScreen::Update()
             if (ImGui::MenuItem("New Project...")) {}
             if (ImGui::MenuItem("Load Project...")) {}
             if (ImGui::MenuItem("Load Project...")) {}
+            ImGui::Separator();
             if (ImGui::MenuItem("Save Project")) {}
             if (ImGui::MenuItem("Save Project As...")) {}
             ImGui::Separator();
