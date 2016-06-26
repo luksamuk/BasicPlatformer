@@ -1,6 +1,7 @@
 #include "TitleScreen.hpp"
 #include "LevelSelectScreen.hpp"
 #include "LevelScreen.hpp"
+#include "LevelEditorScreen.hpp"
 #include "OptionsScreen.hpp"
 #include <OficinaFramework/InputSystem.hpp>
 using namespace OficinaFramework;
@@ -81,19 +82,23 @@ void TitleScreen::Update()
 		m_fade = 1.0f;
 		switch (m_selection)
 		{
-		case 0: // New Game, Level Select
+		case 0: // New Game
 			ScreenSystem::AddScreen(new LevelScreen(0u));
 			RemoveMe();
 			break;
-		case 1: // Level Editor
+		case 1: // Level Select
 			ScreenSystem::AddScreen(new LevelSelectScreen);
 			RemoveMe();
 			break;
-		case 2: // Options
+		case 2: // Level Editor
+			ScreenSystem::AddScreen(new LevelEditorScreen);
+			RemoveMe();
+			break;
+		case 3: // Options
 			ScreenSystem::AddScreen(new OptionsScreen);
 			RemoveMe();
 			break;
-		case 3: // Quit
+		case 4: // Quit
 			InputSystem::CallExitCommand();
 			break;
 		default: break;

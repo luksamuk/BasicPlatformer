@@ -33,19 +33,21 @@ OF_LIBS   = -loficinad  $(OF_DEPS)
 
 PROJ_OBJS_SCREENS = $(OBJ_DIR)TitleScreen.o $(OBJ_DIR)PresentationScreen.o \
 					$(OBJ_DIR)OptionsScreen.o $(OBJ_DIR)LoadingScreen.o \
-					$(OBJ_DIR)LevelSelectScreen.o $(OBJ_DIR)LevelScreen.o
+					$(OBJ_DIR)LevelSelectScreen.o $(OBJ_DIR)LevelScreen.o \
+					$(OBJ_DIR)LevelEditorScreen.o
 
 PROJ_OBJS_GAME    = $(OBJ_DIR)Effect.o $(OBJ_DIR)Player.o $(OBJ_DIR)Solid.o
 
 PROJ_OBJS_SYS     = $(OBJ_DIR)EffectSpawner.o $(OBJ_DIR)Grid.o \
 					$(OBJ_DIR)Parallax.o $(OBJ_DIR)Main.o
-
+PROJ_OBJS_IMGUI   = $(OBJ_DIR)imgui_main.o $(OBJ_DIR)imgui_draw.o \
+					$(OBJ_DIR)imgui_demo.o $(OBJ_DIR)imgui_impl_sdl.o 
 
 PROJ_LIBS = $(OBJ_DIR)Screens.o $(OBJ_DIR)GameObjects.o \
-			$(OBJ_DIR)SystemObjects.o
+			$(OBJ_DIR)SystemObjects.o $(OBJ_DIR)ImGui.o
 
 LIBS      = $(OF_LIBS)
-FLAGS     = $(CXX_FLAGS) $(OF_FLAGS) -I$(SRC_DIR)
+FLAGS     = $(CXX_FLAGS) $(OF_FLAGS) -I$(SRC_DIR) -I$(SRC_DIR)imgui/
 
 .PHONY: clean delete dirs assets
 
@@ -105,6 +107,9 @@ $(OBJ_DIR)LevelSelectScreen.o: $(SRC_DIR)LevelSelectScreen.cpp
 $(OBJ_DIR)LevelScreen.o: $(SRC_DIR)LevelScreen.cpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelScreen.cpp $(CXX_OUT) $(OBJ_DIR)LevelScreen.o
 
+$(OBJ_DIR)LevelEditorScreen.o: $(SRC_DIR)LevelEditorScreen.cpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelEditorScreen.cpp $(CXX_OUT) $(OBJ_DIR)LevelEditorScreen.o
+
 
 $(OBJ_DIR)Screens.o: $(PROJ_OBJS_SCREENS)
 	$(LDD) $(PROJ_OBJS_SCREENS) $(CXX_OUT) $(OBJ_DIR)Screens.o
@@ -143,3 +148,20 @@ $(OBJ_DIR)Main.o: $(SRC_DIR)main.cpp
 
 $(OBJ_DIR)SystemObjects.o: $(PROJ_OBJS_SYS)
 	$(LDD) $(PROJ_OBJS_SYS) $(CXX_OUT) $(OBJ_DIR)SystemObjects.o
+
+
+## ImGui Stuff
+$(OBJ_DIR)ImGui.o: $(PROJ_OBJS_IMGUI)
+	$(LDD) $(PROJ_OBJS_IMGUI) $(CXX_OUT) $(OBJ_DIR)ImGui.o
+
+$(OBJ_DIR)imgui_main.o: $(SRC_DIR)imgui.cpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)imgui.cpp $(CXX_OUT) $(OBJ_DIR)imgui_main.o
+
+$(OBJ_DIR)imgui_draw.o: $(SRC_DIR)imgui_draw.cpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)imgui_draw.cpp $(CXX_OUT) $(OBJ_DIR)imgui_draw.o
+
+$(OBJ_DIR)imgui_demo.o: $(SRC_DIR)imgui_demo.cpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)imgui_demo.cpp $(CXX_OUT) $(OBJ_DIR)imgui_demo.o
+
+$(OBJ_DIR)imgui_impl_sdl.o: $(SRC_DIR)imgui_impl_sdl.cpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)imgui_impl_sdl.cpp $(CXX_OUT) $(OBJ_DIR)imgui_impl_sdl.o

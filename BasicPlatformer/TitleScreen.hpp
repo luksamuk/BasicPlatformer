@@ -10,13 +10,14 @@ private:
 
 	int m_selection = 0,
 		m_menuselection = 0,
-		m_maxSelection = 3;
+		m_maxSelection = 4;
 	float optionXPos;
 	float menuSpeed = 30.0f;
-	const std::string menuOptions[4] =
+	const std::string menuOptions[5] =
 	{
 		"     New Game    >",
 		"<  Level Select  >",
+		"<  Level Editor  >",
 		"<     Options    >",
 		"<      Quit       "
 	};
