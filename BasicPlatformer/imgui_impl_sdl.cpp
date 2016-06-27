@@ -8,8 +8,11 @@
 
 // ~ luksamuk's note:
 // I only edited this so it could become more portable.
+// I also added a few parts that cannot be directly fed to imgui.
 
 #include "imgui_impl_sdl.hpp"
+#include <OficinaFramework/InputSystem.hpp>
+using namespace OficinaFramework;
 
 // Data
 static double       g_Time = 0.0f;
@@ -108,45 +111,34 @@ static void ImGui_ImplSdl_SetClipboardText(const char* text)
     SDL_SetClipboardText(text);
 }
 
-bool ImGui_ImplSdl_ProcessEvent(SDL_Event* event)
+// I cannot disclose SDL_Events here because I'm handling them
+// myself, so I'll just go ahead and use good and pure OficinaFramework.
+void ImGui_ImplSdl_ProcessEvents()
 {
     ImGuiIO& io = ImGui::GetIO();
-    switch (event->type)
-    {
-    case SDL_MOUSEWHEEL:
-        {
+    // Oficina still needs mouse wheel support...
+    /*case SDL_MOUSEWHEEL:
             if (event->wheel.y > 0)
                 g_MouseWheel = 1;
             if (event->wheel.y < 0)
-                g_MouseWheel = -1;
-            return true;
-        }
-    case SDL_MOUSEBUTTONDOWN:
-        {
-            if (event->button.button == SDL_BUTTON_LEFT) g_MousePressed[0] = true;
-            if (event->button.button == SDL_BUTTON_RIGHT) g_MousePressed[1] = true;
-            if (event->button.button == SDL_BUTTON_MIDDLE) g_MousePressed[2] = true;
-            return true;
-        }
-    case SDL_TEXTINPUT:
-        {
+                g_MouseWheel = -1;*/
+
+    g_MousePressed[0] = InputSystem::PressingMouse(InputSystem::MouseButton::LEFTMB);
+    g_MousePressed[1] = InputSystem::PressingMouse(InputSystem::MouseButton::RIGHTMB);
+    g_MousePressed[2] = InputSystem::PressingMouse(InputSystem::MouseButton::MIDDLEMB);
+
+    // Oficina still lacks text input handling...
+    /*case SDL_TEXTINPUT:
             ImGuiIO& io = ImGui::GetIO();
             io.AddInputCharactersUTF8(event->text.text);
-            return true;
-        }
     case SDL_KEYDOWN:
     case SDL_KEYUP:
-        {
             int key = event->key.keysym.sym & ~SDLK_SCANCODE_MASK;
             io.KeysDown[key] = (event->type == SDL_KEYDOWN);
             io.KeyShift = ((SDL_GetModState() & KMOD_SHIFT) != 0);
             io.KeyCtrl = ((SDL_GetModState() & KMOD_CTRL) != 0);
             io.KeyAlt = ((SDL_GetModState() & KMOD_ALT) != 0);
-            io.KeySuper = ((SDL_GetModState() & KMOD_GUI) != 0);
-            return true;
-        }
-    }
-    return false;
+            io.KeySuper = ((SDL_GetModState() & KMOD_GUI) != 0);*/
 }
 
 bool ImGui_ImplSdl_CreateDeviceObjects()

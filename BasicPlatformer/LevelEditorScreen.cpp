@@ -110,6 +110,9 @@ void LevelEditorScreen::Update()
         }
         ImGui::EndMainMenuBar();
     }
+
+    // Process events
+    ImGui_ImplSdl_ProcessEvents();
 }
 
 void LevelEditorScreen::Draw()
