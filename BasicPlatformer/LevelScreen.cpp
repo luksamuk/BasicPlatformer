@@ -639,18 +639,6 @@ void LevelScreen::Update()
 		soundemitter->Play(bgm);
 	}
 
-	// Kills Sonic if drowning.
-	if(!player->getDrownSpan())
-		player->Kill(true);
-	
-	// Kills Sonic if surpassing bottom of level.
-	if(LEVEL_SIZE.y > float(RenderingSystem::GetResolution().x)
-	  && player->GetPosition().y >= LEVEL_SIZE.y + 20.0f)
-	{
-		player->SetPosition(vec2(player->GetPosition().x, LEVEL_SIZE.y));
-		player->Kill();
-	}
-
 	// Whenever he's dead...
 	if((player->getAction() == PLAYER_DEATH || player->getAction() == PLAYER_DROWN))
 	{
@@ -675,6 +663,21 @@ void LevelScreen::Update()
 			//m_leveltimer = 0u; // Should only be used on time over.
 			m_fade = 8.0f;
 			m_timeractive = true;
+		}
+	}
+	// Else he's still able to die.
+	else
+	{
+		// Kills Sonic if drowning.
+		if(!player->getDrownSpan())
+			player->Kill(true);
+
+		// Kills Sonic if surpassing bottom of level.
+		if(LEVEL_SIZE.y > float(RenderingSystem::GetResolution().x)
+			&& player->GetPosition().y >= LEVEL_SIZE.y + 20.0f)
+		{
+			player->SetPosition(vec2(player->GetPosition().x, LEVEL_SIZE.y));
+			player->Kill();
 		}
 	}
 
