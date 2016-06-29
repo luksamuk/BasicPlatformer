@@ -573,7 +573,10 @@ void LevelScreen::Update()
 		m_titlecard_pos.x += 20.0f;
 
 	// Camera
-	if(!m_paused) updateCamera();
+	if(!m_paused
+	&& player->getAction() != PLAYER_DEATH
+	&& player->getAction() != PLAYER_DROWN)
+		updateCamera();
 
 	// Parallax
 	if (!m_paused)
@@ -636,16 +639,43 @@ void LevelScreen::Update()
 		soundemitter->Play(bgm);
 	}
 
-	// Now this one kills Sonic.
-	// Or better saying, for now just resets Sonic, camera and timer.
+	// Kills Sonic if drowning.
 	if(!player->getDrownSpan())
+		player->Kill(true);
+	
+	// Kills Sonic if surpassing bottom of level.
+	if(LEVEL_SIZE.y > float(RenderingSystem::GetResolution().x)
+	  && player->GetPosition().y >= LEVEL_SIZE.y + 20.0f)
 	{
-		player->reset();
-		m_cameralag = 0;
-		m_playerSpindashed = false;
-		OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
-		m_leveltimer = 0u;
-		m_fade = 8.0f;
+		player->SetPosition(vec2(player->GetPosition().x, LEVEL_SIZE.y));
+		player->Kill();
+	}
+
+	// Whenever he's dead...
+	if((player->getAction() == PLAYER_DEATH || player->getAction() == PLAYER_DROWN))
+	{
+		// Do not let level timer run!
+		m_timeractive = false;
+
+		// If Sonic is dead and his Y position is way beyond bottom corner, then reset
+		if(player->GetPosition().y >=
+		RenderingSystem::GetViewportPosition().y + (4.0f * RenderingSystem::GetResolution().y))
+		{
+			// Reset music, if not drowned. Because on drowning cases, there's
+			// code for that
+			if(player->getDrownSpan()) {
+				soundemitter->Stop();
+				soundemitter->Play(bgm);
+			}
+			// Reset player
+			player->reset();
+			m_cameralag = 0;
+			m_playerSpindashed = false;
+			OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
+			//m_leveltimer = 0u; // Should only be used on time over.
+			m_fade = 8.0f;
+			m_timeractive = true;
+		}
 	}
 
 

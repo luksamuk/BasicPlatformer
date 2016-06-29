@@ -17,6 +17,8 @@ v0.3.9 (WIP)
 - Improved usage of various sprites, which are now appropriately disposed;
 - Various small changes;
 - Changed Dynamic Dash Zone to Radiant Rush Zone;
+- Added death/drowning;
+- Updated Sonic and Super Sonic's sprites and palette;
 - Updated Oficina version to v1.3 Snapshot 622.
 
 v0.3.5
@@ -231,6 +233,8 @@ is active:
 | 4 (non-numpad)    | Toggle collision, grids, AABBs and sensors         |
 | 5 (non-numpad)    | Normal Shield (toggles if shield is active)        |
 | 6 (non-numpad)    | Bubble Shield (toggles if shield is active)        |
+| 7 (non-numpad)    | Kills Sonic instantly                              |
+| 8 (non-numpad)    | Drowns Sonic instantly                             |
 | F3                | Reposition Sonic at beginning of level             |
 | Mouse Click       | Place Sonic on mouse position                      |
 

@@ -31,6 +31,8 @@ void PresentationScreen::UnloadContent() {
 	ScreenSystem::Screen::UnloadContent();
 }
 void PresentationScreen::Update() {
+	RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
+
 	m_timer += 0.02f * TimingSystem::StepCorrection();
 	m_poweredby->update();
 

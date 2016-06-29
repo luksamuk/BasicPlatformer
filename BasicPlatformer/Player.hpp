@@ -69,7 +69,9 @@ enum PlayerActionState
 	PLAYER_ROLLING,
 	PLAYER_CROUCHED,
 	PLAYER_LOOKUP,
-	PLAYER_SPINDASH
+	PLAYER_SPINDASH,
+	PLAYER_DEATH,
+	PLAYER_DROWN
 };
 
 enum ShieldType
@@ -299,6 +301,7 @@ public:
 	void setGrid(Grid*);
 	void disableGrid();
 	void setSpawner(EffectSpawner*);
+	void Kill(bool drown = false);
 
 	virtual void LoadContent() override;
 	virtual void UnloadContent() override;

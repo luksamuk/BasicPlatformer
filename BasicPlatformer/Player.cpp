@@ -108,10 +108,13 @@ void Player::Update()
 
 	/* HORIZONTAL MOVEMENT */
 	// By NO MEANS could Sonic accelerate while rolling, crouching, looking up or spindashing.
+	// Nor when dead...
 	if (m_currentAction != PLAYER_ROLLING
 		&& m_currentAction != PLAYER_CROUCHED
 		&& m_currentAction != PLAYER_LOOKUP
-		&& m_currentAction != PLAYER_SPINDASH)
+		&& m_currentAction != PLAYER_SPINDASH
+		&& m_currentAction != PLAYER_DEATH
+		&& m_currentAction != PLAYER_DROWN)
 	{
 		if ((leftStick.x > 0.0f && !rightwall)
 			|| (leftStick.x < 0.0f && !leftwall))
@@ -211,10 +214,12 @@ void Player::Update()
 
 
 	/* DIRECTION CHANGING */
-	// Only works if not looking up, crouching nor spindashing
+	// Only works if not looking up, crouching, spindashing nor dead
 	if (m_currentAction != PLAYER_CROUCHED
 	&& m_currentAction != PLAYER_LOOKUP
-	&& m_currentAction != PLAYER_SPINDASH)
+	&& m_currentAction != PLAYER_SPINDASH
+	&& m_currentAction != PLAYER_DEATH
+	&& m_currentAction != PLAYER_DROWN)
 	{
 		if (ground)
 		{
@@ -264,7 +269,10 @@ void Player::Update()
 	leftwall = rightwall = false;
 	//int objs_iterated = 0, solids_iterated = 0, valid_solids = 0;
 	
-	//if (m_grid)
+	// Collision detection only works if Sonic is alive!
+	if(/*m_grid &&*/
+	   m_currentAction != PLAYER_DEATH
+	&& m_currentAction != PLAYER_DROWN)
 	{
 		/*std::vector<OficinaFramework::EntitySystem::Entity*> myEntities;
 
@@ -478,7 +486,10 @@ void Player::Update()
 		m_groundvelocity.y += values->m_jump_strength *  cosf(jumpAngle);
 	}
 	// Minimal jump
-	if (!ground && !pressingJump && m_groundvelocity.y < values->m_min_jump_str)
+	if (!ground && !pressingJump && m_groundvelocity.y < values->m_min_jump_str
+		// Of course, if you're using a death animation, this has no effect.
+		&& m_currentAction != PLAYER_DEATH
+		&& m_currentAction != PLAYER_DROWN)
 		m_groundvelocity.y = values->m_min_jump_str * cosf(jumpAngle);
 
 	// Rolling
@@ -571,24 +582,31 @@ void Player::Update()
 	if (values != desiredValues) values = desiredValues;
 
 	// Common state controls
-	if (m_super) {
-		if (m_underwater)
-			m_currentState = PLAYER_SUPER_UNDERWATER;
-		else
-			m_currentState = PLAYER_SUPER;
-	}
-	else {
-		if (m_underwater)
-			m_currentState = PLAYER_UNDERWATER;
-		else {
-			if (m_speedshoes)
-				m_currentState = PLAYER_SPEEDSHOES;
+	// Only works if Sonic ain't dead
+	if(m_currentAction != PLAYER_DEATH
+	&& m_currentAction != PLAYER_DROWN)
+	{
+		if (m_super) {
+			if (m_underwater)
+				m_currentState = PLAYER_SUPER_UNDERWATER;
 			else
-				m_currentState = PLAYER_DEFAULT;
+				m_currentState = PLAYER_SUPER;
+		}
+		else {
+			if (m_underwater)
+				m_currentState = PLAYER_UNDERWATER;
+			else {
+				if (m_speedshoes)
+					m_currentState = PLAYER_SPEEDSHOES;
+				else
+					m_currentState = PLAYER_DEFAULT;
+			}
 		}
 	}
 	// Underwater trigger + transition
-	if (m_haswater)
+	if (m_haswater
+	&& m_currentAction != PLAYER_DEATH
+	&& m_currentAction != PLAYER_DROWN)
 	{
 		if (!m_underwater && (m_position.y >= m_waterHeight))
 		{
@@ -618,7 +636,9 @@ void Player::Update()
 			}
 
 			// Bubble spawn check
-			if(m_currentshield != SHIELD_BUBBLE)
+			if(m_currentshield != SHIELD_BUBBLE
+			&& m_currentAction != PLAYER_DEATH
+			&& m_currentAction != PLAYER_DROWN)
 			{
 				if (m_minibubble_span == 0u)
 				{
@@ -726,6 +746,10 @@ void Player::Update()
 		else if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_3)
 				|| OficinaFramework::InputSystem::PressedButton(OficinaFramework::InputSystem::GamePadButton::HAT_DOWN))
 			m_super = !m_super;
+		else if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_7))
+			Kill();
+		else if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_8))
+			Kill(true);
 
 		// Debug repositioning
 		if (OficinaFramework::InputSystem::PressingMouse(OficinaFramework::InputSystem::MouseButton::LEFTMB))
@@ -813,6 +837,8 @@ void Player::Update()
 		case PLAYER_CROUCHED: oss << "crouched down"; break;
 		case PLAYER_LOOKUP:   oss << "looking up";    break;
 		case PLAYER_SPINDASH: oss << "spindashing";   break;
+		case PLAYER_DEATH:    oss << "dead";          break;
+		case PLAYER_DROWN:    oss << "drowned";       break;
 		default:              oss << "action #" << (int)m_currentAction; break;
 		}
 		oss << std::endl
@@ -917,6 +943,8 @@ void Player::updateAnimation(float leftStickX)
 				(0.045f * (abs(m_xSpeedBeforeJump) / 4.0f))
 			));
 		}
+		else if(m_currentAction == PLAYER_DEATH)  setAnimation("Death");
+		else if(m_currentAction == PLAYER_DROWN)  setAnimation("Death"); // TODO: Drowning animation
 	}
 
 	// Animation direction
@@ -1010,6 +1038,37 @@ void Player::setSpawner(EffectSpawner* fxs)
 	m_spawner = fxs;
 }
 
+void Player::Kill(bool drowned)
+{
+	// Never give Sonic an endless death. Really.
+	if(m_currentAction == PLAYER_DEATH
+	|| m_currentAction == PLAYER_DROWN)
+		return;
+
+	m_currentAction = drowned ? PLAYER_DROWN : PLAYER_DEATH;
+	ground = false;
+	m_groundvelocity.x = 0.0f;
+	m_angle = 0.0f;
+	m_direction = 1.0f;
+	m_groundvelocity.y = drowned ? 0.0f : -6.5f;
+	
+	// Disable shield
+	if(m_shieldhandle) {
+		m_shieldhandle->RemoveMe();
+		m_shieldhandle = nullptr;
+	}
+	m_currentshield = SHIELD_NONE;
+
+	// Normal gravity if normal death
+	if(!drowned) m_currentState = PLAYER_DEFAULT;
+	m_currentState = drowned ?
+					 (m_super ? PLAYER_SUPER_UNDERWATER : PLAYER_UNDERWATER)
+					 : (m_super ? PLAYER_SUPER : PLAYER_DEFAULT); 
+
+	soundEmitter->Stop();
+	soundEmitter->Play(drowned ? sfx.s0A_drown : sfx.s0F_death);
+}
+
 void Player::LoadContent()
 {
 	// Sonic
@@ -1029,6 +1088,7 @@ void Player::LoadContent()
 	sonicAnimator->RegisterAnimation(      "Push", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(28, 31, 28, 0.5f));
 	sonicAnimator->RegisterAnimation("CrouchDown", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(32, 32, 1.0f));
 	sonicAnimator->RegisterAnimation(    "LookUp", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(33, 33, 1.0f));
+	sonicAnimator->RegisterAnimation(    "Death",  OficinaFramework::RenderingSystem::Animation::AnimationSpecs(34, 34, 1.0f));
 	sonicAnimator->SetSyncToFramerate(true);
 	sonicAnimator->SetAnimation("Idle");
 
@@ -1049,6 +1109,7 @@ void Player::LoadContent()
 	superAnimator->RegisterAnimation("Push", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(28, 31, 28, 0.5f));
 	superAnimator->RegisterAnimation("CrouchDown", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(32, 32, 1.0f));
 	superAnimator->RegisterAnimation("LookUp", OficinaFramework::RenderingSystem::Animation::AnimationSpecs(33, 33, 1.0f));
+	superAnimator->RegisterAnimation("Death",  OficinaFramework::RenderingSystem::Animation::AnimationSpecs(34, 34, 1.0f));
 	superAnimator->SetSyncToFramerate(true);
 	superAnimator->SetAnimation("Idle");
 	
@@ -1081,6 +1142,14 @@ void Player::LoadContent()
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
 	sfx.s08_watercount =
 		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/08_watercount",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
+	//--
+	sfx.s0A_drown =
+		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/0A_drown",
+			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
+	//--
+	sfx.s0F_death =
+		OficinaFramework::AudioSystem::AudioPool::LoadAudio("sfx/0F_death",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG);
 }
 
