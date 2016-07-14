@@ -81,6 +81,13 @@ enum ShieldType
 	SHIELD_BUBBLE
 };
 
+enum DeathType
+{
+	DEATH_DEFAULT,
+	DEATH_DROWN,
+	DEATH_SPIKES
+};
+
 class Player :
 	public OficinaFramework::EntitySystem::DrawableEntity
 {
@@ -301,7 +308,7 @@ public:
 	void setGrid(Grid*);
 	void disableGrid();
 	void setSpawner(EffectSpawner*);
-	void Kill(bool drown = false);
+	void Kill(DeathType t = DEATH_DEFAULT);
 
 	virtual void LoadContent() override;
 	virtual void UnloadContent() override;

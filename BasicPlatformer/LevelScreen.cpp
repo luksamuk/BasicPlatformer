@@ -670,7 +670,7 @@ void LevelScreen::Update()
 	{
 		// Kills Sonic if drowning.
 		if(!player->getDrownSpan())
-			player->Kill(true);
+			player->Kill(DEATH_DROWN);
 
 		// Kills Sonic if surpassing bottom of level.
 		if(LEVEL_SIZE.y > float(RenderingSystem::GetResolution().x)
