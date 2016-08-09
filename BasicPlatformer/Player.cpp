@@ -749,7 +749,7 @@ void Player::Update()
 		else if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_7))
 			Kill();
 		else if(OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_8))
-			Kill(true);
+			Kill(DEATH_DROWN);
 
 		// Debug repositioning
 		if (OficinaFramework::InputSystem::PressingMouse(OficinaFramework::InputSystem::MouseButton::LEFTMB))
@@ -1038,19 +1038,17 @@ void Player::setSpawner(EffectSpawner* fxs)
 	m_spawner = fxs;
 }
 
-void Player::Kill(bool drowned)
+void Player::Kill(DeathType t)
 {
 	// Never give Sonic an endless death. Really.
 	if(m_currentAction == PLAYER_DEATH
 	|| m_currentAction == PLAYER_DROWN)
 		return;
 
-	m_currentAction = drowned ? PLAYER_DROWN : PLAYER_DEATH;
 	ground = false;
 	m_groundvelocity.x = 0.0f;
 	m_angle = 0.0f;
 	m_direction = 1.0f;
-	m_groundvelocity.y = drowned ? 0.0f : -6.5f;
 	
 	// Disable shield
 	if(m_shieldhandle) {
@@ -1058,15 +1056,25 @@ void Player::Kill(bool drowned)
 		m_shieldhandle = nullptr;
 	}
 	m_currentshield = SHIELD_NONE;
-
-	// Normal gravity if normal death
-	if(!drowned) m_currentState = PLAYER_DEFAULT;
-	m_currentState = drowned ?
-					 (m_super ? PLAYER_SUPER_UNDERWATER : PLAYER_UNDERWATER)
-					 : (m_super ? PLAYER_SUPER : PLAYER_DEFAULT); 
-
 	soundEmitter->Stop();
-	soundEmitter->Play(drowned ? sfx.s0A_drown : sfx.s0F_death);
+
+	// Change actions; and also, change variables if drowned
+	switch(t)
+	{
+	case DEATH_DROWN:
+		m_currentAction = PLAYER_DROWN;
+		m_currentState = (m_super ? PLAYER_SUPER_UNDERWATER : PLAYER_UNDERWATER);
+		soundEmitter->Play(sfx.s0A_drown);
+		m_groundvelocity.y = 0.0f;
+		break;
+
+	default:
+		m_currentAction = PLAYER_DEATH;
+		m_currentState = (m_super ? PLAYER_SUPER : PLAYER_DEFAULT);
+		soundEmitter->Play(sfx.s0F_death);
+		m_groundvelocity.y = -6.5f;
+		break;
+	};
 }
 
 void Player::LoadContent()

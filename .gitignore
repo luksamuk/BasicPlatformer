@@ -271,7 +271,7 @@ GTAGS
 GRTAGS
 GPATH
 *.VC.opendb
-/.vscode/.browse.VC.db-wal
+/.vscode/.browse.VC.*
 
 # INI files
 *.ini
