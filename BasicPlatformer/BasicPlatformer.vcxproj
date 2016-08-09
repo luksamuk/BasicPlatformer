@@ -98,6 +98,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DEBUG_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -134,6 +135,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DEBUG_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;OpenGL32.lib;glew32.lib;OpenAL32.lib;physfs.lib;libvorbisfile.lib;libvorbis.lib;libogg.lib;wsock32.lib;liboficina.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -170,6 +172,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -208,6 +211,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -242,6 +246,11 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectSpawner.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_sdl.cpp" />
+    <ClCompile Include="LevelEditorScreen.cpp" />
     <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OptionsScreen.cpp" />
@@ -269,6 +278,14 @@
     <ClInclude Include="Effect.hpp" />
     <ClInclude Include="EffectSpawner.hpp" />
     <ClInclude Include="Grid.hpp" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_sdl.hpp" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\stb_rect_pack.h" />
+    <ClInclude Include="imgui\stb_textedit.h" />
+    <ClInclude Include="imgui\stb_truetype.h" />
+    <ClInclude Include="LevelEditorScreen.hpp" />
     <ClInclude Include="LoadingScreen.hpp" />
     <ClInclude Include="OptionsScreen.hpp" />
     <ClInclude Include="Parallax.hpp" />

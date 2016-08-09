@@ -758,7 +758,7 @@ void LevelScreen::updateCamera()
 	// Whenever it releases, the timer will be set.
 	if (player->getAction() == PLAYER_SPINDASH) {
 		m_playerSpindashed = true;
-		m_cameralag = 16 - player->getSpindashRev();
+		m_cameralag = static_cast<int>(16.0f - player->getSpindashRev());
 	}
 	else if (m_playerSpindashed) m_playerSpindashed = false;
 
