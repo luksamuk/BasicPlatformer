@@ -293,8 +293,7 @@ void LevelScreen::Initialize()
 		for (float f = 0.0f; f < 1920.0f; f += 128.0f)
 			m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
 	}
-	//m_grid = new Grid(vec2(128.0f, 128.0f));
-	//m_grid->Populate(&m_drawables);
+	m_grid = new Grid(vec2(128.0f, 128.0f));
 
 	m_drawables.Add(player);
 
@@ -350,6 +349,11 @@ void LevelScreen::LoadContent()
 				"bgm/radiantrush",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 98.798f, 13.530f);
+		else if (LEVEL_ID == 16 || LEVEL_ID == 17)
+			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+				"bgm/cybercity",
+				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+				true, 67.231f, 6.438f);
 		else if (LEVEL_ID == 18)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/whitewonder",
@@ -408,7 +412,7 @@ void LevelScreen::LoadContent()
 		);
 	}
 
-	//player->setGrid(m_grid);
+	player->setGrid(m_grid);
 
 	// Load HUD graphics
 	t_hud = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/headsup");
@@ -514,7 +518,7 @@ void LevelScreen::LoadContent()
 
 void LevelScreen::UnloadContent()
 {
-	//delete m_grid;
+	delete m_grid;
 	m_drawables.UnloadContent();
 	m_drawables.Dispose();
 	m_effects.Dispose();
@@ -522,6 +526,8 @@ void LevelScreen::UnloadContent()
 
 	soundemitter->Stop();
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(bgm);
+	if(m_drowningtheme)
+		OficinaFramework::AudioSystem::AudioPool::UnloadAudio(m_drowningtheme);
 	delete soundemitter;
 
 	OficinaFramework::RenderingSystem::TexturePool::DisposeTexture(t_hud);

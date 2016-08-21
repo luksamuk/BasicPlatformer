@@ -68,7 +68,7 @@ private:
 	// Misc
 	bool  m_clearcolorset;
 	bool  m_paused = false;
-	//Grid* m_grid;
+	Grid* m_grid;
 	EffectSpawner m_spawner;
 
 	// Parallax

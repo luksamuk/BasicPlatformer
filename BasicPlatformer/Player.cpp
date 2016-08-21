@@ -1181,6 +1181,8 @@ void Player::UnloadContent()
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s06_normalshield);
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s07_bubbleshield);
 	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s08_watercount);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s0A_drown);
+	OficinaFramework::AudioSystem::AudioPool::UnloadAudio(sfx.s0F_death);
 	delete soundEmitter;
 }
 
@@ -1244,7 +1246,7 @@ void Player::Draw()
 			vec2 cellPosition(floor((m_position.x / cellSize.x)) * cellSize.x,
 				floor((m_position.y / cellSize.y)) * cellSize.y);
 
-			/*OficinaFramework::RenderingSystem::glColorM(GREEN, 0.3f);
+			OficinaFramework::RenderingSystem::glColorM(GREEN, 0.3f);
 
 			// Top
 			glPushMatrix();
@@ -1332,7 +1334,7 @@ void Player::Draw()
 			glVertex2f(cellSize.x, cellSize.y);
 			glVertex2f(0.0f, cellSize.y);
 			glEnd();
-			glPopMatrix();*/
+			glPopMatrix();
 
 			// Central
 			OficinaFramework::RenderingSystem::glColorM(RED, 1.0f);
