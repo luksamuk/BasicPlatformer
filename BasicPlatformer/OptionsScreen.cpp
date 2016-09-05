@@ -101,14 +101,19 @@ void OptionsScreen::Update()
 		case 3: // Frame Rate
 			break;
 		case 4: // Apply
+
 			// Apply Window Size
 			newWindowSize = RenderingSystem::GetResolution().toVec2();
 			newWindowSize *= 1.0f + (m_windowSizeOption * 0.5f);
 			if (newWindowSize != ScreenSystem::GetWindowSize().toVec2())
 			{
 				ScreenSystem::SetWindowSize(vec2dw(static_cast<dword>(newWindowSize.x), static_cast<dword>(newWindowSize.y)));
-				if (!ScreenSystem::IsFullScreen())
+				if (!ScreenSystem::IsFullScreen()) {
+					RenderingSystem::DestroyDefaultBuffer();
 					RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+					RenderingSystem::SetResolution(RenderingSystem::GetResolution());
+					RenderingSystem::CreateDefaultBuffer();
+				}
 			}
 
 			// Apply Fullscreen

@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Launch (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x64",
+            "program": "${workspaceRoot}/bin/Debug/SonicEngine",
+            "args": [],
+            "preLaunchTask": "./build.sh",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}/BasicPlatformer",
+            "environment": [],
+            "externalConsole": false
+        },
+        {
+            "name": "C++ Attach (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x64",
+            "program": "${workspaceRoot}/bin/Debug/SonicEngine",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            //"processId": "enter program's process ID",
+            "externalConsole": false
+        }
+    ]
+}

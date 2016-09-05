@@ -1,0 +1,7 @@
+{
+    "version": "0.1.0",
+    "command": "./build.sh",
+    "isShellCommand": true,
+    "args": [],
+    "showOutput": "always"
+}
