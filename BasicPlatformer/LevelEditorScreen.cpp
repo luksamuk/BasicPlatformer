@@ -29,8 +29,25 @@ void LevelEditorScreen::UnloadContent()
     ScreenSystem::Screen::UnloadContent();
 }
 
+void LevelEditorScreen::restoreResolution()
+{
+    RenderingSystem::DestroyDefaultBuffer();
+    RenderingSystem::SetResolution(m_old_resolution);
+    RenderingSystem::CreateDefaultBuffer();
+}
+
+void LevelEditorScreen::setResolution()
+{
+    m_old_resolution = RenderingSystem::GetResolution();
+    RenderingSystem::DestroyDefaultBuffer();
+    RenderingSystem::SetResolution(RenderingSystem::GetViewportSize());
+    RenderingSystem::CreateDefaultBuffer();
+}
+
 void LevelEditorScreen::Update()
 {
+    if(m_old_resolution == 0u) setResolution();
+
     RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
 
     // Debug toggle
@@ -93,6 +110,7 @@ void LevelEditorScreen::Update()
             ImGui::Separator();
             if (ImGui::MenuItem("Back to Main Menu"))
             {
+                restoreResolution();
                 ScreenSystem::AddScreen(new TitleScreen);
                 RemoveMe();
             }

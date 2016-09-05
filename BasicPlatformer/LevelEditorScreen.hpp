@@ -10,6 +10,10 @@ private:
     bool show_test_window = false;
     bool show_another_window = false;
     ImVec4 clear_color;
+	vec2dw m_old_resolution;
+
+	void setResolution();
+	void restoreResolution();
 public:
 	LevelEditorScreen();
 	// Inherited via Screen
