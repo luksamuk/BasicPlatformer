@@ -23,7 +23,9 @@ void TitleScreen::Initialize()
 void TitleScreen::LoadContent()
 {
 	soundEmitter = new AudioSystem::AudioSource;
+	effectEmitter = new AudioSystem::AudioSource;
 	bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen", AudioSystem::OF_AUDIO_TYPE_OGG);
+	sfxNegate = AudioSystem::AudioPool::LoadAudio("sfx/11_wrongway", AudioSystem::OF_AUDIO_TYPE_OGG);
 	titleLogo = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title");
 	titleLogo_black = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_black");
 	menuFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/levelselect"),
@@ -53,7 +55,11 @@ void TitleScreen::UnloadContent()
 	RenderingSystem::TexturePool::DisposeTexture(titleLogo_black);
 	parallax.UnloadContent();
 	soundEmitter->Stop();
+	effectEmitter->Stop();
 	AudioSystem::AudioPool::UnloadAudio(bgmAudio);
+	AudioSystem::AudioPool::UnloadAudio(sfxNegate);
+	delete soundEmitter;
+	delete effectEmitter;
 	ScreenSystem::Screen::UnloadContent();
 }
 
@@ -168,12 +174,20 @@ void TitleScreen::Update()
 	{
 		if (m_whitefade > 0.0f) m_whitefade -= 0.1f;
 
+		// Quit
 		if ((InputSystem::PressedButton(InputSystem::GamePadButton::START)
 			 || InputSystem::PressedButton(InputSystem::GamePadButton::A))
 			&& m_fade == 0.0f
 			&& (m_selection == m_menuselection))
 		{
-			m_fade = 0.1f;
+			// But only if valid
+			if( m_selection == 2 &&
+				(ScreenSystem::IsFullScreen()
+				 || RenderingSystem::GetViewportSize().y < 720u)) {
+				effectEmitter->Stop();
+				effectEmitter->Play(sfxNegate);
+			}
+			else m_fade = 0.1f;
 		}
 	}
 

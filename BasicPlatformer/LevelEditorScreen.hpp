@@ -12,8 +12,12 @@ private:
     ImVec4 clear_color;
 	vec2dw m_old_resolution;
 
+	int theme = 0;
+	int currentTheme = 0;
+
 	void setResolution();
 	void restoreResolution();
+	void updateTheme();
 public:
 	LevelEditorScreen();
 	// Inherited via Screen

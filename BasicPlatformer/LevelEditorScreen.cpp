@@ -39,6 +39,7 @@ void LevelEditorScreen::restoreResolution()
 void LevelEditorScreen::setResolution()
 {
     m_old_resolution = RenderingSystem::GetResolution();
+
     RenderingSystem::DestroyDefaultBuffer();
     RenderingSystem::SetResolution(RenderingSystem::GetViewportSize());
     RenderingSystem::CreateDefaultBuffer();
@@ -46,19 +47,17 @@ void LevelEditorScreen::setResolution()
 
 void LevelEditorScreen::Update()
 {
-    if(m_old_resolution == 0u) setResolution();
+    if(m_old_resolution == 0u)
+    {
+        // First run
+        //ScreenSystem::SetFullScreen(false);
+        setResolution();
+        RenderingSystem::glClearColorM(CORNFLOWERBLUE);
+        // Disable debug
+        ScreenSystem::SetDebug(false);
+    }
 
     RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
-
-    // Debug toggle
-	if (InputSystem::PressedKey(SDL_SCANCODE_F1)
-		// Lstick + RB
-		|| (InputSystem::PressingButton(InputSystem::GamePadButton::LSTICK)
-			&& InputSystem::PressedButton(InputSystem::GamePadButton::RSHOULDER1)))
-		ScreenSystem::SetDebug(!ScreenSystem::IsDebugActive());
-	if (InputSystem::PressedKey(SDL_SCANCODE_F2)
-		|| InputSystem::PressedButton(InputSystem::GamePadButton::LSHOULDER1))
-		ScreenSystem::Debug_ToggleMinimalist();
 
 	// Fullscreen toggle
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
@@ -126,11 +125,84 @@ void LevelEditorScreen::Update()
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
             ImGui::EndMenu();
         }
+        if(ImGui::BeginMenu("Window"))
+        {
+            if(ImGui::BeginMenu("Theme..."))
+            {
+                ImGui::RadioButton("Dark", &theme, 0);
+                ImGui::RadioButton("OSX",  &theme, 1);
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMenu();
+        }
         ImGui::EndMainMenuBar();
     }
 
     // Process events
     ImGui_ImplSdl_ProcessEvents();
+
+    updateTheme();
+}
+
+void LevelEditorScreen::updateTheme()
+{
+    if(currentTheme != theme)
+    {
+        currentTheme = theme;
+        switch(theme)
+        {
+        case 1: // White theme
+            // OSX theme by itamago
+            ImGui::GetStyle().Colors[ImGuiCol_Text]                  = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_TextDisabled]          = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+            //ImGui::GetStyle().Colors[ImGuiCol_TextHovered]           = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+            //ImGui::GetStyle().Colors[ImGuiCol_TextActive]            = ImVec4(1.00f, 1.00f, 0.00f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_WindowBg]              = ImVec4(0.94f, 0.94f, 0.94f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ChildWindowBg]         = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_Border]                = ImVec4(0.00f, 0.00f, 0.00f, 0.39f);
+            ImGui::GetStyle().Colors[ImGuiCol_BorderShadow]          = ImVec4(1.00f, 1.00f, 1.00f, 0.10f);
+            ImGui::GetStyle().Colors[ImGuiCol_FrameBg]               = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered]        = ImVec4(0.26f, 0.59f, 0.98f, 0.40f);
+            ImGui::GetStyle().Colors[ImGuiCol_FrameBgActive]         = ImVec4(0.26f, 0.59f, 0.98f, 0.67f);
+            ImGui::GetStyle().Colors[ImGuiCol_TitleBg]               = ImVec4(0.96f, 0.96f, 0.96f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_TitleBgCollapsed]      = ImVec4(1.00f, 1.00f, 1.00f, 0.51f);
+            ImGui::GetStyle().Colors[ImGuiCol_TitleBgActive]         = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_MenuBarBg]             = ImVec4(0.86f, 0.86f, 0.86f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ScrollbarBg]           = ImVec4(0.98f, 0.98f, 0.98f, 0.53f);
+            ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrab]         = ImVec4(0.69f, 0.69f, 0.69f, 0.80f);
+            ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrabHovered]  = ImVec4(0.49f, 0.49f, 0.49f, 0.80f);
+            ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrabActive]   = ImVec4(0.49f, 0.49f, 0.49f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ComboBg]               = ImVec4(0.86f, 0.86f, 0.86f, 0.99f);
+            ImGui::GetStyle().Colors[ImGuiCol_CheckMark]             = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_SliderGrab]            = ImVec4(0.26f, 0.59f, 0.98f, 0.78f);
+            ImGui::GetStyle().Colors[ImGuiCol_SliderGrabActive]      = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_Button]                = ImVec4(0.26f, 0.59f, 0.98f, 0.40f);
+            ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered]         = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ButtonActive]          = ImVec4(0.06f, 0.53f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_Header]                = ImVec4(0.26f, 0.59f, 0.98f, 0.31f);
+            ImGui::GetStyle().Colors[ImGuiCol_HeaderHovered]         = ImVec4(0.26f, 0.59f, 0.98f, 0.80f);
+            ImGui::GetStyle().Colors[ImGuiCol_HeaderActive]          = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_Column]                = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ColumnHovered]         = ImVec4(0.26f, 0.59f, 0.98f, 0.78f);
+            ImGui::GetStyle().Colors[ImGuiCol_ColumnActive]          = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ResizeGrip]            = ImVec4(1.00f, 1.00f, 1.00f, 0.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_ResizeGripHovered]     = ImVec4(0.26f, 0.59f, 0.98f, 0.67f);
+            ImGui::GetStyle().Colors[ImGuiCol_ResizeGripActive]      = ImVec4(0.26f, 0.59f, 0.98f, 0.95f);
+            ImGui::GetStyle().Colors[ImGuiCol_CloseButton]           = ImVec4(0.59f, 0.59f, 0.59f, 0.50f);
+            ImGui::GetStyle().Colors[ImGuiCol_CloseButtonHovered]    = ImVec4(0.98f, 0.39f, 0.36f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_CloseButtonActive]     = ImVec4(0.98f, 0.39f, 0.36f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_PlotLines]             = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_PlotLinesHovered]      = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_PlotHistogram]         = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_PlotHistogramHovered]  = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+            ImGui::GetStyle().Colors[ImGuiCol_TextSelectedBg]        = ImVec4(0.26f, 0.59f, 0.98f, 0.35f);
+            ImGui::GetStyle().Colors[ImGuiCol_PopupBg]               = ImVec4(1.00f, 1.00f, 1.00f, 0.94f);
+            ImGui::GetStyle().Colors[ImGuiCol_ModalWindowDarkening]  = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+            break;
+        default: break;
+        }
+    }
 }
 
 void LevelEditorScreen::Draw()

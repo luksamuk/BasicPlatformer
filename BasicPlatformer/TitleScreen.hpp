@@ -23,7 +23,9 @@ private:
 	};
 
 	OficinaFramework::AudioSystem::AudioSource* soundEmitter;
+	OficinaFramework::AudioSystem::AudioSource* effectEmitter;
 	OficinaFramework::AudioSystem::Audio*       bgmAudio;
+	OficinaFramework::AudioSystem::Audio*       sfxNegate;
 
 	OficinaFramework::RenderingSystem::Texture* titleLogo;
 	OficinaFramework::RenderingSystem::Texture* titleLogo_black;
