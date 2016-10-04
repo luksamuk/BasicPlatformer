@@ -36,10 +36,12 @@ PROJ_OBJS_SCREENS = $(OBJ_DIR)TitleScreen.o $(OBJ_DIR)PresentationScreen.o \
 					$(OBJ_DIR)LevelSelectScreen.o $(OBJ_DIR)LevelScreen.o \
 					$(OBJ_DIR)LevelEditorScreen.o
 
-PROJ_OBJS_GAME    = $(OBJ_DIR)Effect.o $(OBJ_DIR)Player.o $(OBJ_DIR)Solid.o
+PROJ_OBJS_GAME    = $(OBJ_DIR)Effect.o $(OBJ_DIR)Player.o $(OBJ_DIR)Solid.o \
+					$(OBJ_DIR)EggWalker.o
 
 PROJ_OBJS_SYS     = $(OBJ_DIR)EffectSpawner.o $(OBJ_DIR)Grid.o \
-					$(OBJ_DIR)Parallax.o $(OBJ_DIR)Main.o
+					$(OBJ_DIR)Parallax.o $(OBJ_DIR)LevelData.o \
+					$(OBJ_DIR)DebugUtil.o $(OBJ_DIR)Main.o
 PROJ_OBJS_IMGUI   = $(OBJ_DIR)imgui_main.o $(OBJ_DIR)imgui_draw.o \
 					$(OBJ_DIR)imgui_demo.o $(OBJ_DIR)imgui_impl_sdl.o 
 
@@ -104,7 +106,7 @@ $(OBJ_DIR)LoadingScreen.o: $(SRC_DIR)LoadingScreen.cpp
 $(OBJ_DIR)LevelSelectScreen.o: $(SRC_DIR)LevelSelectScreen.cpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelSelectScreen.cpp $(CXX_OUT) $(OBJ_DIR)LevelSelectScreen.o
 
-$(OBJ_DIR)LevelScreen.o: $(SRC_DIR)LevelScreen.cpp
+$(OBJ_DIR)LevelScreen.o: $(SRC_DIR)LevelScreen.cpp $(SRC_DIR)objects/EggWalker.hpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelScreen.cpp $(CXX_OUT) $(OBJ_DIR)LevelScreen.o
 
 $(OBJ_DIR)LevelEditorScreen.o: $(SRC_DIR)LevelEditorScreen.cpp
@@ -127,6 +129,8 @@ $(OBJ_DIR)Player.o: $(SRC_DIR)Player.cpp
 $(OBJ_DIR)Solid.o: $(SRC_DIR)Solid.cpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)Solid.cpp $(CXX_OUT) $(OBJ_DIR)Solid.o
 
+$(OBJ_DIR)EggWalker.o: $(SRC_DIR)objects/EggWalker.cpp $(SRC_DIR)objects/EggWalker.hpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)objects/EggWalker.cpp $(CXX_OUT) $(OBJ_DIR)EggWalker.o
 
 $(OBJ_DIR)GameObjects.o: $(PROJ_OBJS_GAME)
 	$(LDD) $(PROJ_OBJS_GAME) $(CXX_OUT) $(OBJ_DIR)GameObjects.o
@@ -145,6 +149,12 @@ $(OBJ_DIR)Parallax.o: $(SRC_DIR)Parallax.cpp
 
 $(OBJ_DIR)Main.o: $(SRC_DIR)main.cpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)main.cpp $(CXX_OUT) $(OBJ_DIR)Main.o
+
+$(OBJ_DIR)LevelData.o: $(SRC_DIR)LevelData.cpp $(SRC_DIR)LevelData.hpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelData.cpp $(CXX_OUT) $(OBJ_DIR)LevelData.o
+
+$(OBJ_DIR)DebugUtil.o: $(SRC_DIR)OFSDebugUtil.cpp $(SRC_DIR)OFSDebugUtil.hpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)OFSDebugUtil.cpp $(CXX_OUT) $(OBJ_DIR)DebugUtil.o
 
 $(OBJ_DIR)SystemObjects.o: $(PROJ_OBJS_SYS)
 	$(LDD) $(PROJ_OBJS_SYS) $(CXX_OUT) $(OBJ_DIR)SystemObjects.o

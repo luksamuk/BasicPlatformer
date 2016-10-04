@@ -1,18 +1,23 @@
 {
-    "configurations": [
-        {
+    "configurations": [{
             "name": "Mac",
             "includePath": ["/usr/include"]
         },
         {
             "name": "Linux",
             "includePath": ["/usr/include",
-                            "/usr/local/include"]
+                "/usr/local/include",
+                "${workspaceRoot}/BasicPlatformer",
+                "${workspaceRoot}/BasicPlatformer/objects}"
+            ]
         },
         {
             "name": "Win32",
             "includePath": ["c:/MSVCLibs/include",
-            "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include"]
+                "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                "${workspaceRoot}/BasicPlatformer",
+                "${workspaceRoot}/BasicPlatformer/objects}"
+            ]
         }
     ]
 }

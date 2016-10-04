@@ -12,14 +12,17 @@ v0.3.9 (WIP)
 - Added Basic Effects and Effect Spawners;
 - Added WIP backgrounds for IIz, AAz, CCz (both levels 6 and 11), TFF (parallax only);
 - Updated song for AAz;
-- Added songs for CCz (both 6 and 11), DDz, SSz, WWz, JJz, RRz;
+- Added songs for CCz (both 6 and 11), DDz, SSz, WWz, JJz;
 - Updated HUD;
 - Improved usage of various sprites, which are now appropriately disposed;
 - Various small changes;
 - Changed Dynamic Dash Zone to Radiant Rush Zone;
 - Added death/drowning;
 - Updated Sonic and Super Sonic's sprites and palette;
-- Updated Oficina version to v1.3 Snapshot 622.
+- Updated Oficina version to v1.3 Snapshot 622;
+- Added a new collision system (WIP);
+- Added a debug util tool for drawing 2D primitives (WIP);
+- Added Egg Walker boss (Test purposes only - WIP).
 
 v0.3.5
 - Added Options menu;

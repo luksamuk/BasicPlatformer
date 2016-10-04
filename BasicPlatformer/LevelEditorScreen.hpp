@@ -4,6 +4,8 @@
 #include <OficinaFramework/AudioSystem.hpp>
 #include "imgui_impl_sdl.hpp"
 
+#include "LevelData.hpp"
+
 class LevelEditorScreen : public OficinaFramework::ScreenSystem::Screen
 {
 private:
@@ -11,6 +13,7 @@ private:
     bool show_another_window = false;
     ImVec4 clear_color;
 	vec2dw m_old_resolution;
+	vec2   m_cameraPosition;
 
 	int theme = 0;
 	int currentTheme = 0;
@@ -18,6 +21,8 @@ private:
 	void setResolution();
 	void restoreResolution();
 	void updateTheme();
+
+	void drawGrid();
 public:
 	LevelEditorScreen();
 	// Inherited via Screen

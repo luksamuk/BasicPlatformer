@@ -5,6 +5,7 @@
 using namespace OficinaFramework;
 
 #include "EffectSpawner.hpp"
+#include "objects/EggWalker.hpp"
 
 LevelScreen::LevelScreen(dword id)
 {
@@ -128,7 +129,12 @@ LevelScreen::LevelScreen(dword id)
 		LEVEL_ACT = 0;
 		break;
 	}
-
+	if(id == 22u)
+	{
+		EggWalker* testWalker = new EggWalker;
+		testWalker->SetPosition(vec2(300.0f, 400.0f));
+		m_drawables.Add(testWalker);
+	}
 	// Define current time of day
 	time_t now;
 	tm* now_tm;
@@ -346,9 +352,9 @@ void LevelScreen::LoadContent()
 				true, 78.616f, 8.799f);
 		else if (LEVEL_ID == 14 || LEVEL_ID == 15)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/radiantrush",
+				"bgm/eveningstar",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 98.798f, 13.530f);
+				true, 45.096f, 9.097f);
 		else if (LEVEL_ID == 16 || LEVEL_ID == 17)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/cybercity",
@@ -500,6 +506,7 @@ void LevelScreen::LoadContent()
 		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer4_0", 0.3f));
 		parallax.AppendPiece(new ParallaxPiece("background/level12/parallax/layer4_1", 0.3f));
 		LEVEL_SIZE.y = 2560.0f;
+
 	}
 
 	if(bgm)

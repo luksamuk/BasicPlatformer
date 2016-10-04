@@ -41,6 +41,8 @@ void LevelEditorScreen::setResolution()
     m_old_resolution = RenderingSystem::GetResolution();
 
     RenderingSystem::DestroyDefaultBuffer();
+    RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+    ScreenSystem::SetWindowSize(RenderingSystem::GetViewportSize());
     RenderingSystem::SetResolution(RenderingSystem::GetViewportSize());
     RenderingSystem::CreateDefaultBuffer();
 }
@@ -50,14 +52,15 @@ void LevelEditorScreen::Update()
     if(m_old_resolution == 0u)
     {
         // First run
-        //ScreenSystem::SetFullScreen(false);
         setResolution();
         RenderingSystem::glClearColorM(CORNFLOWERBLUE);
         // Disable debug
         ScreenSystem::SetDebug(false);
     }
 
-    RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
+    RenderingSystem::SetCameraPosition(m_cameraPosition);
+    m_cameraPosition += InputSystem::GetLeftStick();
+
 
 	// Fullscreen toggle
 	if (OficinaFramework::InputSystem::PressedKey(SDL_SCANCODE_F11))
@@ -75,6 +78,9 @@ void LevelEditorScreen::Update()
         if (ImGui::Button("Test Window")) show_test_window ^= 1;
         if (ImGui::Button("Another Window")) show_another_window ^= 1;
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Viewport: %s\nResolution:%s\n",
+            RenderingSystem::GetViewportSize().toVec2().toString().c_str(),
+            RenderingSystem::GetResolution().toVec2().toString().c_str());
     }
 
     // 2. Show another simple window, this time using an explicit Begin/End pair
@@ -205,8 +211,38 @@ void LevelEditorScreen::updateTheme()
     }
 }
 
+void LevelEditorScreen::drawGrid()
+{
+    vec2 resolution = RenderingSystem::GetResolution().toVec2();
+    vec2 vwprtPos = RenderingSystem::GetViewportPosition();
+    vec2 start = vec2::Zero();
+
+    glPushMatrix();
+    //glTranslatef(vwprtPos.x, vwprtPos.y, 0.0f);
+    for(float i = start.x; i < resolution.x; i += 128.0f)
+    {
+        RenderingSystem::glColorM(BLACK);
+        glBegin(GL_LINES);
+            glVertex2f(i, 0.0f);
+            glVertex2f(i, resolution.y);
+        glEnd();
+    }
+
+    for(float j = start.y; j < resolution.y; j += 128.0f)
+    {
+        RenderingSystem::glColorM(BLACK);
+        glBegin(GL_LINES);
+            glVertex2f(0.0f, j);
+            glVertex2f(resolution.x, j);
+        glEnd();
+    }
+    glPopMatrix();
+}
+
 void LevelEditorScreen::Draw()
 {
+    drawGrid();
+
     glPushMatrix();
     ImGui::Render();
     glPopMatrix();

@@ -181,9 +181,13 @@ void TitleScreen::Update()
 			&& (m_selection == m_menuselection))
 		{
 			// But only if valid
-			if( m_selection == 2 &&
+			/*if( m_selection == 2 &&
 				(ScreenSystem::IsFullScreen()
-				 || RenderingSystem::GetViewportSize().y < 720u)) {
+				 || RenderingSystem::GetViewportSize().y < 720u)) */
+			if(m_selection == 2) {
+				// NOTE: I am deliberately deactivating the Level Editor
+				// and will delete it pretty shortly. Found it better to
+				// break it into another project.
 				effectEmitter->Stop();
 				effectEmitter->Play(sfxNegate);
 			}
