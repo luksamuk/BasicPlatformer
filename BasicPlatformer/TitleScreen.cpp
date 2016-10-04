@@ -1,7 +1,6 @@
 #include "TitleScreen.hpp"
 #include "LevelSelectScreen.hpp"
 #include "LevelScreen.hpp"
-#include "LevelEditorScreen.hpp"
 #include "OptionsScreen.hpp"
 #include <OficinaFramework/InputSystem.hpp>
 using namespace OficinaFramework;
@@ -97,8 +96,6 @@ void TitleScreen::Update()
 			RemoveMe();
 			break;
 		case 2: // Level Editor
-			ScreenSystem::AddScreen(new LevelEditorScreen);
-			RemoveMe();
 			break;
 		case 3: // Options
 			ScreenSystem::AddScreen(new OptionsScreen);

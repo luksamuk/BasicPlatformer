@@ -68,8 +68,7 @@ As you might notice, there is plenty of unfinished stuff there. I still plan to
 handle collisions in a better way, as it only supports very specific ramps and
 rectangles for now, placed by hand on a hardcoded function.
 Implementing real maps with a clever way to handle collision detection is my next
-assignment. It'll probably end up very close to Sonic's collisions, so I might
-even create an internal editor... let's wait and see.
+assignment.
 
 
 License
