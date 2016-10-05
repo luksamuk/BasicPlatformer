@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "name": "C++ Launch (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x64",
+            "program": "${workspaceRoot}/bin/Debug/ofled",
+            "args": [],
+            "preLaunchTask": "make",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false
+        },
+        {
+            "name": "C++ Attach (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "targetArchitecture": "x64",
+            "program": "${workspaceRoot}/bin/Debug/ofled",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            //"processId": "enter program's process ID",
+            "externalConsole": false
+        }
+    ]
+}

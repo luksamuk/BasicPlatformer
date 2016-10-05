@@ -22,7 +22,8 @@ v0.3.9 (WIP)
 - Updated Oficina version to v1.3 Snapshot 622;
 - Added a new collision system (WIP);
 - Added a debug util tool for drawing 2D primitives (WIP);
-- Added Egg Walker boss (Test purposes only - WIP).
+- Added Egg Walker boss (Test purposes only - WIP);
+- Added a Level Editor subproject (OFLED - WIP).
 
 v0.3.5
 - Added Options menu;
