@@ -148,7 +148,7 @@ void Player::Update()
 	// Horizontal friction
 	else
 	{
-		if (ground && leftStick.x == 0.0f)
+		if (ground && ((leftStick.x == 0.0f) || m_currentAction != PLAYER_NOACTION))
 		{
 			if (abs(m_groundvelocity.x) >= values->m_friction) {
 				if (m_groundvelocity.x > 0.0f) m_groundvelocity.x -= values->m_friction;
@@ -495,7 +495,7 @@ void Player::Update()
 	// Rolling
 	if(ground
 		&& m_currentAction != PLAYER_ROLLING
-		&& abs(m_groundvelocity.x) >= values->m_rollingMinXSpeed
+		&& (abs(m_groundvelocity.x) >= values->m_rollingMinXSpeed)
 		&& leftStick.y > 0.0f) {
 		soundEmitter->Stop();
 		soundEmitter->Play(sfx.s01_rolling);
@@ -508,7 +508,7 @@ void Player::Update()
 
 	// Crouch down & Look up
 	if (ground
-		&& m_groundvelocity == 0.0f
+		&& (abs(m_groundvelocity.x) < values->m_rollingMinXSpeed)
 		&& (m_currentAction == PLAYER_NOACTION
 			|| m_currentAction == PLAYER_CROUCHED
 			|| m_currentAction == PLAYER_LOOKUP))
@@ -525,7 +525,7 @@ void Player::Update()
 	if ((m_currentAction == PLAYER_CROUCHED
 		|| m_currentAction == PLAYER_LOOKUP))
 	{
-		if(leftStick.y == 0.0f || m_groundvelocity.x != 0.0f)
+		if(leftStick.y == 0.0f && (abs(m_groundvelocity.x) < values->m_rollingMinXSpeed))
 			m_currentAction = PLAYER_NOACTION;
 	}
 

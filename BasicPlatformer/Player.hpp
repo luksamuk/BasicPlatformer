@@ -113,7 +113,7 @@ private:
 		0.125f,     // Rolling Deceleration
 		16.0f,      // Rolling Top X Speed
 		1.03125f,   // Rolling Minimum X Speed
-		0.5f        // Unroll Minimum X Speed
+		0.046875f   // Unroll Minimum X Speed
 	};
 
 	// Speed Shoes
@@ -136,7 +136,7 @@ private:
 		0.125f,
 		16.0f,
 		1.03125f,
-		0.5f
+		0.046875f
 	};
 
 	const PlayerValues underwater_values = {
@@ -158,7 +158,7 @@ private:
 		0.125f,
 		16.0f,
 		1.03125f,
-		0.5f
+		0.046875f
 	};
 
 	const PlayerValues super_values = {
@@ -180,7 +180,7 @@ private:
 		0.125f,
 		16.0f,
 		1.03125f,
-		0.5f
+		0.046875f
 	};
 
 	const PlayerValues super_underwater_values = {
@@ -202,7 +202,7 @@ private:
 		0.125f,
 		16.0f,
 		1.03125f,
-		0.5f
+		0.046875f
 	};
 
 	// State related

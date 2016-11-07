@@ -28,12 +28,12 @@ int main(int argc, char** argv)
 	ScreenSystem::Debug_SetFont(new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/debugger"), vec2dw(8u), vec2b::One()));
 
 	// Set default window size to 720p
-	ScreenSystem::SetWindowSize(vec2dw(1280, 720));
+	/*ScreenSystem::SetWindowSize(vec2dw(1280, 720));
 	RenderingSystem::DestroyDefaultBuffer();
 	RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
 	RenderingSystem::SetResolution(RenderingSystem::GetResolution());
 	RenderingSystem::CreateDefaultBuffer();
-
+	*/
 	ScreenSystem::AddScreen(new LoadingScreen);
 	ScreenSystem::AddScreen(new PresentationScreen);
 

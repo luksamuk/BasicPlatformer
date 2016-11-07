@@ -386,9 +386,13 @@ void LevelScreen::LoadContent()
 			default:
 			case DAYTIME_MORNING:
 				return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+					"bgm/hiddenpalace",
+					OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+					true, 52.796f, 0.458f);
+				/*return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 					"bgm/mysticcave2p",
 					OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-					true, 52.679f, 0.612f);
+					true, 52.679f, 0.612f);*/
 			case DAYTIME_AFTERNOON:
 				return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 					"bgm/walkin",
