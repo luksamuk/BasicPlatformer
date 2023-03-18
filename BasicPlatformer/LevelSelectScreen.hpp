@@ -40,7 +40,7 @@ private:
 		"Radiant Rush             1", // ID 14
 		"                         2", // ID 15
 
-		"Cyber City               1", // ID 16
+		"Cyber Highway            1", // ID 16
 		"                         2", // ID 17
 
 		"White Wonder              ", // ID 18

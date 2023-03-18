@@ -3,6 +3,8 @@
 #include <OficinaFramework/TimingSystem.hpp>
 #include <OficinaFramework/InputSystem.hpp>
 
+bool res_set = false;
+
 /* Presentation Screen */
 void PresentationScreen::Initialize() {
 	SetActive(true);
@@ -31,6 +33,16 @@ void PresentationScreen::UnloadContent() {
 	ScreenSystem::Screen::UnloadContent();
 }
 void PresentationScreen::Update() {
+    if(!res_set) {
+        res_set = true;
+        // Set default window size to 720p
+	ScreenSystem::SetWindowSize(vec2dw(1280, 720));
+	RenderingSystem::DestroyDefaultBuffer();
+	RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+	RenderingSystem::SetResolution(RenderingSystem::GetResolution());
+	RenderingSystem::CreateDefaultBuffer();
+    }
+    
 	RenderingSystem::SetCameraPosition(RenderingSystem::GetResolution().toVec2() / 2.0f);
 
 	m_timer += 0.02f * TimingSystem::StepCorrection();

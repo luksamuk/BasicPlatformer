@@ -15,10 +15,10 @@ int main(int argc, char** argv)
 	std::list<std::string>* confv = new std::list<std::string>;
 	confv->push_back("gamename=OFSONIC THE HEDGEHOG");
 	confv->push_back("framerate=60hz");
-	//confv->push_front("vsync");
+	confv->push_front("vsync");
 	confv->push_back("resolution=640x360"); // Recommended
 	confv->push_back("iconpath=icon");
-	//confv->push_front("enable_diagnostics");
+	confv->push_front("enable_diagnostics");
 	
 
 	EngineCore::Initialize(argc, argv, confv);
@@ -28,12 +28,12 @@ int main(int argc, char** argv)
 	ScreenSystem::Debug_SetFont(new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/debugger"), vec2dw(8u), vec2b::One()));
 
 	// Set default window size to 720p
-	/*ScreenSystem::SetWindowSize(vec2dw(1280, 720));
-	RenderingSystem::DestroyDefaultBuffer();
-	RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
-	RenderingSystem::SetResolution(RenderingSystem::GetResolution());
-	RenderingSystem::CreateDefaultBuffer();
-	*/
+	//ScreenSystem::SetWindowSize(vec2dw(1280, 720));
+	//RenderingSystem::DestroyDefaultBuffer();
+	//RenderingSystem::SetViewportSize(ScreenSystem::GetWindowSize());
+	//RenderingSystem::SetResolution(RenderingSystem::GetResolution());
+	//RenderingSystem::CreateDefaultBuffer();
+	
 	ScreenSystem::AddScreen(new LoadingScreen);
 	ScreenSystem::AddScreen(new PresentationScreen);
 

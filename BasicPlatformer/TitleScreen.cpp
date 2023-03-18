@@ -23,7 +23,8 @@ void TitleScreen::LoadContent()
 {
 	soundEmitter = new AudioSystem::AudioSource;
 	effectEmitter = new AudioSystem::AudioSource;
-	bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen", AudioSystem::OF_AUDIO_TYPE_OGG);
+	//bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen", AudioSystem::OF_AUDIO_TYPE_OGG);
+	bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen2", AudioSystem::OF_AUDIO_TYPE_OGG);
 	sfxNegate = AudioSystem::AudioPool::LoadAudio("sfx/11_wrongway", AudioSystem::OF_AUDIO_TYPE_OGG);
 	titleLogo = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title");
 	titleLogo_black = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_black");
@@ -241,9 +242,9 @@ void TitleScreen::Draw()
 
 		// Disclaimer
 		std::string disclaimerString =
-			"                  v0.3.9\n"
-			"           2016 luksamuk\n"
-			"Not Affiliated with SEGA";
+			"                   v0.3.9\n"
+			"2016-2023 Lucas S. Vieira\n"
+			" Not Affiliated with SEGA";
 		menuFont->DrawString(viewportSize - menuFont->MeasureString(disclaimerString, 1.0f),
 			disclaimerString);
 	}

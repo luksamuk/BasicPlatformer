@@ -72,6 +72,7 @@ game: dirs $(PROJ_LIBS)
 assets:
 	cd $(RES_DIR);  \
 	make
+	mv data.dat $(OUT_DIR)
 
 clean:
 	$(DEL) $(OBJ_DIR)*.o

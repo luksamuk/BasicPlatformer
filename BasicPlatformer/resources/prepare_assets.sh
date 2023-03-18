@@ -15,14 +15,20 @@ find ./assets_temp/ -type f -name '*.ogg' | while read f;
         do mv "$f" "${f%.ogg}";
 done
 
-#Compile all .gs scripts
-echo \*\* Compiling Gongly Scripts...
-mkdir ./assets_temp/scripts
-cd ../scripts
-find ./ -type f -name '*.gs' | while read f;
-	do echo \*\*\* Compiling "$f"... && ggsc "$f" -o ../resources/assets_temp/scripts/"${f%.gs}";
+#Remove all .wav extensions
+echo \*\* Removing .wav extensions...
+find ./assets_temp/ -type f -name '*.wav' | while read f;
+        do mv "$f" "${f%.wav}";
 done
-cd ../resources
+
+#Compile all .gs scripts
+# echo \*\* Compiling Gongly Scripts...
+# mkdir ./assets_temp/scripts
+# cd ../scripts
+# find ./ -type f -name '*.gs' | while read f;
+# 	do echo \*\*\* Compiling "$f"... && ggsc "$f" -o ../resources/assets_temp/scripts/"${f%.gs}";
+# done
+# cd ../resources
 
 #Create compressed archive
 echo \*\* Creating compressed folder...

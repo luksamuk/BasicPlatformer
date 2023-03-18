@@ -89,11 +89,11 @@ LevelScreen::LevelScreen(dword id)
 		LEVEL_ACT = 2;
 		break;
 	case 16:
-		LEVEL_NAME = "CYBER CITY";
+		LEVEL_NAME = "CYBER HIGHWAY";
 		LEVEL_ACT = 1;
 		break;
 	case 17:
-		LEVEL_NAME = "CYBER CITY";
+		LEVEL_NAME = "CYBER HIGHWAY";
 		LEVEL_ACT = 2;
 		break;
 	case 18:
@@ -178,32 +178,43 @@ void LevelScreen::Initialize()
 		m_drawables.Add(new Solid(vec2(600.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		m_drawables.Add(new Solid(vec2(900.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
 		m_drawables.Add(new Solid(vec2(900.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+		//m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(150.0f, 80.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
 		m_drawables.Add(new Solid(vec2(1200.0f, 400.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
 
-		m_drawables.Add(new Solid(vec2(1500.0f, 300.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
+                // Right curve on descent
+                m_drawables.Add(new Solid(vec2(1200.0f, 320.0f), vec2(32.0f, 80.0f), SolidType::RECT, player->getViewSensorsPtr()));
+                m_drawables.Add(new Solid(vec2(1232.0f, 320.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+                m_drawables.Add(new Solid(vec2(1248.0f, 352.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+                m_drawables.Add(new Solid(vec2(1280.0f, 384.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
+                
+		m_drawables.Add(new Solid(vec2(1500.0f, 320.0f), vec2(300.0f, 200.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		
 		// Small curve
-		
-		/*m_drawables.Add(new Solid(vec2(1800.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1816.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::RECT, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1816.0f, 276.0f), vec2(16.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1832.0f, 260.0f), vec2(8.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1832.0f, 276.0f), vec2(8.0f, 24.0f), SolidType::RECT)), player->getViewSensorsPtr();*/
-		
-		m_drawables.Add(new Solid(vec2(1720.0f, 284.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1752.0f, 252.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1784.0f, 220.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		// m_drawables.Add(new Solid(vec2(1800.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		// m_drawables.Add(new Solid(vec2(1816.0f, 292.0f), vec2(16.0f, 8.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		// m_drawables.Add(new Solid(vec2(1816.0f, 276.0f), vec2(16.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		// m_drawables.Add(new Solid(vec2(1832.0f, 260.0f), vec2(8.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		// m_drawables.Add(new Solid(vec2(1832.0f, 276.0f), vec2(8.0f, 24.0f), SolidType::RECT)), player->getViewSensorsPtr();
 
-		m_drawables.Add(new Solid(vec2(1880.0f, 220.0f), vec2(300.0f, 50.0f), SolidType::RECT, player->getViewSensorsPtr()));
-		m_drawables.Add(new Solid(vec2(1800.0f, 300.0f), vec2(300.0f, 256.0f), SolidType::RECT, player->getViewSensorsPtr()));
+                // Curve after descent
+                m_drawables.Add(new Solid(vec2(1420.0f, 384.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1452.0f, 352.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1484.0f, 320.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+
+                // Same curve, above solid part
+		m_drawables.Add(new Solid(vec2(1720.0f, 304.0f), vec2(32.0f, 16.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1752.0f, 272.0f), vec2(32.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1784.0f, 240.0f), vec2(16.0f, 32.0f), SolidType::SLOPE_R, player->getViewSensorsPtr()));
+
+		m_drawables.Add(new Solid(vec2(1880.0f, 240.0f), vec2(300.0f, 50.0f), SolidType::RECT, player->getViewSensorsPtr()));
+		m_drawables.Add(new Solid(vec2(1800.0f, 320.0f), vec2(300.0f, 256.0f), SolidType::RECT, player->getViewSensorsPtr()));
 		
 		// Flying platform
-		Solid* platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
+		Solid* platform = new Solid(vec2(2000.0f, 150.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 		// Another one
-		platform = new Solid(vec2(2000.0f, 130.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
+		platform = new Solid(vec2(2000.0f, 150.0f), vec2(64.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr());
 		platform->SetProperty(1, true);
 		m_drawables.Add(platform);
 
@@ -320,11 +331,16 @@ void LevelScreen::LoadContent()
 	m_effects.LoadContent();
 	bgm = [&]() -> AudioSystem::Audio*
 	{
-		if(LEVEL_ID == 0 || LEVEL_ID == 1)
+		// if(LEVEL_ID == 0 || LEVEL_ID == 1)
+		// 	return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+		// 		"bgm/isolatedisland",
+		// 		OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+		// 		true, 112.086f, 7.058f);
+                if (LEVEL_ID == 0 || LEVEL_ID == 1)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-				"bgm/isolatedisland",
+				"bgm/transparenthighway",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-				true, 112.086f, 7.058f);
+				true, 124.528f, 45.459f);
 		else if (LEVEL_ID == 2 || LEVEL_ID == 3)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/amazingaquarium",
@@ -360,6 +376,11 @@ void LevelScreen::LoadContent()
 				"bgm/cybercity",
 				OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
 				true, 67.231f, 6.438f);
+		// else if (LEVEL_ID == 16 || LEVEL_ID == 17)
+		// 	return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+		// 		"bgm/transparenthighway",
+		// 		OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+		// 		true, 124.528f, 45.459f);
 		else if (LEVEL_ID == 18)
 			return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
 				"bgm/whitewonder",
@@ -417,7 +438,7 @@ void LevelScreen::LoadContent()
 	if(m_hasWater)
 	{
 		m_drowningtheme = OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-			"bgm/drowning",
+			"bgm/bluelung",
 			OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG
 		);
 	}
