@@ -547,6 +547,8 @@ void LevelScreen::LoadContent()
         //m_spawner.Create(FX_NORMALSHIELD, player, vec2(0.0f, 2.0f), 0.3f);
         //m_spawner.Create(FX_BUBBLESHIELD, player);
 
+
+        OficinaFramework::RenderingSystem::SetCameraPosition(player->GetPosition());
         OficinaFramework::ScreenSystem::Screen::LoadContent();
 }
 
