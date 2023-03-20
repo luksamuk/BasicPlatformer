@@ -152,7 +152,7 @@ LevelScreen::LevelScreen(dword id)
 
         // Define water height
         m_hasWater = true;
-        m_waterHeight = 1864.0f;
+        m_waterHeight = 2500.0f;
 
         if (LEVEL_ID == 22u || LEVEL_ID == 19u || LEVEL_ID == 12u || LEVEL_ID == 13u
                 || LEVEL_ID == 8u || LEVEL_ID == 9u || LEVEL_ID == 20u || LEVEL_ID == 21u)
@@ -166,6 +166,7 @@ LevelScreen::~LevelScreen()
 void LevelScreen::Initialize()
 {
         player = new Player;
+        level = new Level(0); // R0
 
         if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
         {
@@ -263,10 +264,10 @@ void LevelScreen::Initialize()
                 m_drawables.Add(new Solid(vec2(4500.0f, 930.0f), vec2(150.0f, 200.0f), SolidType::SLOPE_L, player->getViewSensorsPtr()));
 
                 for (float f = 0.0f; f < 6400.0f; f += 128.0f)
-                        m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
+                        m_drawables.Add(new Solid(vec2(f, 2432.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));
                 
                 for (float f = 6400.0f; f < 7808.0f; f += 16.0f)
-                        m_drawables.Add(new Solid(vec2(f, 1904.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
+                        m_drawables.Add(new Solid(vec2(f, 2550.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
         }
         else if(LEVEL_ID == 22u || LEVEL_ID == 23u)
         {
@@ -327,6 +328,7 @@ void LevelScreen::Initialize()
 
 void LevelScreen::LoadContent()
 {
+    level->LoadContent();
         m_drawables.LoadContent();
         m_effects.LoadContent();
         bgm = [&]() -> AudioSystem::Audio*
@@ -569,6 +571,10 @@ void LevelScreen::UnloadContent()
         delete titlecardFont;
         parallax.UnloadContent();
         fg_parallax.UnloadContent();
+
+        level->UnloadContent();
+        delete level;
+        level = nullptr;
 
         OficinaFramework::ScreenSystem::Screen::UnloadContent();
 }
@@ -902,6 +908,11 @@ void LevelScreen::Draw()
 
         // Background
         parallax.Draw();
+
+        // Actual level test
+        if (LEVEL_ID == 0) {
+            level->Draw();
+        }
 
         // Drawables
         m_drawables.Draw();

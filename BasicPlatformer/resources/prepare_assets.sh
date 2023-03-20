@@ -15,20 +15,26 @@ find ./assets_temp/ -type f -name '*.ogg' | while read f;
         do mv "$f" "${f%.ogg}";
 done
 
-#Remove all .wav extensions
-echo \*\* Removing .wav extensions...
-find ./assets_temp/ -type f -name '*.wav' | while read f;
-        do mv "$f" "${f%.wav}";
+# Remove all .tsx extensions
+echo \*\* Removing .tsx extensions...
+find ./assets_temp/ -type f -name '*.tsx' | while read f;
+        do mv "$f" "${f%.tsx}";
 done
 
-#Compile all .gs scripts
-# echo \*\* Compiling Gongly Scripts...
-# mkdir ./assets_temp/scripts
-# cd ../scripts
-# find ./ -type f -name '*.gs' | while read f;
-# 	do echo \*\*\* Compiling "$f"... && ggsc "$f" -o ../resources/assets_temp/scripts/"${f%.gs}";
-# done
-# cd ../resources
+# Remove all .tmx extensions
+echo \*\* Removing .tmx extensions...
+find ./assets_temp/ -type f -name '*.tmx' | while read f;
+        do mv "$f" "${f%.tmx}";
+done
+
+# Remove all Tiled project files
+echo \*\* Deleting Tiled project files...
+find ./assets_temp/ -type f -name '*.tiled-project' | while read f;
+        do rm -f "$f"
+done
+find ./assets_temp/ -type f -name '*.tiled-session' | while read f;
+        do rm -f "$f"
+done
 
 #Create compressed archive
 echo \*\* Creating compressed folder...

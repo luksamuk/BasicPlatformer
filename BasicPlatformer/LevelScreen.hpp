@@ -7,6 +7,7 @@
 #include "Solid.hpp"
 #include "Parallax.hpp"
 #include "EffectSpawner.hpp"
+#include "LevelData.hpp"
 
 enum CurrentDayTime
 {
@@ -79,6 +80,8 @@ private:
 	OficinaFramework::EntitySystem::DrawableEntityCollection m_effects;
 
 	Player* player;
+
+    Level *level;
 public:
 	LevelScreen(dword id);
 	~LevelScreen();

@@ -28,7 +28,8 @@ vec2 Player::GroundSpeed() {
 
 void Player::Initialize()
 {
-	SetPosition(vec2(180.0f, 330.0f));
+    //SetPosition(vec2(180.0f, 330.0f));
+    SetPosition(vec2(180.0, 2400.0f));
 	m_lastCheckpointPos = m_position;
 	ground = true;
 	pressingJump = false;

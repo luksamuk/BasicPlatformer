@@ -1,0 +1,28 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
+    "fileStates": {
+        "tiles.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.5
+        },
+        "zone0.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1086,
+                "y": 2446.6666666666665
+            }
+        }
+    },
+    "openFiles": [
+    ],
+    "project": "r0.tiled-project",
+    "recentFiles": [
+        "zone0.tmx",
+        "tiles.tsx"
+    ]
+}
