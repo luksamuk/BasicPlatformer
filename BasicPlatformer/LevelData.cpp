@@ -105,38 +105,24 @@ void Level::load_tile_data()
 
     auto attr = tileset_node->first_attribute("version");
     data.version = attr->value();
-    OF_Log(OF_LOG_LVL_INFO, data.version.c_str());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
 
     attr = tileset_node->first_attribute("tiledversion");
     data.tiledversion = attr->value();
-    OF_Log(OF_LOG_LVL_INFO, data.tiledversion.c_str());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
 
     attr = tileset_node->first_attribute("name");
     data.name = attr->value();
-    OF_Log(OF_LOG_LVL_INFO, data.name.c_str());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
 
     attr = tileset_node->first_attribute("tilewidth");
     data.tilewidth = std::stoi(attr->value());
-    OF_Log(OF_LOG_LVL_INFO, attr->value());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
     
     attr = tileset_node->first_attribute("tileheight");
     data.tileheight = std::stoi(attr->value());
-    OF_Log(OF_LOG_LVL_INFO, attr->value());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
     
     attr = tileset_node->first_attribute("tilecount");
     data.tilecount = std::stoi(attr->value());
-    OF_Log(OF_LOG_LVL_INFO, attr->value());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
     
     attr = tileset_node->first_attribute("columns");
     data.columns = std::stoi(attr->value());
-    OF_Log(OF_LOG_LVL_INFO, attr->value());
-    OF_Log(OF_LOG_LVL_INFO, "\n");
 
     this->m_data.m_tiles = data;
 
@@ -239,7 +225,9 @@ void Level::load_map_data(dword id)
                         if(tile == 0) {
                             std::cout << "__";
                         } else {
-                            std::cout << std::setw(2) << std::setfill('0') << std::hex << tile << std::dec << ' ';
+                            std::cout << std::setw(2) << std::setfill('0')
+                                      << std::hex << tile << std::dec
+                                      << ' ';
                         }
                     }
                 }
