@@ -1081,7 +1081,7 @@ void Player::Kill(DeathType t)
 void Player::LoadContent()
 {
 	// Sonic
-	t_sonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic");
+	t_sonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic_old");
 	spriteSheet = new OficinaFramework::RenderingSystem::SpriteSheet(vec2dw(58, 58), vec2b::One(), vec2::Zero());
 	spriteSheet->AppendTexture(t_sonic);
 	sonicAnimator = new OficinaFramework::RenderingSystem::Animation(spriteSheet);
