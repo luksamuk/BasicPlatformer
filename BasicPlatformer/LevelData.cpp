@@ -25,9 +25,10 @@ gen_map_file(std::string path, dword id)
     return oss.str();
 }
 
-Level::Level(dword id)
+Level::Level(dword id, dword zone)
 {
     this->m_path = gen_level_folder(id);
+    this->m_zone = zone;
 }
 
 void Level::LoadContent()
@@ -46,7 +47,7 @@ void Level::LoadContent()
     this->m_sheet->AppendTexture(t_chunks);
 
     // Check for .tmx files (zone 0, zone 1, zone 2)
-    load_map_data(0);
+    load_map_data(m_zone);
 }
 
 void Level::UnloadContent()

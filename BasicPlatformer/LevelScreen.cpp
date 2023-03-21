@@ -166,7 +166,9 @@ LevelScreen::~LevelScreen()
 void LevelScreen::Initialize()
 {
         player = new Player;
-        level = new Level(0); // R0
+	if(LEVEL_ID < 2) {
+        	level = new Level(0, LEVEL_ID); // R0
+	}
 
         if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
         {
@@ -328,7 +330,9 @@ void LevelScreen::Initialize()
 
 void LevelScreen::LoadContent()
 {
-    level->LoadContent();
+	if(LEVEL_ID < 2) {
+		level->LoadContent();
+	}
         m_drawables.LoadContent();
         m_effects.LoadContent();
         bgm = [&]() -> AudioSystem::Audio*
@@ -579,10 +583,11 @@ void LevelScreen::UnloadContent()
         parallax.UnloadContent();
         fg_parallax.UnloadContent();
 
-        level->UnloadContent();
-        delete level;
-        level = nullptr;
-
+	if(LEVEL_ID < 2) {
+        	level->UnloadContent();
+        	delete level;
+        	level = nullptr;
+	}
         OficinaFramework::ScreenSystem::Screen::UnloadContent();
 }
 
@@ -917,7 +922,7 @@ void LevelScreen::Draw()
         parallax.Draw();
 
         // Actual level test
-        if (LEVEL_ID == 0) {
+        if (LEVEL_ID < 2) {
             level->Draw();
         }
 

@@ -62,11 +62,12 @@ private:
     
     LevelData   m_data;
     std::string m_path;
+    dword m_zone;
 
     void load_tile_data();
     void load_map_data(dword id);
 public:
-    Level(dword id);
+    Level(dword id, dword zone);
     void LoadContent();
     void UnloadContent();
     void Draw();
