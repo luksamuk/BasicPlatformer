@@ -94,7 +94,6 @@ void Level::load_tile_data()
     // Load .tsx file
     qword_s file_size;
     char *file_contents = (char*)OficinaFramework::IOSystem::Load(this->m_path + "/tiles", file_size);
-    file_contents[file_size - 1] = '\0';
     
     rapidxml::xml_document<> *doc = new rapidxml::xml_document<>;
     doc->parse<0>(file_contents);
@@ -136,7 +135,6 @@ void Level::load_map_data(dword id)
     auto map_filename = gen_map_file(this->m_path, id);
     qword_s file_size;
     char *file_contents = (char*)OficinaFramework::IOSystem::Load(map_filename, file_size);
-    file_contents[file_size - 1] = '\0';
 
     rapidxml::xml_document<> *doc = new rapidxml::xml_document<>;
     doc->parse<0>(file_contents);
@@ -247,7 +245,7 @@ void Level::Draw()
     for(auto map : m_data.maps) {
         for(auto layer : map.layers) {
             for(dword y_pos = 0; y_pos < layer.height; y_pos++) {
-                for(dword x_pos = 0; x_pos < layer.width; x_pos++) {
+                for(dword x_pos = 0; x_pos < layer.width - 1; x_pos++) {
                     dword_s tile = layer.data[(y_pos * layer.width) + x_pos];
                     if(tile >= 0) {
                         vec2 pos;
