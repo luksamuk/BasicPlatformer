@@ -338,11 +338,16 @@ void LevelScreen::LoadContent()
                 //              "bgm/isolatedisland",
                 //              OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
                 //              true, 112.086f, 7.058f);
-                if (LEVEL_ID == 0 || LEVEL_ID == 1)
+                if (LEVEL_ID == 0)
                         return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
                                 "bgm/transparenthighway",
                                 OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
                                 true, 124.528f, 45.459f);
+                else if (LEVEL_ID == 1)
+                        return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                                "bgm/enjoythisworld",
+                                OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                                true, 111.671f, 0.049f);
                 else if (LEVEL_ID == 2 || LEVEL_ID == 3)
                         return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
                                 "bgm/amazingaquarium",
