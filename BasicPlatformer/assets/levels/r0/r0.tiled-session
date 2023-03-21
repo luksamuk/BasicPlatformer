@@ -10,11 +10,11 @@
             "scaleInEditor": 0.5
         },
         "zone0.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 0.25,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1086,
-                "y": 2446.6666666666665
+                "x": 610,
+                "y": 2064
             }
         }
     },
