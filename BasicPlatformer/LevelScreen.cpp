@@ -18,6 +18,7 @@ LevelScreen::LevelScreen(dword id)
         LEVEL_ID = id;
         m_drowningtheme = nullptr;
         musicMode = BGM_LEVEL;
+        level = nullptr;
 
         // Title Card
         m_titlecard_pos = RenderingSystem::GetResolution().toVec2();
@@ -168,7 +169,9 @@ void LevelScreen::Initialize()
         player = new Player;
 	if(LEVEL_ID < 2) {
         	level = new Level(0, LEVEL_ID); // R0
-	}
+	} else if(LEVEL_ID == 10) {
+                level = new Level(5, 0); // R5Z0
+        }
 
         if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
         {
@@ -320,7 +323,11 @@ void LevelScreen::Initialize()
         m_drawables.Initialize();
         m_effects.Initialize();
 
-        if (LEVEL_ID == 2u || LEVEL_ID == 3u)
+        if (LEVEL_ID == 0u)
+            player->SetPosition(vec2(180.0f, 2400.0f));
+        else if (LEVEL_ID == 1u)
+            player->SetPosition(vec2(180.0f, 330.0f));
+        else if (LEVEL_ID == 2u || LEVEL_ID == 3u)
                 player->SetPosition(vec2(180.0f, 620.0f));
 
         soundemitter = new OficinaFramework::AudioSystem::AudioSource;
@@ -330,7 +337,7 @@ void LevelScreen::Initialize()
 
 void LevelScreen::LoadContent()
 {
-	if(LEVEL_ID < 2) {
+	if(level != nullptr) {
 		level->LoadContent();
 	}
         m_drawables.LoadContent();
@@ -922,7 +929,7 @@ void LevelScreen::Draw()
         parallax.Draw();
 
         // Actual level test
-        if (LEVEL_ID < 2) {
+        if (level != nullptr) {
             level->Draw();
         }
 

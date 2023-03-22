@@ -9,6 +9,10 @@
     ],
     "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
     "fileStates": {
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.25
+        },
         "tiles.tsx": {
             "scaleInDock": 0.25,
             "scaleInEditor": 0.5
@@ -22,24 +26,35 @@
             }
         },
         "zone1.tmx": {
-            "scale": 0.0625,
-            "selectedLayer": 0,
+            "scale": 0.25,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 424,
-                "y": 1984
+                "x": 2096,
+                "y": 180
             }
         }
     },
+    "last.imagePath": "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5",
+    "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 128,
     "map.tileWidth": 128,
+    "map.width": 100,
     "openFiles": [
         "zone1.tmx"
     ],
     "project": "r0.tiled-project",
     "recentFiles": [
         "zone1.tmx",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
         "zone0.tmx",
         "tiles.tsx"
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 128,
+        "width": 128
+    },
+    "tileset.transparentColor": "#000088",
+    "tileset.useTransparentColor": true
 }
