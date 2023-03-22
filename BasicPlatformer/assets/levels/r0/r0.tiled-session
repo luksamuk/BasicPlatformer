@@ -10,8 +10,16 @@
     "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
     "fileStates": {
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.25,
             "scaleInEditor": 0.25
+        },
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx": {
+            "scale": 0.03125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 5664,
+                "y": 3936
+            }
         },
         "tiles.tsx": {
             "scaleInDock": 0.25,
@@ -45,8 +53,9 @@
     ],
     "project": "r0.tiled-project",
     "recentFiles": [
-        "zone1.tmx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx",
+        "zone1.tmx",
         "zone0.tmx",
         "tiles.tsx"
     ],
