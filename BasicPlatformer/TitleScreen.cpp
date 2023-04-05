@@ -89,7 +89,7 @@ void TitleScreen::Update()
 		switch (m_selection)
 		{
 		case 0: // New Game
-			ScreenSystem::AddScreen(new LevelScreen(0u));
+			ScreenSystem::AddScreen(new LevelScreen(23u));
 			RemoveMe();
 			break;
 		case 1: // Level Select

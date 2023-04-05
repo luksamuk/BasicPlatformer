@@ -9,16 +9,28 @@
     ],
     "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
     "fileStates": {
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.5
+        },
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/zone0.tmx": {
+            "scale": 0.0399296875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6386.225787517119,
+                "y": 6386.22578751712
+            }
+        },
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx": {
             "scaleInDock": 0.25,
             "scaleInEditor": 0.25
         },
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx": {
-            "scale": 0.03125,
+            "scale": 0.33,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 5664,
-                "y": 3936
+                "x": 296.96969696969694,
+                "y": 1387.878787878788
             }
         },
         "tiles.tsx": {
@@ -34,15 +46,15 @@
             }
         },
         "zone1.tmx": {
-            "scale": 0.25,
+            "scale": 0.33,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 2096,
-                "y": 180
+                "x": 436.3636363636363,
+                "y": 145.45454545454538
             }
         }
     },
-    "last.imagePath": "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5",
+    "last.imagePath": "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12",
     "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 128,
@@ -53,9 +65,10 @@
     ],
     "project": "r0.tiled-project",
     "recentFiles": [
-        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
-        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx",
         "zone1.tmx",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx",
         "zone0.tmx",
         "tiles.tsx"
     ],
@@ -65,5 +78,5 @@
         "width": 128
     },
     "tileset.transparentColor": "#000088",
-    "tileset.useTransparentColor": true
+    "tileset.useTransparentColor": false
 }
