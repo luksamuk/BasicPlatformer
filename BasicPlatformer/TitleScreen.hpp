@@ -15,11 +15,11 @@ private:
 	float menuSpeed = 30.0f;
 	const std::string menuOptions[5] =
 	{
-		"     New Game    >",
+		"    Game Start   >",
 		"<  Level Select  >",
-		"<  Level Editor  >",
-		"<     Options    >",
-		"<      Quit       "
+		"<     Extra      >",
+		"<    Options     >",
+		"<     Exit       "
 	};
 
 	OficinaFramework::AudioSystem::AudioSource* soundEmitter;

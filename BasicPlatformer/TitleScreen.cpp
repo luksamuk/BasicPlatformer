@@ -96,7 +96,7 @@ void TitleScreen::Update()
 			ScreenSystem::AddScreen(new LevelSelectScreen);
 			RemoveMe();
 			break;
-		case 2: // Level Editor
+		case 2: // Extra
 			break;
 		case 3: // Options
 			ScreenSystem::AddScreen(new OptionsScreen);
@@ -242,7 +242,7 @@ void TitleScreen::Draw()
 
 		// Disclaimer
 		std::string disclaimerString =
-			"                   v0.3.9\n"
+			"                   v0.4.0\n"
 			"2016-2023 Lucas S. Vieira\n"
 			" Not Affiliated with SEGA";
 		menuFont->DrawString(viewportSize - menuFont->MeasureString(disclaimerString, 1.0f),
