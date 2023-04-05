@@ -3,6 +3,8 @@
 #include <OficinaFramework/RenderingSystem.hpp>
 #include <vector>
 #include <string>
+#include <optional>
+#include "CollisionShape.hpp"
 
 // LEVEL FOLDER HIERARCHY:
 // -> assets/levels/rx
@@ -14,6 +16,8 @@
 //    -> zoneY (TMX map data)
 //       Level map for Act Y
 
+typedef std::vector<CollisionShape> CollisionArray;
+
 // Data scraped from .tsx files.
 struct TileData {
     std::string version;
@@ -23,6 +27,7 @@ struct TileData {
     dword tileheight;
     dword tilecount;
     dword columns;
+    std::vector<CollisionArray*> collision;
 };
 
 struct LayerData {

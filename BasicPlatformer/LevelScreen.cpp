@@ -118,7 +118,7 @@ LevelScreen::LevelScreen(dword id)
                 LEVEL_ACT = 0;
                 break;
         case 23:
-                LEVEL_NAME = "ENGINE TEST";
+                LEVEL_NAME = "PLAYGROUND";
                 LEVEL_ACT = 0;
                 break;
         case 25:
@@ -171,6 +171,8 @@ void LevelScreen::Initialize()
         	level = new Level(0, LEVEL_ID); // R0
 	} else if(LEVEL_ID == 10) {
                 level = new Level(5, 0); // R5Z0
+        } else if(LEVEL_ID == 23) {
+            level = new Level(12, 0); // R12Z0 (Engine Test)
         }
 
         if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
@@ -354,7 +356,7 @@ void LevelScreen::LoadContent()
                                 "bgm/transparenthighway",
                                 OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
                                 true, 124.528f, 45.459f);
-                else if (LEVEL_ID == 1)
+                else if (LEVEL_ID == 1 || LEVEL_ID == 23u)
                         return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
                                 "bgm/enjoythisworld",
                                 OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
@@ -419,36 +421,36 @@ void LevelScreen::LoadContent()
                                 "bgm/orientallegend",
                                 OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
                                 true, 63.999f, 12.809f);
-                else if (LEVEL_ID == 23u)
-                {
-                        switch (dayTime) {
-                        default:
-                        case DAYTIME_MORNING:
-                                return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-                                        "bgm/hiddenpalace",
-                                        OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-                                        true, 52.796f, 0.458f);
-                                /*return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-                                        "bgm/mysticcave2p",
-                                        OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-                                        true, 52.679f, 0.612f);*/
-                        case DAYTIME_AFTERNOON:
-                                return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-                                        "bgm/walkin",
-                                        OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-                                        true, 17.233f, 1.080f);
-                        case DAYTIME_EVENING:
-                                return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-                                        "bgm/hyperhyper",
-                                        OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-                                        true, 41.420f, 11.351f);
-                        case DAYTIME_NIGHT:
-                                return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
-                                        "bgm/eveningstar",
-                                        OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
-                                        true, 45.096f, 9.097f);
-                        }
-                }
+                // else if (LEVEL_ID == 23u)
+                // {
+                //         switch (dayTime) {
+                //         default:
+                //         case DAYTIME_MORNING:
+                //                 return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                //                         "bgm/hiddenpalace",
+                //                         OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                //                         true, 52.796f, 0.458f);
+                //                 /*return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                //                         "bgm/mysticcave2p",
+                //                         OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                //                         true, 52.679f, 0.612f);*/
+                //         case DAYTIME_AFTERNOON:
+                //                 return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                //                         "bgm/walkin",
+                //                         OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                //                         true, 17.233f, 1.080f);
+                //         case DAYTIME_EVENING:
+                //                 return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                //                         "bgm/hyperhyper",
+                //                         OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                //                         true, 41.420f, 11.351f);
+                //         case DAYTIME_NIGHT:
+                //                 return OficinaFramework::AudioSystem::AudioPool::LoadAudio(
+                //                         "bgm/eveningstar",
+                //                         OficinaFramework::AudioSystem::OF_AUDIO_TYPE_OGG,
+                //                         true, 45.096f, 9.097f);
+                //         }
+                // }
                 return nullptr;
         }();
 

@@ -40,6 +40,7 @@ PROJ_OBJS_GAME    = $(OBJ_DIR)Effect.o $(OBJ_DIR)Player.o $(OBJ_DIR)Solid.o \
 
 PROJ_OBJS_SYS     = $(OBJ_DIR)EffectSpawner.o $(OBJ_DIR)Grid.o \
 					$(OBJ_DIR)Parallax.o $(OBJ_DIR)LevelData.o \
+					$(OBJ_DIR)CollisionShape.o \
 					$(OBJ_DIR)DebugUtil.o $(OBJ_DIR)Main.o
 
 PROJ_LIBS = $(OBJ_DIR)Screens.o $(OBJ_DIR)GameObjects.o \
@@ -147,6 +148,9 @@ $(OBJ_DIR)Main.o: $(SRC_DIR)main.cpp
 
 $(OBJ_DIR)LevelData.o: $(SRC_DIR)LevelData.cpp $(SRC_DIR)LevelData.hpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)LevelData.cpp $(CXX_OUT) $(OBJ_DIR)LevelData.o
+
+$(OBJ_DIR)CollisionShape.o: $(SRC_DIR)CollisionShape.cpp $(SRC_DIR)CollisionShape.hpp
+	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)CollisionShape.cpp $(CXX_OUT) $(OBJ_DIR)CollisionShape.o
 
 $(OBJ_DIR)DebugUtil.o: $(SRC_DIR)OFSDebugUtil.cpp $(SRC_DIR)OFSDebugUtil.hpp
 	$(CXX) $(CXX_OBJ) $(FLAGS) $(SRC_DIR)OFSDebugUtil.cpp $(CXX_OUT) $(OBJ_DIR)DebugUtil.o
