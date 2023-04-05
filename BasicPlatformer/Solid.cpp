@@ -34,36 +34,36 @@ void Solid::UnloadContent()
 
 void Solid::Draw()
 {
-	glPushMatrix();
-	glTranslatef(m_position.x, m_position.y, 0.0f);
+	// glPushMatrix();
+	// glTranslatef(m_position.x, m_position.y, 0.0f);
 
-	OficinaFramework::RenderingSystem::glColorM(GREY90, 0.7f);
-	switch (type)
-	{
-	case SolidType::RECT:
-		glBegin(GL_QUADS);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(m_size.x, 0.0f);
-			glVertex2f(m_size.x, m_size.y);
-			glVertex2f(0.0f, m_size.y);
-		glEnd();
-		break;
-	case SolidType::SLOPE_L:
-		glBegin(GL_TRIANGLES);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(m_size.x, m_size.y);
-			glVertex2f(0.0f, m_size.y);
-		glEnd();
-		break;
-	case SolidType::SLOPE_R:
-		glBegin(GL_TRIANGLES);
-			glVertex2f(m_size.x, 0.0f);
-			glVertex2f(m_size.x, m_size.y);
-			glVertex2f(0.0f, m_size.y);
-		glEnd();
-		break;
-	}
-	glPopMatrix();
+	// OficinaFramework::RenderingSystem::glColorM(GREY90, 0.7f);
+	// switch (type)
+	// {
+	// case SolidType::RECT:
+	// 	glBegin(GL_QUADS);
+	// 		glVertex2f(0.0f, 0.0f);
+	// 		glVertex2f(m_size.x, 0.0f);
+	// 		glVertex2f(m_size.x, m_size.y);
+	// 		glVertex2f(0.0f, m_size.y);
+	// 	glEnd();
+	// 	break;
+	// case SolidType::SLOPE_L:
+	// 	glBegin(GL_TRIANGLES);
+	// 		glVertex2f(0.0f, 0.0f);
+	// 		glVertex2f(m_size.x, m_size.y);
+	// 		glVertex2f(0.0f, m_size.y);
+	// 	glEnd();
+	// 	break;
+	// case SolidType::SLOPE_R:
+	// 	glBegin(GL_TRIANGLES);
+	// 		glVertex2f(m_size.x, 0.0f);
+	// 		glVertex2f(m_size.x, m_size.y);
+	// 		glVertex2f(0.0f, m_size.y);
+	// 	glEnd();
+	// 	break;
+	// }
+	// glPopMatrix();
 
 	if ((m_showstuff != nullptr) && (*m_showstuff) == true)
 	{

@@ -43,7 +43,7 @@ void Player::Initialize()
 	m_underwater = false;
 	m_speedshoes = false;
 	m_haswater = false;
-	m_viewsensors = false;
+	m_viewsensors = true;
 	m_grid = nullptr;
 	m_currentshield = SHIELD_NONE;
 }
@@ -1080,7 +1080,7 @@ void Player::Kill(DeathType t)
 void Player::LoadContent()
 {
 	// Sonic
-	t_sonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic_old");
+	t_sonic = OficinaFramework::RenderingSystem::TexturePool::LoadTexture("sprites/sonic");
 	spriteSheet = new OficinaFramework::RenderingSystem::SpriteSheet(vec2dw(58, 58), vec2b::One(), vec2::Zero());
 	spriteSheet->AppendTexture(t_sonic);
 	sonicAnimator = new OficinaFramework::RenderingSystem::Animation(spriteSheet);

@@ -66,19 +66,19 @@ LevelScreen::LevelScreen(dword id)
                 LEVEL_ACT = 2;
                 break;
         case 10:
-                LEVEL_NAME = "JESTER JUGGLE";
+                LEVEL_NAME = "FESTIVAL FREEWAY";
                 LEVEL_ACT = 1;
                 break;
         case 11:
-                LEVEL_NAME = "JESTER JUGGLE";
+                LEVEL_NAME = "FESTIVAL FREEWAY";
                 LEVEL_ACT = 2;
                 break;
         case 12:
-                LEVEL_NAME = "CHAOTIC CANYON";
+                LEVEL_NAME = "CHAOTIC CORNICHE";
                 LEVEL_ACT = 1;
                 break;
         case 13:
-                LEVEL_NAME = "CHAOTIC CANYON";
+                LEVEL_NAME = "CHAOTIC CORNICHE";
                 LEVEL_ACT = 2;
                 break;
         case 14:
@@ -175,7 +175,7 @@ void LevelScreen::Initialize()
             level = new Level(12, 0); // R12Z0 (Engine Test)
         }
 
-        if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20 || LEVEL_ID == 21)
+        if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20)
         {
                 // Ceiling
                 //m_drawables.Add(new Solid(vec2(50.0f, 230.0f), vec2(800.0f, 10.0f), SolidType::RECT, player->getViewSensorsPtr()));
@@ -313,7 +313,7 @@ void LevelScreen::Initialize()
                 for (float f = 0.0f; f < 1920.0f; f += 128.0f)
                         m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 64.0f), SolidType::RECT, player->getViewSensorsPtr()));
         }
-        else
+        else if(LEVEL_ID != 21) // cosmic colony 2 should be bottomless
         {
                 for (float f = 0.0f; f < 1920.0f; f += 128.0f)
                         m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));

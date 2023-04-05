@@ -31,10 +31,10 @@ private:
 		"Dusty Desert             1", // ID 08
 		"                         2", // ID 09
 
-		"Jester Juggle            1", // ID 10
+		"Festival Freeway         1", // ID 10
 		"                         2", // ID 11
 
-		"Chaotic Canyon           1", // ID 12
+		"Chaotic Corniche         1", // ID 12
 		"                         2", // ID 13
 
 		"Radiant Rush             1", // ID 14
@@ -52,7 +52,7 @@ private:
 
 		"Final Fight               ", // ID 22
 
-		"Engine Test               ",
+		"Playground (Engine Test)  ",
 
 		"Exit"
 	};
