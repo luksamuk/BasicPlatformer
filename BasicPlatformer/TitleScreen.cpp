@@ -26,8 +26,8 @@ void TitleScreen::LoadContent()
 	//bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen", AudioSystem::OF_AUDIO_TYPE_OGG);
 	bgmAudio = AudioSystem::AudioPool::LoadAudio("bgm/titlescreen2", AudioSystem::OF_AUDIO_TYPE_OGG);
 	sfxNegate = AudioSystem::AudioPool::LoadAudio("sfx/11_wrongway", AudioSystem::OF_AUDIO_TYPE_OGG);
-	titleLogo = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title");
-	titleLogo_black = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_black");
+	titleLogo = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_alt");
+	titleLogo_black = RenderingSystem::TexturePool::LoadTexture("background/titlescreen/title_black_alt");
 	menuFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/levelselect"),
 		vec2dw(8u), vec2b::One());
 

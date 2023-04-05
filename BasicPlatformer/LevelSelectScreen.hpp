@@ -22,13 +22,13 @@ private:
 		"Amazing Aquarium         1", // ID 02
 		"                         2", // ID 03
 
-		"Freezing Factory         1", // ID 04
+		"R2                       1", // ID 04
 		"                         2", // ID 05
 
-		"Hazel Hill               1", // ID 06
+		"R3                       1", // ID 06
 		"                         2", // ID 07
 
-		"Dusty Desert             1", // ID 08
+		"R4                       1", // ID 08
 		"                         2", // ID 09
 
 		"Festival Freeway         1", // ID 10
@@ -37,20 +37,20 @@ private:
 		"Chaotic Corniche         1", // ID 12
 		"                         2", // ID 13
 
-		"Radiant Rush             1", // ID 14
+		"R7                       1", // ID 14
 		"                         2", // ID 15
 
-		"Cyber Highway            1", // ID 16
+		"R8                       1", // ID 16
 		"                         2", // ID 17
 
-		"White Wonder              ", // ID 18
+		"R9                        ", // ID 18
 
-		"Stormy Sky                ", // ID 19
+		"R10                       ", // ID 19
 
 		"Cosmic Colony            1", // ID 20
 		"                         2", // ID 21
 
-		"Final Fight               ", // ID 22
+		"R13                       ", // ID 22 -- playground is R12
 
 		"Playground (Engine Test)  ",
 

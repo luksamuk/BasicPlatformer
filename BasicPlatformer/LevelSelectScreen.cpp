@@ -22,7 +22,7 @@ void LevelSelectScreen::LoadContent()
 	menuFont = new RenderingSystem::Font(RenderingSystem::TexturePool::LoadTexture("fonts/levelselect"),
 		vec2dw(8u), vec2b::One());
 	bg_motif = RenderingSystem::TexturePool::LoadTexture("background/levelselect/levelselect");
-	bg_title = RenderingSystem::TexturePool::LoadTexture("background/levelselect/title_sepia");
+	bg_title = RenderingSystem::TexturePool::LoadTexture("background/levelselect/title_sepia_alt");
 
 	bg_motif_repeatcount = (RenderingSystem::GetResolution() / bg_motif->GetSize());
 	bg_motif_repeatcount.x++; bg_motif_repeatcount.y++;
@@ -121,8 +121,28 @@ void LevelSelectScreen::Update()
 
 
 	// Selection
-	if (InputSystem::PressedButton(InputSystem::GamePadButton::A))
+	if (InputSystem::PressedButton(InputSystem::GamePadButton::A)) {
+            switch(selection) {
+                // Prevent from going to these levels
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 22:
+                break;
+            default:
 			m_fadetype = 2;
+                        break;
+            }
+        }
 	else if (InputSystem::PressedButton(InputSystem::GamePadButton::X)
 		&& ScreenSystem::IsDebugActive()
 		&& selection == 24)
