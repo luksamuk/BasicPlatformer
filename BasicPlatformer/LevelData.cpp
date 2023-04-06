@@ -208,11 +208,12 @@ void Level::load_tile_data()
                         std::getline(ss, number);
                         p.y = std::stof(number);
 
+                        p += position;
                         std::cout << p.toString() << std::endl;
                         acc_points.push_back(p);
                     }
 
-                    data.collision[tile_id]->push_back(Polygon(position, acc_points));
+                    data.collision[tile_id]->push_back(Polygon(acc_points));
                 }
             }
         }

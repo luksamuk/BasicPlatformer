@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <OficinaFramework/EntitySystem.hpp>
 
+const float EPSILON = 0.001f;
+
 // None of these were thought for performance.
 // Let's hope i dont have to refactor this
 
@@ -36,7 +38,7 @@ public:
 class Ellipse : public CollisionShape
 {
 private:
-    vec2 position;
+    vec2 position; // position relative to tile
     vec2 radii;
 public:
     Ellipse(vec2 position, vec2 radii)
@@ -46,7 +48,7 @@ public:
 class Point : public CollisionShape
 {
 private:
-    vec2 position;
+    vec2 position; // position relative to tile
 public:
     Point(vec2 position) : position(position) {};
 };
@@ -54,11 +56,16 @@ public:
 class Polygon : public CollisionShape
 {
 private:
-    vec2 position;
-    std::vector<vec2> points; // should be convex...
+    // This class is purely representative!
+    // A polygon should always be divided into a set
+    // of triangles.
+    
+    // all points represent a convex polygon
+    // all points should be relative to tile
+    std::vector<vec2> points;
 public:
-    Polygon(vec2 position, std::vector<vec2> points)
-        : position(position), points(points)
+    Polygon(std::vector<vec2> points)
+        : points(points)
         {
             std::sort(
                 this->points.begin(),
@@ -67,4 +74,33 @@ public:
                     return a.x < b.x;
                 });
         };
+};
+
+class Line : public CollisionShape
+{
+private:
+    vec2 start;
+    vec2 end;
+public:
+    Line(vec2 start, vec2 end) : start(start), end(end) {}
+
+    vec2 getStart() const;
+    vec2 getEnd() const;
+
+    std::optional<vec2> intersectsLine(const Line& l) const;
+};
+
+class Triangle : public CollisionShape
+{
+private:
+    vec2 a;
+    vec2 b;
+    vec2 c;
+public:
+    Triangle(vec2 a, vec2 b, vec2 c) : a(a), b(b), c(c) {}
+
+    float area() const;
+    bool containsPoint(const vec2& p) const;
+    bool containsLine(const Line& l) const;
+    std::optional<vec2> intersectsLine(const Line& l) const;
 };
