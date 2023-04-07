@@ -16,7 +16,7 @@
 //    -> zoneY (TMX map data)
 //       Level map for Act Y
 
-typedef std::vector<CollisionShape> CollisionArray;
+typedef std::vector<CollisionShape*> CollisionArray;
 
 // Data scraped from .tsx files.
 struct TileData {

@@ -15,6 +15,14 @@ Triangle::area() const
             (x3 * (y1 - y2))) / 2.0;
 }
 
+vec2
+Triangle::getBarycenter() const
+{
+    return vec2(
+        (a.x + b.x + c.x) / 3.0,
+        (a.y + b.y + c.y) / 3.0);
+}
+
 bool
 Triangle::containsPoint(const vec2& p) const
 {

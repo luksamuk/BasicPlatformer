@@ -1241,113 +1241,113 @@ void Player::Draw()
 		glPopMatrix();
 
 		// Cell highlighting
-		if (m_grid) {
-			vec2 cellSize = m_grid->getCellSize();
-			vec2 cellPosition(floor((m_position.x / cellSize.x)) * cellSize.x,
-				floor((m_position.y / cellSize.y)) * cellSize.y);
+		// if (m_grid) {
+		// 	vec2 cellSize = m_grid->getCellSize();
+		// 	vec2 cellPosition(floor((m_position.x / cellSize.x)) * cellSize.x,
+		// 		floor((m_position.y / cellSize.y)) * cellSize.y);
 
-			OficinaFramework::RenderingSystem::glColorM(GREEN, 0.3f);
+		// 	OficinaFramework::RenderingSystem::glColorM(GREEN, 0.3f);
 
-			// Top
-			glPushMatrix();
-			glTranslatef(cellPosition.x, cellPosition.y - cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// Top
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x, cellPosition.y - cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// Bottom
-			glPushMatrix();
-			glTranslatef(cellPosition.x, cellPosition.y + cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// Bottom
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x, cellPosition.y + cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// Left
-			glPushMatrix();
-			glTranslatef(cellPosition.x - cellSize.x, cellPosition.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// Left
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x - cellSize.x, cellPosition.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// Right
-			glPushMatrix();
-			glTranslatef(cellPosition.x + cellSize.x, cellPosition.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// Right
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x + cellSize.x, cellPosition.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// LeftTop
-			glPushMatrix();
-			glTranslatef(cellPosition.x - cellSize.x, cellPosition.y - cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// LeftTop
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x - cellSize.x, cellPosition.y - cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// RightTop
-			glPushMatrix();
-			glTranslatef(cellPosition.x + cellSize.x, cellPosition.y - cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// RightTop
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x + cellSize.x, cellPosition.y - cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// LeftBottom
-			glPushMatrix();
-			glTranslatef(cellPosition.x - cellSize.x, cellPosition.y + cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// LeftBottom
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x - cellSize.x, cellPosition.y + cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// RightBottom
-			glPushMatrix();
-			glTranslatef(cellPosition.x + cellSize.x, cellPosition.y + cellSize.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
+		// 	// RightBottom
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x + cellSize.x, cellPosition.y + cellSize.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
 
-			// Central
-			OficinaFramework::RenderingSystem::glColorM(RED, 1.0f);
-			glPushMatrix();
-			glTranslatef(cellPosition.x, cellPosition.y, 0.0f);
-			glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(cellSize.x, 0.0f);
-			glVertex2f(cellSize.x, cellSize.y);
-			glVertex2f(0.0f, cellSize.y);
-			glEnd();
-			glPopMatrix();
-		}
+		// 	// Central
+		// 	OficinaFramework::RenderingSystem::glColorM(RED, 1.0f);
+		// 	glPushMatrix();
+		// 	glTranslatef(cellPosition.x, cellPosition.y, 0.0f);
+		// 	glBegin(GL_LINE_LOOP);
+		// 	glVertex2f(0.0f, 0.0f);
+		// 	glVertex2f(cellSize.x, 0.0f);
+		// 	glVertex2f(cellSize.x, cellSize.y);
+		// 	glVertex2f(0.0f, cellSize.y);
+		// 	glEnd();
+		// 	glPopMatrix();
+		// }
 	}
 }
 

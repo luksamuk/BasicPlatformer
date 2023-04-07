@@ -59,6 +59,9 @@ void Level::UnloadContent()
 
     for(size_t i = 0; i < this->m_data.m_tiles.collision.size(); i++) {
         if(this->m_data.m_tiles.collision[i] != nullptr) {
+            for(auto collision : *this->m_data.m_tiles.collision[i]) {
+                delete collision;
+            }
             delete this->m_data.m_tiles.collision[i];
             this->m_data.m_tiles.collision[i] = nullptr;
         }
@@ -178,15 +181,15 @@ void Level::load_tile_data()
                 auto child = obj->first_node();
                 if(child == nullptr) {
                     std::cout << "tile id " << tile_id << " has an AABB" << std::endl;
-                    data.collision[tile_id]->push_back(AABB(position, size));
+                    data.collision[tile_id]->push_back(new AABB(position, size));
                 } else if(!strcmp(child->name(), "ellipse")) {
                     std::cout << "tile id " << tile_id << " has an ellipse" << std::endl;
                     // - if it has a child named ellipse, it is an ellipse (refer to object params)
-                    data.collision[tile_id]->push_back(Ellipse(position, size));
+                    data.collision[tile_id]->push_back(new Ellipse(position, size));
                 } else if(!strcmp(child->name(), "point")) {
                     std::cout << "tile id " << tile_id << " has a point" << std::endl;
                     // - if it has a child named point, it is a point (refer to object params)
-                    data.collision[tile_id]->push_back(Point(position));
+                    data.collision[tile_id]->push_back(new Point(position));
                 } else if(!strcmp(child->name(), "polygon")) {
                     std::cout << "tile id " << tile_id << " has a polygon" << std::endl;
                     // - if it has a child named polygon, it is a polygon delimited by the given
@@ -213,9 +216,9 @@ void Level::load_tile_data()
                         acc_points.push_back(p);
                     }
 
-                    auto polygon = Polygon(acc_points);
+                    auto polygon = new Polygon(acc_points);
                     std::cout << "  Triangles:" << std::endl;
-                    for(auto tr : polygon.getTriangles()) {
+                    for(auto tr : polygon->getTriangles()) {
                         std::cout << "     [" << tr.getA() << ", " << tr.getB()
                                   << ", " << tr.getC() << "]" << std::endl;
                     }
@@ -344,6 +347,7 @@ void Level::load_map_data(dword id)
 
 void Level::Draw()
 {
+    // Draw art
     for(auto map : m_data.maps) {
         for(auto layer : map.layers) {
             for(dword y_pos = 0; y_pos < layer.height; y_pos++) {
@@ -369,10 +373,41 @@ void Level::Draw()
                         }
 
                         m_sheet->DrawFrame(pos, (dword)tile);
+                    }
+                }
+            }
+        }
+    }
+
+    // Draw collision
+    for(auto map : m_data.maps) {
+        for(auto layer : map.layers) {
+            for(dword y_pos = 0; y_pos < layer.height; y_pos++) {
+                for(dword x_pos = 0; x_pos < layer.width - 1; x_pos++) {
+                    dword_s tile = layer.data[(y_pos * layer.width) + x_pos];
+                    if(tile >= 0) {
+                        vec2 pos;
+                        // Calculate position
+                        pos.x = m_data.m_tiles.tilewidth * x_pos;
+                        pos.y = m_data.m_tiles.tileheight * y_pos;
+
+                        pos.x += m_data.m_tiles.tilewidth / 2.0;
+                        pos.y += m_data.m_tiles.tileheight / 2.0;
+
+                        // If out of the camera: don't even finish drawing.
+                        auto vwp_pos = OficinaFramework::RenderingSystem::GetViewportPosition();
+                        auto vwp_sz = OficinaFramework::RenderingSystem::GetViewportSize();
+                        if((pos.x < vwp_pos.x - 128.0) ||
+                           (pos.x > vwp_pos.x + vwp_sz.x) ||
+                           (pos.y < vwp_pos.y - 128.0) ||
+                           (pos.y > vwp_pos.y + vwp_sz.y)) {
+                            continue;
+                        }
 
                         // Draw tile collision
                         auto collision = m_data.m_tiles.collision[tile];
                         if(collision != nullptr) {
+                            //std::cout << "drawing collision for tile " << tile << std::endl;
                             this->draw_collision(pos, collision);
                         }
                     }
@@ -382,20 +417,49 @@ void Level::Draw()
     }
 }
 
+const ColorDef DebugShapeColor = ColorDef::ORANGERED;
+
 void
 Level::draw_collision(vec2 pos, CollisionArray *collision)
 {
-    
-    
-    for(auto shape : *collision) {
-        if(AABB *aabb = dynamic_cast<AABB*>(&shape)) {
+    for(CollisionShape *shape : *collision) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        if(AABB *aabb = dynamic_cast<AABB*>(shape)) {
             // draw box
-        } else if(Ellipse *e = dynamic_cast<Ellipse*>(&shape)) {
+            std::cout << "draw aabb" << std::endl;
+            glPushMatrix();
+            OficinaFramework::RenderingSystem::DrawRectangle(
+                pos - vec2(64.0, 64.0),
+                vec2(128, 128),
+                0.0,
+                DebugShapeColor,
+                0.5);
+            glPopMatrix();
+        } else if(Ellipse *e = dynamic_cast<Ellipse*>(shape)) {
             // draw ellipse
-        } else if(Polygon *p = dynamic_cast<Polygon*>(&shape)) {
+            //std::cout << "draw ellipse" << std::endl;
+        } else if(Polygon *p = dynamic_cast<Polygon*>(shape)) {
+            //std::cout << "draw polygon" << std::endl;
             for(auto tr : p->getTriangles()) {
                 // draw triangles
+                glPushMatrix();
+                vec2 correct = vec2(64, 64);
+                vec2 vertices[] = {tr.getA(), tr.getB(), tr.getC()};
+                OficinaFramework::RenderingSystem::DrawTriangle(
+                    pos - correct,
+                    vertices,
+                    0.0,
+                    DebugShapeColor,
+                    0.5);
+                glPopMatrix();
             }
+        } else if(Point *p = dynamic_cast<Point*>(shape)) {
+            //std::cout << "point????" << std::endl;
+        } else if(Line *l = dynamic_cast<Line*>(shape)) {
+            //std::cout << "line????" << std::endl;
+        } else {
+            //std::cout << "unknown shape..." << std::endl;
         }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 }
