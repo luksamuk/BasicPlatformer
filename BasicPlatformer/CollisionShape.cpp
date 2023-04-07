@@ -101,3 +101,79 @@ Triangle::intersectsLine(const Line& l) const
     intersection = l.intersectsLine(ac);
     return intersection;
 }
+
+std::vector<Triangle>
+Polygon::generateTriangles(std::vector<vec2> points)
+{
+    std::vector<Triangle> triangles;
+    if (points.size() < 3) {
+        return triangles;
+    }
+
+    // Assume points are in order. Take the first.
+    vec2 leftmost = points[0];
+    std::vector<vec2> below;
+    std::vector<vec2> above;
+
+    // For every other point, divide it into above or below.
+    bool first = true;
+    for(auto point : points) {
+        if(!first) {
+            if((point.y - leftmost.y) > 0) {
+                above.push_back(point);
+            } else {
+                below.push_back(point);
+            }
+        }
+        first = false;
+    }
+
+    // Reorder above/below points.
+    // Points below should be ordered by x position,
+    // points above should be ordered by x but reversed
+    
+    // std::sort(below.begin(), below.end(),
+    //           [](vec2 const& a, vec2 const& b) {
+    //               return a.x < b.x;
+    //           });
+    // std::sort(above.begin(), above.end(),
+    //           [](vec2 const& a, vec2 const& b) {
+    //               return a.x > b.x;
+    //           });
+    // below.insert(below.end(), above.begin(), above.end());
+
+    // Everything is already ordered, so insert above in
+    // reverse order at the end
+    below.insert(below.end(), above.rbegin(), above.rend());
+
+    // Get reordered points (in below vector) two by two.
+    // This guarantees that, given that leftmost is a pivot,
+    // we can now build a triangle fan around it
+    for(size_t i = 0; i < below.size() - 1; i++) {
+        auto a = leftmost;
+        auto b = below[i];
+        auto c = below[i + 1];
+        triangles.push_back(Triangle(a, b, c));
+    }
+
+    return triangles;
+}
+
+vec2 Triangle::getA() const { return a; }
+vec2 Triangle::getB() const { return b; }
+vec2 Triangle::getC() const { return c; }
+
+Polygon::Polygon(std::vector<vec2> points)
+{
+    std::sort(points.begin(), points.end(),
+              [](vec2 const& a, vec2 const& b) {
+                  return a.x < b.x;
+              });
+    this->triangles = this->generateTriangles(points);
+};
+
+std::vector<Triangle>
+Polygon::getTriangles() const
+{
+    return triangles;
+}

@@ -213,7 +213,13 @@ void Level::load_tile_data()
                         acc_points.push_back(p);
                     }
 
-                    data.collision[tile_id]->push_back(Polygon(acc_points));
+                    auto polygon = Polygon(acc_points);
+                    std::cout << "  Triangles:" << std::endl;
+                    for(auto tr : polygon.getTriangles()) {
+                        std::cout << "     [" << tr.getA() << ", " << tr.getB()
+                                  << ", " << tr.getC() << "]" << std::endl;
+                    }
+                    data.collision[tile_id]->push_back(polygon);
                 }
             }
         }

@@ -53,29 +53,6 @@ public:
     Point(vec2 position) : position(position) {};
 };
 
-class Polygon : public CollisionShape
-{
-private:
-    // This class is purely representative!
-    // A polygon should always be divided into a set
-    // of triangles.
-    
-    // all points represent a convex polygon
-    // all points should be relative to tile
-    std::vector<vec2> points;
-public:
-    Polygon(std::vector<vec2> points)
-        : points(points)
-        {
-            std::sort(
-                this->points.begin(),
-                this->points.end(),
-                [](vec2 const& a, vec2 const& b) {
-                    return a.x < b.x;
-                });
-        };
-};
-
 class Line : public CollisionShape
 {
 private:
@@ -99,8 +76,31 @@ private:
 public:
     Triangle(vec2 a, vec2 b, vec2 c) : a(a), b(b), c(c) {}
 
+    vec2 getA() const;
+    vec2 getB() const;
+    vec2 getC() const;
+
     float area() const;
     bool containsPoint(const vec2& p) const;
     bool containsLine(const Line& l) const;
     std::optional<vec2> intersectsLine(const Line& l) const;
 };
+
+class Polygon : public CollisionShape
+{
+private:
+    // This class is purely representative!
+    // A polygon should always be divided into a set
+    // of triangles.
+    
+    // all points represent a convex polygon
+    // all points should be relative to tile
+    std::vector<Triangle> triangles;
+
+    std::vector<Triangle> generateTriangles(std::vector<vec2>);
+public:
+    Polygon(std::vector<vec2> points);
+
+    std::vector<Triangle> getTriangles() const;
+};
+
