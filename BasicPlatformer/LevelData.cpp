@@ -358,7 +358,23 @@ void Level::Draw()
                         pos.x += m_data.m_tiles.tilewidth / 2.0;
                         pos.y += m_data.m_tiles.tileheight / 2.0;
 
+                        // If out of the camera: don't even finish drawing.
+                        auto vwp_pos = OficinaFramework::RenderingSystem::GetViewportPosition();
+                        auto vwp_sz = OficinaFramework::RenderingSystem::GetViewportSize();
+                        if((pos.x < vwp_pos.x - 128.0) ||
+                           (pos.x > vwp_pos.x + vwp_sz.x) ||
+                           (pos.y < vwp_pos.y - 128.0) ||
+                           (pos.y > vwp_pos.y + vwp_sz.y)) {
+                            continue;
+                        }
+
                         m_sheet->DrawFrame(pos, (dword)tile);
+
+                        // Draw tile collision
+                        auto collision = m_data.m_tiles.collision[tile];
+                        if(collision != nullptr) {
+                            this->draw_collision(pos, collision);
+                        }
                     }
                 }
             }
@@ -366,3 +382,20 @@ void Level::Draw()
     }
 }
 
+void
+Level::draw_collision(vec2 pos, CollisionArray *collision)
+{
+    
+    
+    for(auto shape : *collision) {
+        if(AABB *aabb = dynamic_cast<AABB*>(&shape)) {
+            // draw box
+        } else if(Ellipse *e = dynamic_cast<Ellipse*>(&shape)) {
+            // draw ellipse
+        } else if(Polygon *p = dynamic_cast<Polygon*>(&shape)) {
+            for(auto tr : p->getTriangles()) {
+                // draw triangles
+            }
+        }
+    }
+}

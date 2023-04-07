@@ -71,6 +71,7 @@ private:
 
     void load_tile_data();
     void load_map_data(dword id);
+    void draw_collision(vec2 position, CollisionArray *collision);
 public:
     Level(dword id, dword zone);
     void LoadContent();
