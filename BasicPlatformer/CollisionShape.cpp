@@ -15,14 +15,6 @@ Triangle::area() const
             (x3 * (y1 - y2))) / 2.0;
 }
 
-vec2
-Triangle::getBarycenter() const
-{
-    return vec2(
-        (a.x + b.x + c.x) / 3.0,
-        (a.y + b.y + c.y) / 3.0);
-}
-
 bool
 Triangle::containsPoint(const vec2& p) const
 {
@@ -135,7 +127,6 @@ Polygon::generateTriangles(std::vector<vec2> points)
         }
         first = false;
     }
-
     // Reorder above/below points.
     // Points below should be ordered by x position,
     // points above should be ordered by x but reversed
@@ -152,15 +143,18 @@ Polygon::generateTriangles(std::vector<vec2> points)
 
     // Everything is already ordered, so insert above in
     // reverse order at the end
-    below.insert(below.end(), above.rbegin(), above.rend());
+    std::vector<vec2> ordered_points;
+    ordered_points.push_back(leftmost);
+    ordered_points.insert(ordered_points.end(), below.begin(), below.end());
+    ordered_points.insert(ordered_points.end(), above.rbegin(), above.rend());
 
-    // Get reordered points (in below vector) two by two.
+    // Get reordered points (in below vector) three by three, jumping one by one.
     // This guarantees that, given that leftmost is a pivot,
     // we can now build a triangle fan around it
-    for(size_t i = 0; i < below.size() - 1; i++) {
-        auto a = leftmost;
-        auto b = below[i];
-        auto c = below[i + 1];
+    for(size_t i = 0; i < ordered_points.size() - 2; i += 2) {
+        auto a = ordered_points[i];
+        auto b = ordered_points[i + 1];
+        auto c = ordered_points[i + 2];
         triangles.push_back(Triangle(a, b, c));
     }
 

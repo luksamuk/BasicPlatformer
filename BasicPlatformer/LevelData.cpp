@@ -426,7 +426,6 @@ Level::draw_collision(vec2 pos, CollisionArray *collision)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         if(AABB *aabb = dynamic_cast<AABB*>(shape)) {
             // draw box
-            std::cout << "draw aabb" << std::endl;
             glPushMatrix();
             OficinaFramework::RenderingSystem::DrawRectangle(
                 pos - vec2(64.0, 64.0),
@@ -439,7 +438,6 @@ Level::draw_collision(vec2 pos, CollisionArray *collision)
             // draw ellipse
             //std::cout << "draw ellipse" << std::endl;
         } else if(Polygon *p = dynamic_cast<Polygon*>(shape)) {
-            //std::cout << "draw polygon" << std::endl;
             for(auto tr : p->getTriangles()) {
                 // draw triangles
                 glPushMatrix();

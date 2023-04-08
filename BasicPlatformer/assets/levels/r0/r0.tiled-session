@@ -3,9 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "zone1.tmx",
+    "activeFile": "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx",
     "expandedProjectPaths": [
-        "."
+        ".",
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12"
     ],
     "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
     "fileStates": {
@@ -61,14 +62,14 @@
     "map.tileWidth": 128,
     "map.width": 100,
     "openFiles": [
-        "zone1.tmx"
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx"
     ],
     "project": "r0.tiled-project",
     "recentFiles": [
+        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx",
         "zone1.tmx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
-        "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx",
         "zone0.tmx",
         "tiles.tsx"
     ],

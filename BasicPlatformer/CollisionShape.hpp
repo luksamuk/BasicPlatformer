@@ -73,7 +73,6 @@ public:
     vec2 getC() const;
 
     float area() const;
-    vec2 getBarycenter() const;
     
     bool containsPoint(const vec2& p) const;
     bool containsLine(const Line& l) const;
