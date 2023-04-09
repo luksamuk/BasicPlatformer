@@ -36,8 +36,40 @@ Triangle::containsLine(const Line& l) const
         this->containsPoint(l.getEnd());
 }
 
+Line::Line(vec2 start, vec2 end) {
+    if(end.x < start.x) {
+        this->start = end;
+        this->end = start;
+    } else {
+        this->start = start;
+        this->end = end;
+    }
+}
+
 vec2 Line::getStart() const { return this->start; }
 vec2 Line::getEnd() const { return this->end; }
+
+std::optional<vec2>
+Line::_intersectsVertical(vec2 vpstart, vec2 vpend, const Line& l)
+{
+    // First we evaluate if X of both vpstart/vpend are within the line's
+    // X range
+    if((vpstart.x - l.getStart().x < 0.0) || (l.getEnd().x - vpstart.x < 0.0)) {
+        return std::nullopt;
+    }
+
+    // Now we take X of vpstart/vpend and calculate Y on this X coordinate
+    auto m = (l.getEnd().y - l.getStart().y) / (l.getEnd().x - l.getStart().x);
+    auto y = (m * (vpstart.x - l.getStart().x)) - l.getStart().y;
+
+    // If the calculated Y is within the Y range of [vpstart.y, vpend.y], then
+    // the line segments intersect at that point
+    if((y > vpstart.y) && (y < vpend.y)) {
+        return vec2(vpstart.x, y);
+    }
+
+    return std::nullopt;
+}
 
 std::optional<vec2>
 Line::intersectsLine(const Line& l) const
@@ -60,6 +92,11 @@ Line::intersectsLine(const Line& l) const
     // If there is only one vertical line, though, we need to use
     // a projection of the lines on the Y axis to determine if and
     // where they intersect
+    if(this_vertical) {
+        return Line::_intersectsVertical(p1, p2, l);
+    } else {
+        return Line::_intersectsVertical(p3, p4, *this);
+    }
     
     // Calculate intervals containing each line
     auto i1 = vec2(std::min(p1.x, p2.x), std::max(p1.x, p2.x));

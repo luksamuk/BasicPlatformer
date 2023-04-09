@@ -50,8 +50,11 @@ class Line : public CollisionShape
 private:
     vec2 start;
     vec2 end;
+
+    static std::optional<vec2>
+    _intersectsVertical(vec2 vpstart, vec2 vpend, const Line& l);
 public:
-    Line(vec2 start, vec2 end) : start(start), end(end) {}
+    Line(vec2 start, vec2 end);
 
     vec2 getStart() const;
     vec2 getEnd() const;
