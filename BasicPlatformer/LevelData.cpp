@@ -500,13 +500,20 @@ Level::getSurroundingCollision(vec2 playerPos, std::string layer_name)
                     return;
                 }
 
-                dword pos = (tilepos.y * this->m_data.maps[0].width) +
-                    tilepos.x;
+                dword pos = (tilepos.y * layer.width) + tilepos.x;
                 auto tile = layer.data[pos];
-                collision.push_back(this->m_data.m_tiles.collision[tile]);
+                
+                if(tile < 0) {
+                    collision.push_back(nullptr);
+                    return;
+                }
+                
+                auto collisionArr = this->m_data.m_tiles.collision[tile];
+                collision.push_back(collisionArr);
             };
 
             // Fetch collision in order
+            int i = 0;
             for(auto coord : tcoords) {
                 fetch_collision(coord);
             }

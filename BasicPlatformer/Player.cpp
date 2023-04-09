@@ -276,7 +276,26 @@ void Player::Update()
             // Level collision
             if(m_lvl != nullptr) {
                 // Get collision surrounding our character
-                
+                std::vector<CollisionArray*> collision =
+                    m_lvl->getSurroundingCollision(m_position);
+
+                // TODO
+                // Top left
+                for(int i = 0; i < 9; i++) {
+                    std::cout << "Corner: " << i << std::endl;
+                    if(collision[i] != nullptr) {
+                        for(size_t j = 0; j < (collision[i])->size(); j++) {
+                            CollisionShape *shape = (*(collision[i]))[j];
+                            // TODO: Linecast for each sensor.
+                            // Also, correct sensor position before linecast.
+
+                            // TODO: Correct linecast interception point by
+                            // tile position (i gives the position)
+                            std::cout << "  has shape" << std::endl;
+                        }
+                        std::cout << "End collision test" << std::endl;
+                    }
+                }
             }
 
             // Object collision
