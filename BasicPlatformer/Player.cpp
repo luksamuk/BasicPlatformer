@@ -270,30 +270,16 @@ void Player::Update()
 	//int objs_iterated = 0, solids_iterated = 0, valid_solids = 0;
 	
 	// Collision detection only works if Sonic is alive!
-	if(/*m_grid &&*/
-	   m_currentAction != PLAYER_DEATH
+	if(m_currentAction != PLAYER_DEATH
 	&& m_currentAction != PLAYER_DROWN)
 	{
-		/*std::vector<OficinaFramework::EntitySystem::Entity*> myEntities;
+            // Level collision
+            if(m_lvl != nullptr) {
+                // Get collision surrounding our character
+                
+            }
 
-		vec2 cellSize = m_grid->getCellSize();
-
-		std::vector<OficinaFramework::EntitySystem::Entity*>* cells[] = {
-			m_grid->GetNearest(m_position),
-			m_grid->GetNearest(vec2(m_position.x - cellSize.x, m_position.y)),
-			m_grid->GetNearest(vec2(m_position.x + cellSize.x, m_position.y)),
-			m_grid->GetNearest(vec2(m_position.x, m_position.y + cellSize.y)),
-			m_grid->GetNearest(vec2(m_position.x - cellSize.x, m_position.y + cellSize.y)),
-			m_grid->GetNearest(vec2(m_position.x + cellSize.x, m_position.y + cellSize.y)),
-			m_grid->GetNearest(vec2(m_position.x, m_position.y - cellSize.y)),
-			m_grid->GetNearest(vec2(m_position.x - cellSize.x, m_position.y - cellSize.y)),
-			m_grid->GetNearest(vec2(m_position.x + cellSize.x, m_position.y - cellSize.y))
-		};
-
-		for (int i = 0; i < 9; i++)
-			if (cells[i] != nullptr)
-				myEntities.insert(myEntities.end(), cells[i]->begin(), cells[i]->end());*/
-
+            // Object collision
 		for (auto obj : *GetParent())
 		{
 			//objs_iterated++;
@@ -1036,6 +1022,11 @@ void Player::disableGrid()  {
 void Player::setSpawner(EffectSpawner* fxs)
 {
 	m_spawner = fxs;
+}
+
+void Player::setLevel(Level* lvl)
+{
+    this->m_lvl = lvl;
 }
 
 void Player::Kill(DeathType t)

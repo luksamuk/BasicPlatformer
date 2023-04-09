@@ -22,14 +22,14 @@ private:
 		"Amazing Aquarium         1", // ID 02
 		"                         2", // ID 03
 
-		"R2                       1", // ID 04
-		"                         2", // ID 05
+		"ATTRACTION R2Z0          1", // ID 04
+		"ATTRACTION R2Z1          2", // ID 05
 
-		"R3                       1", // ID 06
-		"                         2", // ID 07
+		"ATTRACTION R3Z0          1", // ID 06
+		"ATTRACTION R3Z1          2", // ID 07
 
-		"R4                       1", // ID 08
-		"                         2", // ID 09
+		"ATTRACTION R4Z0          1", // ID 08
+		"ATTRACTION R4Z1          2", // ID 09
 
 		"Festival Freeway         1", // ID 10
 		"                         2", // ID 11
@@ -37,22 +37,22 @@ private:
 		"Chaotic Corniche         1", // ID 12
 		"                         2", // ID 13
 
-		"R7                       1", // ID 14
-		"                         2", // ID 15
+		"ATTRACTION R7Z0          1", // ID 14
+		"ATTRACTION R7Z1          2", // ID 15
 
-		"R8                       1", // ID 16
-		"                         2", // ID 17
+		"ATTRACTION R8Z0          1", // ID 16
+		"ATTRACTION R8Z1          2", // ID 17
 
-		"R9                        ", // ID 18
+		"ATTRACTION R9Z0           ", // ID 18
 
-		"R10                       ", // ID 19
+		"ATTRACTION R10Z0          ", // ID 19
 
 		"Cosmic Colony            1", // ID 20
 		"                         2", // ID 21
 
-		"R13                       ", // ID 22 -- playground is R12
+		"ATTRACTION R13Z0          ", // ID 22 -- playground is R12
 
-		"Playground (Engine Test)  ",
+		"Playground (R12Z0)        ",
 
 		"Exit"
 	};

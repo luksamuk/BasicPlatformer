@@ -5,6 +5,7 @@
 #include <OficinaFramework/AudioSystem.hpp>
 #include "Grid.hpp"
 #include "EffectSpawner.hpp"
+#include "LevelData.hpp"
 
 struct PlayerValues
 {
@@ -268,12 +269,15 @@ private:
 	float                                           m_spindashRevolutions;
 	float                                           m_xSpeedBeforeJump;
 
+        // Level related
+        Level* m_lvl = nullptr;
+    
 	// Water related
 	bool                                            m_haswater;
 	float                                           m_waterHeight;
 
 	// Effect related
-	EffectSpawner* 									m_spawner;
+	EffectSpawner* 					m_spawner = nullptr;
 	byte                                            m_superspark_span = 0u;
 	byte                                            m_minibubble_span = 120u;
 	word                                            m_drown_span      = 1800u;
@@ -308,6 +312,7 @@ public:
 	void setGrid(Grid*);
 	void disableGrid();
 	void setSpawner(EffectSpawner*);
+        void setLevel(Level*);
 	void Kill(DeathType t = DEATH_DEFAULT);
 
 	virtual void LoadContent() override;

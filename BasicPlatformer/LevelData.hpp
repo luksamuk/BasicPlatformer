@@ -77,4 +77,6 @@ public:
     void LoadContent();
     void UnloadContent();
     void Draw();
+
+    //getSurroundingCollision(vec2 playerPos);
 };

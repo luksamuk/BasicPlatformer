@@ -166,7 +166,6 @@ LevelScreen::~LevelScreen()
 
 void LevelScreen::Initialize()
 {
-        player = new Player;
 	if(LEVEL_ID < 2) {
         	level = new Level(0, LEVEL_ID); // R0
 	} else if(LEVEL_ID == 10) {
@@ -174,6 +173,8 @@ void LevelScreen::Initialize()
         } else if(LEVEL_ID == 23) {
             level = new Level(12, 0); // R12Z0 (Engine Test)
         }
+
+        player = new Player;
 
         if (LEVEL_ID == 0 || LEVEL_ID == 1 || LEVEL_ID == 20)
         {
@@ -341,6 +342,7 @@ void LevelScreen::LoadContent()
 {
 	if(level != nullptr) {
 		level->LoadContent();
+                player->setLevel(level);
 	}
         m_drawables.LoadContent();
         m_effects.LoadContent();
