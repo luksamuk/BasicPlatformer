@@ -66,12 +66,12 @@
     ],
     "project": "r0.tiled-project",
     "recentFiles": [
+        "tiles.tsx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r12/tiles.tsx",
         "zone1.tmx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/zone0.tmx",
         "/home/alchemist/git/BasicPlatformer/BasicPlatformer/assets/levels/r5/tiles.tsx",
-        "zone0.tmx",
-        "tiles.tsx"
+        "zone0.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

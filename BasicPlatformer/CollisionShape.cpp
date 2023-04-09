@@ -46,6 +46,20 @@ Line::intersectsLine(const Line& l) const
     auto p2 = this->getEnd();
     auto p3 = l.getStart();
     auto p4 = l.getEnd();
+
+    // Check if any of them is a vertical line, since it could not
+    // be represented by a function. If so, we need to handle special cases
+    auto this_vertical = (p1.x - p2.x) < EPSILON;
+    auto l_vertical = (p3.x - p4.x) < EPSILON;
+    
+    if(this_vertical && l_vertical) {
+        // Parallel vertical lines
+        return std::nullopt;
+    }
+
+    // If there is only one vertical line, though, we need to use
+    // a projection of the lines on the Y axis to determine if and
+    // where they intersect
     
     // Calculate intervals containing each line
     auto i1 = vec2(std::min(p1.x, p2.x), std::max(p1.x, p2.x));
