@@ -78,5 +78,5 @@ public:
     void UnloadContent();
     void Draw();
 
-    //getSurroundingCollision(vec2 playerPos);
+    std::vector<CollisionArray*> getSurroundingCollision(vec2 playerPos, std::string layer = "fg");
 };

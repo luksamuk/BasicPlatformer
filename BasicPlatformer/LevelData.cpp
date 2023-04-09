@@ -461,3 +461,59 @@ Level::draw_collision(vec2 pos, CollisionArray *collision)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 }
+
+std::vector<CollisionArray*>
+Level::getSurroundingCollision(vec2 playerPos, std::string layer_name)
+{
+    std::vector<CollisionArray*> collision;
+
+    // Only consider first map...
+    for(auto layer : this->m_data.maps[0].layers) {
+        if(layer.name == layer_name) {
+            // Calculate X and Y coordinate of current
+            // tile where the player is
+            dword_s x = std::trunc(
+                playerPos.x / this->m_data.m_tiles.tilewidth);
+            dword_s y = std::trunc(
+                playerPos.y / this->m_data.m_tiles.tileheight);
+
+            // Calculate coordinates of all surrounding tiles on map
+            vec2sdw tcoords[] = {
+                vec2sdw(x - 1, y - 1), // upper left
+                vec2sdw(x, y - 1), // upper center
+                vec2sdw(x + 1, y - 1), // upper right
+                vec2sdw(x - 1, y), // center left
+                vec2sdw(x, y), // center
+                vec2sdw(x + 1, y), // center right
+                vec2sdw(x - 1, y + 1), // bottom left
+                vec2sdw(x, y + 1), // bottom center
+                vec2sdw(x + 1, y + 1) // bottom right
+            };
+
+            auto fetch_collision = [&](vec2sdw tilepos) {
+                // If the x and y coordinates are invalid, just
+                // store a null pointer as there is no collision
+                if(tilepos.x < 0 || tilepos.y < 0 ||
+                   tilepos.x >= (dword_s)layer.width ||
+                   tilepos.y >= (dword_s)layer.height) {
+                    collision.push_back(nullptr);
+                    return;
+                }
+
+                dword pos = (tilepos.y * this->m_data.maps[0].width) +
+                    tilepos.x;
+                auto tile = layer.data[pos];
+                collision.push_back(this->m_data.m_tiles.collision[tile]);
+            };
+
+            // Fetch collision in order
+            for(auto coord : tcoords) {
+                fetch_collision(coord);
+            }
+            
+            break;
+        }
+    }
+
+    return collision;
+}
