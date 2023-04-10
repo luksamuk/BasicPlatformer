@@ -2,6 +2,7 @@
 #include "Solid.hpp"
 #include "Grid.hpp"
 #include <sstream>
+#include <optional>
 
 Player::Player()
 {
@@ -248,10 +249,13 @@ void Player::Update()
 
 	/* COLLISION DETECTION */
 	bool foundGround  = false,
-		 foundCeiling = false;
+            foundCeiling = false;
 
 	Solid* bottomSolidL = nullptr,
-		*bottomSolidR = nullptr;
+            *bottomSolidR = nullptr;
+
+        std::optional<vec2> bottomInterceptL = std::nullopt,
+            bottomInterceptR = std::nullopt;
 		
 	//	 * topSolidL = nullptr,
 	//	 * topSolidR = nullptr;
@@ -279,21 +283,121 @@ void Player::Update()
                 std::vector<CollisionArray*> collision =
                     m_lvl->getSurroundingCollision(m_position);
 
-                // TODO
-                // Top left
+                auto correctPosition = [&](int region, vec2 pos, vec2& correction) {
+                    // setup correction as if it were the center
+                    // tile
+                    correction = vec2(std::trunc(m_position.x / 128.0) * 128.0,
+                                      std::trunc(m_position.y / 128.0) * 128.0);
+                    
+                    switch(region) {
+                        // Upper quadrants
+                    case 0:
+                        correction.x -= 128.0;
+                        correction.y -= 128.0;
+                        break;
+                    case 1:
+                        correction.y -= 128.0;
+                        break;
+                    case 2:
+                        correction.x += 128.0;
+                        correction.y -= 128.0;
+                        break;
+
+                        // Middle line
+                    case 3:
+                        correction.x -= 128.0;
+                        break;
+                    case 4: break;
+                    case 5:
+                        correction.x += 128.0;
+                        break;
+
+                        // Lower quadrants
+                    case 6:
+                        correction.x -= 128.0;
+                        correction.y += 128.0;
+                        break;
+                    case 7:
+                        correction.y += 128.0;
+                        break;
+                    case 8:
+                        correction.x += 128.0;
+                        correction.y += 128.0;
+                        break;
+                    }
+                    
+                    return pos - correction;
+                };
+
                 for(int i = 0; i < 9; i++) {
-                    std::cout << "Corner: " << i << std::endl;
                     if(collision[i] != nullptr) {
                         for(size_t j = 0; j < (collision[i])->size(); j++) {
                             CollisionShape *shape = (*(collision[i]))[j];
-                            // TODO: Linecast for each sensor.
-                            // Also, correct sensor position before linecast.
+                            // Linecast for each sensor.
+                            // Also, correct sensor position before linecast
+                            vec2 correction;
+                            
+                            auto lsensor = correctPosition(i, m_leftSensor, correction);
+                            if(auto interceptL = shape->Linecast(lsensor, vec2::Left(), m_hlinecast)) {
+                                auto collision_point = interceptL.value();
+                                collision_point += correction;
+                                if(m_direction < 0.0f) leftwall = true;
+                                if(m_groundvelocity.x < 0.0f && m_position.x - m_hlinecast < collision_point.x) {
+                                    m_groundvelocity.x = 0.0f;
+                                    m_position.x = collision_point.x + m_hlinecast;
+                                }
+                            }
 
-                            // TODO: Correct linecast interception point by
-                            // tile position (i gives the position)
-                            std::cout << "  has shape" << std::endl;
+                            auto rsensor = correctPosition(i, m_rightSensor, correction);
+                            if(auto interceptR = shape->Linecast(rsensor, vec2::Right(), m_hlinecast)) {
+                                auto collision_point = interceptR.value();
+                                collision_point += correction;
+                                if(m_direction > 0.0f) rightwall = true;
+                                if(m_groundvelocity.x > 0.0f && m_position.x + m_hlinecast > collision_point.x) {
+                                    m_groundvelocity.x = 0.0f;
+                                    m_position.x = collision_point.x - m_hlinecast;
+                                }
+                            }
+
+                            auto bsensorl = correctPosition(i, m_bottomSensorL, correction);
+                            if(m_groundvelocity.y >= 0.0f) {
+                                if (auto interceptBL = shape->Linecast(bsensorl, vec2::Down(), m_vlinecast / 2)) {
+                                    auto collision_point = interceptBL.value();
+                                    collision_point += correction;
+                                    if ((m_position.y + m_hitboxRadius > collision_point.y) || ground == true)
+                                    {
+                                        std::cout << "found ground (L)" << std::endl;
+					foundGround = true;
+                                        bottomInterceptL = std::nullopt;
+					if (!bottomInterceptL || collision_point.y <= bottomInterceptL.value().y)
+                                            bottomInterceptL = collision_point;
+                                    }
+                                }
+                            }
+
+                            auto bsensorr = correctPosition(i, m_bottomSensorR, correction);
+                            if(m_groundvelocity.y >= 0.0f) {
+                                if (auto interceptBR = shape->Linecast(bsensorr, vec2::Down(), m_vlinecast / 2)) {
+                                    auto collision_point = interceptBR.value();
+                                    collision_point += correction;
+                                    if ((m_position.y + m_hitboxRadius > collision_point.y) || ground == true)
+                                    {
+                                        std::cout << "found ground (R)" << std::endl;
+					foundGround = true;
+                                        bottomInterceptR = std::nullopt;
+				        if (!bottomInterceptR || collision_point.y <= bottomInterceptR.value().y)
+                                            bottomInterceptR = collision_point;
+                                    }
+                                }
+                            }
+
+                            //     auto rsensor = correctPosition(i, m_rightSensor);
+                            //     auto bsensorl = correctPosition(i, m_bottomSensorL);
+                            //     auto bsensorr = correctPosition(i, m_bottomSensorR);
+                            //     auto tsensorl = correctPosition(i, m_topSensorL);
+                            // auto tsensorr = correctPosition(i, m_topSensorR);
+                            
                         }
-                        std::cout << "End collision test" << std::endl;
                     }
                 }
             }
@@ -338,29 +442,29 @@ void Player::Update()
 
 			// Bottom collision
 			// Bottom Left
-			if (m_groundvelocity.y >= 0.0f &&
-				(heightBuffer = mySolid->Linecast(m_bottomSensorL, vec2::Down(), m_vlinecast)))
-			{
-				if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorL.x))
-					|| ground == true)
-				{
-					foundGround = true;
-					if (!bottomSolidL || mySolid->GetPosition().y <= bottomSolidL->GetPosition().y)
-						bottomSolidL = mySolid;
-				}
-			}
-			// Bottom Right
-			if (m_groundvelocity.y >= 0.0f &&
-				(heightBuffer = mySolid->Linecast(m_bottomSensorR, vec2::Down(), m_vlinecast)))
-			{
-				if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorR.x))
-					|| ground == true)
-				{
-					foundGround = true;
-					if (!bottomSolidR || mySolid->GetPosition().y <= bottomSolidR->GetPosition().y)
-						bottomSolidR = mySolid;
-				}
-			}
+			// if (m_groundvelocity.y >= 0.0f &&
+			// 	(heightBuffer = mySolid->Linecast(m_bottomSensorL, vec2::Down(), m_vlinecast)))
+			// {
+			// 	if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorL.x))
+			// 		|| ground == true)
+			// 	{
+			// 		foundGround = true;
+			// 		if (!bottomSolidL || mySolid->GetPosition().y <= bottomSolidL->GetPosition().y)
+			// 			bottomSolidL = mySolid;
+			// 	}
+			// }
+			// // Bottom Right
+			// if (m_groundvelocity.y >= 0.0f &&
+			// 	(heightBuffer = mySolid->Linecast(m_bottomSensorR, vec2::Down(), m_vlinecast)))
+			// {
+			// 	if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorR.x))
+			// 		|| ground == true)
+			// 	{
+			// 		foundGround = true;
+			// 		if (!bottomSolidR || mySolid->GetPosition().y <= bottomSolidR->GetPosition().y)
+			// 			bottomSolidR = mySolid;
+			// 	}
+			// }
 
 			// Top collision
 			// Top Left
@@ -406,36 +510,68 @@ void Player::Update()
 	else {
 		// Disable jump
 		if (m_currentAction == PLAYER_JUMPING)
-			m_currentAction = PLAYER_NOACTION;
+                    m_currentAction = PLAYER_NOACTION;
 
 		float biggestHeight, biggestsAngle;
 
+                // Use proper map tile collision
+                if (bottomInterceptL && bottomInterceptR) {
+                    std::cout << "some bottom intercept" << std::endl;
+                    float lTop = bottomInterceptL.value().y,
+                        rTop = bottomInterceptR.value().y;
+                    if (lTop <= rTop) {
+                        biggestHeight = lTop;
+                        // Get angular coefficient of L here
+                        biggestsAngle = 0.0f; // TODO
+                    }
+                    else {
+                        biggestHeight = rTop;
+                        // Get angular coefficient of R here
+                        biggestsAngle = 0.0f; // TODO
+                    }
+                }
+                else {
+                    if (bottomInterceptL) {
+                        std::cout << "left intercept" << std::endl;
+                        biggestHeight = bottomInterceptL.value().y;
+                        // Get angular coefficient of L here
+                        biggestsAngle = 0.0f; // TODO
+                    }
+                    if (bottomInterceptR) {
+                        std::cout << "right intercept" << std::endl;
+                        biggestHeight = bottomInterceptR.value().y;
+                        // Get angular coefficient of R here
+                        biggestsAngle = 0.0f; // TODO
+                    }
+                }
+
 		// Determine biggest height and its angle
-		if (bottomSolidL && bottomSolidR) {
-			float lTop = bottomSolidL->Top(m_bottomSensorL.x),
-				  rTop = bottomSolidR->Top(m_bottomSensorR.x);
-			if (lTop <= rTop) {
-				biggestHeight = lTop;
-				biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
-			}
-			else {
-				biggestHeight = rTop;
-				biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
-			}
-		}
-		else {
-			if (bottomSolidL) {
-				biggestHeight = bottomSolidL->Top(m_bottomSensorL.x);
-				biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
-			}
-			if (bottomSolidR) {
-				biggestHeight = bottomSolidR->Top(m_bottomSensorR.x);
-				biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
-			}
-		}
+                // if (bottomSolidL && bottomSolidR) {
+                //     float lTop = bottomSolidL->Top(m_bottomSensorL.x),
+                //         rTop = bottomSolidR->Top(m_bottomSensorR.x);
+                //     if (lTop <= rTop) {
+                //         biggestHeight = lTop;
+                //         biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
+                //     }
+                //     else {
+                //         biggestHeight = rTop;
+                //         biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
+                //     }
+                // }
+                // else {
+                //     if (bottomSolidL) {
+                //         biggestHeight = bottomSolidL->Top(m_bottomSensorL.x);
+                //         biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
+                //     }
+                //     if (bottomSolidR) {
+                //         biggestHeight = bottomSolidR->Top(m_bottomSensorR.x);
+                //         biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
+                //     }
+                // }
 
 		// Finally set position
-		m_position.y = biggestHeight - m_hitboxRadius;
+		//m_position.y = biggestHeight - m_hitboxRadius;
+                m_position.y = biggestHeight;
 		m_angle = atan(biggestsAngle);
 		m_groundvelocity.y = 0.0f;
 		ground = true;

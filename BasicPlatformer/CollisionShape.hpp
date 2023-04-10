@@ -14,8 +14,9 @@ public:
     virtual ~CollisionShape() {};
 
     //virtual std::optional<vec2> Intersects(vec2 Position, vec2 size) = 0;
-    //virtual bool Linecast(vec2 position, vec2 direction, float size) = 0;
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size) = 0;
 };
+
 
 class AABB : public CollisionShape
 {
@@ -25,6 +26,14 @@ private:
 public:
     AABB(vec2 position, vec2 size)
         : position(position), size(size) {};
+
+    float Left();
+    float Right();
+    float Bottom();
+    float Top();
+    vec2 Middle();
+
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 
 class Ellipse : public CollisionShape
@@ -35,6 +44,8 @@ private:
 public:
     Ellipse(vec2 position, vec2 radii)
         : position(position), radii(radii) {};
+
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 
 class Point : public CollisionShape
@@ -43,6 +54,8 @@ private:
     vec2 position; // position relative to tile
 public:
     Point(vec2 position) : position(position) {};
+
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 
 class Line : public CollisionShape
@@ -60,6 +73,8 @@ public:
     vec2 getEnd() const;
 
     std::optional<vec2> intersectsLine(const Line& l) const;
+
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 
 class Triangle : public CollisionShape
@@ -80,6 +95,8 @@ public:
     bool containsPoint(const vec2& p) const;
     bool containsLine(const Line& l) const;
     std::optional<vec2> intersectsLine(const Line& l) const;
+
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 
 class Polygon : public CollisionShape
@@ -98,5 +115,6 @@ public:
     Polygon(std::vector<vec2> points);
 
     std::vector<Triangle> getTriangles() const;
-};
 
+    virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
+};

@@ -277,7 +277,8 @@ void LevelScreen::Initialize()
                 for (float f = 6400.0f; f < 7808.0f; f += 16.0f)
                         m_drawables.Add(new Solid(vec2(f, 2550.0f), vec2(16.0f, 16.0f), SolidType::RECT, player->getViewSensorsPtr()));
         }
-        else if(LEVEL_ID == 22u || LEVEL_ID == 23u)
+        else if(LEVEL_ID == 22u // || LEVEL_ID == 23u
+            )
         {
                 // Stress test
                 for (float f = 0.0f; f < 992.0f; f += 16.0f)
@@ -314,7 +315,7 @@ void LevelScreen::Initialize()
                 for (float f = 0.0f; f < 1920.0f; f += 128.0f)
                         m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 64.0f), SolidType::RECT, player->getViewSensorsPtr()));
         }
-        else if(LEVEL_ID != 21) // cosmic colony 2 should be bottomless
+        else if(LEVEL_ID != 21 && LEVEL_ID != 12) // cosmic colony 2 should be bottomless
         {
                 for (float f = 0.0f; f < 1920.0f; f += 128.0f)
                         m_drawables.Add(new Solid(vec2(f, 1776.0f), vec2(128.0f, 128.0f), SolidType::RECT, player->getViewSensorsPtr()));

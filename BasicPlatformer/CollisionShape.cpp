@@ -1,4 +1,5 @@
 #include "CollisionShape.hpp"
+#include <limits>
 
 float
 Triangle::area() const
@@ -229,4 +230,125 @@ std::vector<Triangle>
 Polygon::getTriangles() const
 {
     return triangles;
+}
+
+
+/* Collision interface */
+
+float AABB::Left()
+{
+    return position.x;
+}
+
+float AABB::Right()
+{
+    return position.x + size.x;
+}
+
+float AABB::Bottom()
+{
+    return position.y + size.y;
+}
+
+float AABB::Top()
+{
+    return position.y - size.y;
+}
+
+vec2 AABB::Middle()
+{
+    return vec2(position.x + (size.x / 2.0f),
+		position.y + (size.y / 2.0f));
+}
+
+std::optional<vec2>
+AABB::Linecast(vec2 position, vec2 direction, float size)
+{
+    vec2 end(position + (direction * size));
+    
+    float lineLeft = fmin(position.x, end.x),
+        lineRight = fmax(position.x, end.x),
+        lineTop = fmin(position.y, end.y),
+        lineBottom = fmax(position.y, end.y);
+
+    // In case of no intersection between the AABBs, then
+    // return false
+    if (lineRight < Left() || lineLeft > Right() ||
+        lineTop > Bottom() || lineBottom < this->position.y)
+        return std::nullopt;
+
+    vec2 nearestPoint = position;
+    clamp(nearestPoint.x, Left(), Right());
+    clamp(nearestPoint.y, Top(), Bottom());
+
+    // vec2 nearestPointDirection = nearestPoint - position;
+    // nearestPointDirection.x /= abs(nearestPointDirection.x);
+    // nearestPointDirection.y /= abs(nearestPointDirection.y);
+
+    // if (nearestPointDirection != direction)
+    //     return std::nullopt;
+
+    if(vec2::squareDistance(position, end) >= vec2::squareDistance(position, nearestPoint)) {
+        return nearestPoint;
+    }
+
+    return std::nullopt;
+}
+
+std::optional<vec2>
+Ellipse::Linecast(vec2 position, vec2 direction, float size)
+{
+    throw std::logic_error("Ellipse linecast not implemented");
+}
+
+std::optional<vec2>
+Point::Linecast(vec2 position, vec2 direction, float size)
+{
+    throw std::logic_error("Point linecast not implemented");
+}
+
+std::optional<vec2>
+Line::Linecast(vec2 position, vec2 direction, float size)
+{
+    // Linecast line into line by checking where said line
+    // intercepts the current one
+    vec2 b = position + (direction * size);
+    return this->intersectsLine(Line(position, b));
+}
+
+std::optional<vec2>
+Triangle::Linecast(vec2 position, vec2 direction, float size)
+{
+    // Linecasting into a triangle is basically retrieving
+    // the point where the given line intercepts the triangle.
+    // vec2 b = position + (direction * size);
+    // return this->intersectsLine(Line(position, b));
+    return std::nullopt;
+}
+
+std::optional<vec2>
+Polygon::Linecast(vec2 position, vec2 direction, float size)
+{
+    // Iterate over every triangle.
+    // Take the point closest to position.
+    std::optional<vec2> intersection = std::nullopt;
+    float sqDist = std::numeric_limits<float>::infinity();
+    
+    for(auto triangle : triangles) {
+        // Linecast and get collision point if any.
+        auto current = triangle.Linecast(position, direction, size);
+        float currSqDist = std::numeric_limits<float>::infinity();
+        if(current) {
+            currSqDist = vec2::squareDistance(position, current.value());
+        }
+
+        // If this is the first detected collision or is the closest to
+        // position so far, then select it for return
+        if((!intersection) || (currSqDist < sqDist)) {
+            intersection = current;
+            sqDist = currSqDist;
+        }
+    }
+    
+    return intersection;
 }
