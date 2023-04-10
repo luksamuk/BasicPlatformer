@@ -136,16 +136,7 @@
  </tile>
  <tile id="9">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="15" y="26.6667" width="44.6667" height="44.6667"/>
-   <object id="2" x="74.6667" y="19" width="41.6667" height="49.3333">
-    <ellipse/>
-   </object>
-   <object id="3" x="21.6667" y="101">
-    <point/>
-   </object>
-   <object id="4" x="48.6667" y="93.6667">
-    <polygon points="0,0 33.6667,-9.66667 31.3333,10.3333"/>
-   </object>
+   <object id="1" x="0" y="64" width="128" height="64"/>
   </objectgroup>
  </tile>
 </tileset>
