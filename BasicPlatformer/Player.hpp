@@ -214,7 +214,8 @@ private:
 	vec2                m_lastCheckpointPos;
 
 	// Collision related
-	const float m_vlinecast                = m_hitboxRadius + 16.0f;
+    //const float m_vlinecast                = m_hitboxRadius + 16.0f;
+    const float m_vlinecast                = m_hitboxRadius;
 	float m_vlinecast_top                  = m_hitboxHeight + 16.0f;
 	const float m_hlinecast                = 10.0f;
 	const float m_sidesensors_ydist        = 4.0f;

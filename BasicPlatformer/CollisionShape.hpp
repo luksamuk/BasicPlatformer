@@ -33,6 +33,9 @@ public:
     float Top();
     vec2 Middle();
 
+    vec2 getPosition() const;
+    vec2 getSize() const;
+
     virtual std::optional<vec2> Linecast(vec2 position, vec2 direction, float size);
 };
 

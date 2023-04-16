@@ -1,6 +1,17 @@
 #include "CollisionShape.hpp"
 #include <limits>
 
+vec2 AABB::getPosition() const
+{
+    return position;
+}
+
+vec2 AABB::getSize() const
+{
+    return size;
+}
+
+
 float
 Triangle::area() const
 {

@@ -345,6 +345,7 @@ void Player::Update()
                                 if(m_groundvelocity.x < 0.0f && m_position.x - m_hlinecast < collision_point.x) {
                                     m_groundvelocity.x = 0.0f;
                                     m_position.x = collision_point.x + m_hlinecast;
+                                    continue;
                                 }
                             }
 
@@ -356,12 +357,13 @@ void Player::Update()
                                 if(m_groundvelocity.x > 0.0f && m_position.x + m_hlinecast > collision_point.x) {
                                     m_groundvelocity.x = 0.0f;
                                     m_position.x = collision_point.x - m_hlinecast;
+                                    continue;
                                 }
                             }
 
                             auto bsensorl = correctPosition(i, m_bottomSensorL, correction);
                             if(m_groundvelocity.y >= 0.0f) {
-                                if (auto interceptBL = shape->Linecast(bsensorl, vec2::Down(), m_vlinecast / 2)) {
+                                if (auto interceptBL = shape->Linecast(bsensorl, vec2::Down(), 16)) {
                                     auto collision_point = interceptBL.value();
                                     collision_point += correction;
                                     if ((m_position.y + m_hitboxRadius > collision_point.y) || ground == true)
@@ -377,7 +379,7 @@ void Player::Update()
 
                             auto bsensorr = correctPosition(i, m_bottomSensorR, correction);
                             if(m_groundvelocity.y >= 0.0f) {
-                                if (auto interceptBR = shape->Linecast(bsensorr, vec2::Down(), m_vlinecast / 2)) {
+                                if (auto interceptBR = shape->Linecast(bsensorr, vec2::Down(), 16)) {
                                     auto collision_point = interceptBR.value();
                                     collision_point += correction;
                                     if ((m_position.y + m_hitboxRadius > collision_point.y) || ground == true)
@@ -442,29 +444,29 @@ void Player::Update()
 
 			// Bottom collision
 			// Bottom Left
-			// if (m_groundvelocity.y >= 0.0f &&
-			// 	(heightBuffer = mySolid->Linecast(m_bottomSensorL, vec2::Down(), m_vlinecast)))
-			// {
-			// 	if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorL.x))
-			// 		|| ground == true)
-			// 	{
-			// 		foundGround = true;
-			// 		if (!bottomSolidL || mySolid->GetPosition().y <= bottomSolidL->GetPosition().y)
-			// 			bottomSolidL = mySolid;
-			// 	}
-			// }
-			// // Bottom Right
-			// if (m_groundvelocity.y >= 0.0f &&
-			// 	(heightBuffer = mySolid->Linecast(m_bottomSensorR, vec2::Down(), m_vlinecast)))
-			// {
-			// 	if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorR.x))
-			// 		|| ground == true)
-			// 	{
-			// 		foundGround = true;
-			// 		if (!bottomSolidR || mySolid->GetPosition().y <= bottomSolidR->GetPosition().y)
-			// 			bottomSolidR = mySolid;
-			// 	}
-			// }
+			if (m_groundvelocity.y >= 0.0f &&
+				(heightBuffer = mySolid->Linecast(m_bottomSensorL, vec2::Down(), m_vlinecast)))
+			{
+				if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorL.x))
+					|| ground == true)
+				{
+					foundGround = true;
+					if (!bottomSolidL || mySolid->GetPosition().y <= bottomSolidL->GetPosition().y)
+						bottomSolidL = mySolid;
+				}
+			}
+			// Bottom Right
+			if (m_groundvelocity.y >= 0.0f &&
+				(heightBuffer = mySolid->Linecast(m_bottomSensorR, vec2::Down(), m_vlinecast)))
+			{
+				if ((m_position.y + m_hitboxRadius > mySolid->Top(m_bottomSensorR.x))
+					|| ground == true)
+				{
+					foundGround = true;
+					if (!bottomSolidR || mySolid->GetPosition().y <= bottomSolidR->GetPosition().y)
+						bottomSolidR = mySolid;
+				}
+			}
 
 			// Top collision
 			// Top Left
@@ -546,28 +548,28 @@ void Player::Update()
                 }
 
 		// Determine biggest height and its angle
-                // if (bottomSolidL && bottomSolidR) {
-                //     float lTop = bottomSolidL->Top(m_bottomSensorL.x),
-                //         rTop = bottomSolidR->Top(m_bottomSensorR.x);
-                //     if (lTop <= rTop) {
-                //         biggestHeight = lTop;
-                //         biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
-                //     }
-                //     else {
-                //         biggestHeight = rTop;
-                //         biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
-                //     }
-                // }
-                // else {
-                //     if (bottomSolidL) {
-                //         biggestHeight = bottomSolidL->Top(m_bottomSensorL.x);
-                //         biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
-                //     }
-                //     if (bottomSolidR) {
-                //         biggestHeight = bottomSolidR->Top(m_bottomSensorR.x);
-                //         biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
-                //     }
-                // }
+                if (bottomSolidL && bottomSolidR) {
+                    float lTop = bottomSolidL->Top(m_bottomSensorL.x),
+                        rTop = bottomSolidR->Top(m_bottomSensorR.x);
+                    if (lTop <= rTop) {
+                        biggestHeight = lTop;
+                        biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
+                    }
+                    else {
+                        biggestHeight = rTop;
+                        biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
+                    }
+                }
+                else {
+                    if (bottomSolidL) {
+                        biggestHeight = bottomSolidL->Top(m_bottomSensorL.x);
+                        biggestsAngle = bottomSolidL->angularCoefficient(m_bottomSensorL.x);
+                    }
+                    if (bottomSolidR) {
+                        biggestHeight = bottomSolidR->Top(m_bottomSensorR.x);
+                        biggestsAngle = bottomSolidR->angularCoefficient(m_bottomSensorR.x);
+                    }
+                }
 
 		// Finally set position
 		//m_position.y = biggestHeight - m_hitboxRadius;

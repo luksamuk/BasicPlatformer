@@ -428,8 +428,8 @@ Level::draw_collision(vec2 pos, CollisionArray *collision)
             // draw box
             glPushMatrix();
             OficinaFramework::RenderingSystem::DrawRectangle(
-                pos - vec2(64.0, 64.0),
-                vec2(128, 128),
+                aabb->getPosition() + (pos - vec2(64.0, 64.0)),
+                aabb->getSize(),
                 0.0,
                 DebugShapeColor,
                 0.5);

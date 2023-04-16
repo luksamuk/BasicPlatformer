@@ -72,8 +72,8 @@ void Solid::Draw()
 		{
 			OficinaFramework::RenderingSystem::glColorM(YELLOW);
 			glBegin(GL_LINE_LOOP);
-			glVertex2f(Left(), Top(Left()));
-			glVertex2f(Right(), Top(Right()));
+			glVertex2f(Left(), Top(Left()) + 16.0);
+			glVertex2f(Right(), Top(Right()) + 16.0);
 			glVertex2f(Right(), Bottom());
 			glVertex2f(Left(), Bottom());
 			glEnd();
@@ -82,15 +82,15 @@ void Solid::Draw()
 		{
 			OficinaFramework::RenderingSystem::glColorM(MAGENTA);
 			glBegin(GL_LINES);
-			glVertex2f(Left(), Top(Left()));
-			glVertex2f(Right(), Top(Right()));
+			glVertex2f(Left(), Top(Left()) + 16.0);
+			glVertex2f(Right(), Top(Right()) + 16.0);
 			glEnd();
 			OficinaFramework::RenderingSystem::glColorM(GREEN);
 			glBegin(GL_LINE_STRIP);
-			glVertex2f(Right(), Top(Right()));
+			glVertex2f(Right(), Top(Right()) + 16.0);
 			glVertex2f(Right(), Bottom());
 			glVertex2f(Left(), Bottom());
-			glVertex2f(Left(), Top(Left()));
+			glVertex2f(Left(), Top(Left()) + 16.0);
 			glEnd();
 		}
 	}
@@ -105,10 +105,10 @@ float Solid::Top(float XPosition) {
 	if (XPosition < Left()) return Top(Left());
 	if (XPosition > Right()) return Top(Right());
 
-	if (type == SolidType::RECT) return m_position.y;
+	if (type == SolidType::RECT) return m_position.y - 16.0;
 	else if(type == SolidType::SLOPE_L)
-		return m_position.y + (angularCoefficient(XPosition) * (XPosition - m_position.x));
-	else return (m_position.y + m_size.y) + (angularCoefficient(XPosition) * (XPosition - m_position.x));
+		return m_position.y + (angularCoefficient(XPosition) * (XPosition - m_position.x)) - 16.0;
+	else return (m_position.y + m_size.y) + (angularCoefficient(XPosition) * (XPosition - m_position.x)) - 16.0;
 }
 
 float Solid::Left()
